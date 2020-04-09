@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <form  action="/resign/message"  enctype="multipart/form-data">
+        <p>
+            <input type="file" 
+            name="file"
+            id="file"
+            multiple = "multiple"
+            onchange="UpFile()"
+            />
+        </p>
+       
+        <button type='submit'  >提交</button>
+    </form>
+    <!-- <form method="post" action="http://localhost:3001/imgs" enctype="multipart/form-data">
+        <p>
+            <input type="file" 
+            name="uimage"
+            id="file"
+            multiple = "multiple"
+            />
+        </p>
+       
+        <button type='submit'  >提交</button>
+    </form> -->
+</body>
+
+<script>
+    var imgUrl='';
+    function UpFile(){
+        var fileObj = document.getElementById('file').files;
+        console.log(fileObj[0]);
+        var url = 'http://localhost:3001/imgs/';
+        var form = new FormData();
+        for(var i = 0;i<fileObj.length;i++){
+            form.append("file",fileObj[i]);
+        }
+        fetch(url,{
+            method:'POST',
+            body:form,
+        }).then(res=>res.json())
+        .then(res=>{
+            imgUrl=res;
+            console.log(res);
+        })
+    }
+    
+</script>
+</html>
