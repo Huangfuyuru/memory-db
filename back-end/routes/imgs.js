@@ -5,7 +5,7 @@ const fs = require('fs');
 router.post('/',function(req,res){
     var files = [];
     var form = new formidable.IncomingForm();
-    form.uploadDir = "D:/database/img";
+    form.uploadDir = "/home/shared_work/img";
     form.keepExtensions = true; 
     form.maxFieldSize = 2*1024*1024;
     form.on('file', function(field, file) {
@@ -19,13 +19,12 @@ router.post('/',function(req,res){
             var message = {err:1, msg:"文件解析失败"};
         }else{
             var newFiles = files.map(function(item){
-                var a = item.path.split("\\");
+                var a = item.path.split("/");
                 var b = a[a.length-1];
-                var message = {err:0, path:`http://localhost:3001/img/showimg/${b}`};
+                var message = {err:0, path:`http://148.70.223.218:3001/img/showimg/${b}`};
                 return message;
             })
         }
-        // console.log(newFiles)
         res.write(JSON.stringify(newFiles));   
         res.end();
     });
