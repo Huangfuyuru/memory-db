@@ -8,16 +8,16 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 router.post('/',async function(req,res,next){
-    console.log('hello')
-    var tel = req.body.utel;
-    var pass = req.body.pass;
-    var getUser = await userM.findTel(tel);
+   
+    var mail = req.body.email;
+    var pass = req.body.passwd;
+    var getUser = await userM.findemail(mail);
     if(getUser == 0){
-        var message = {code:1,id:null,msg:"该手机号没有注册"}
+        var message = {code:1,id:null,msg:"该邮箱未注册，请先注册"}
     }else{
-        var data = await userM.login(tel,pass);
+        var data = await userM.login(mail,pass);
         if(data == 1){
-            var message = {code:1,id:null,msg:"手机号或密码有误"}
+            var message = {code:1,id:null,msg:"邮箱或密码有误"}
         }else{
             var getId = data.id;
             var data1 = await userM.findById(getId)

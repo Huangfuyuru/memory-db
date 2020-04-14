@@ -4,7 +4,11 @@ var router = express.Router();
 var qs =require('querystring');
 var bodyParser = require("body-parser");
 var user =require('../database/dateMethod');
+var createCode = require('./nodemailer/tools');
+var nodemail = require('./nodemailer/nodemailer')
 var info={code:1,msg:"请输入验证码"} //后端返回给前端的信息
+var tcode = "";
+var time = "";
 
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
 router.use(bodyParser.urlencoded({extended:true}));
@@ -12,74 +16,79 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 
-router.post('/confirm',async function(req,res,next){
-    // console.log('req.body',req.body);
-    // const data =await user.userM.findAll();
-    // console.log(data);
-
-    //可以注册返回0，不存在数据库中   
-    var eTel = await user.userM.findTel(req.body.utel);
-    console.log('eTel',eTel);
- 
-    //判断用户电话是否在DB中，若在不让注册，不在可以
-    if(eTel === 0){ 
-        //触发发送短信接口发送验证码
-        //由于现在尚不能短信接口，则验证码输入什么都对
-        info={
-            code:0,
-            msg:'验证码以成功发送，2分钟内有效'
+//发送验证码
+router.post('/email',async function(req,res,next){
+        
+    console.log('body111',req.body);   
+    var code = await createCode();
+    console.log('code',code);
+    //查看是否注册过，可注册：0；不可：1
+    var result =await user.userM.findemail(req.body.email);
+    console.log(result);
+    if(result === 0 ){
+     info={
+        code:0,
+        msg:'验证码已发送'   
+        }   
+      var mail={
+            from:'18630129728@163.com',
+            //主题
+            subject:'记得APP验证码',
+            //收件人
+            to:req.body.email,
+            text:'【记得】您当前正在注册记得验证码为: '+code
         }
+        tcode = code;
+        time = (new Date()).getTime();
+        await nodemail(mail);
+        console.log('验证码已发送')
+
     }else{
         info={
             code:1,
-            msg:'该手机号已注册过'
+            msg:'该邮箱已注册过'           
         }
     }
     res.json(info);
+})
 
-});
-
-
+//点击注册
 router.post('/', async function(req,res,next){
   
-    // console.log('resign body',req.body);
-    if(info.code == 1){
-        console.log(info)
-        res.json(info);
-    }else{
-        // console.log('code =0了');
-        // console.log(info);
-        // console.log('body2',req.body);
+    console.log('resign body',req.body);
+    var mail = req.body.email,
+        pass = req.body.pass,
+        pwd = req.body.password;
 
-        if(req.body.confirm !== '' && req.body.passwd===req.body.pass){
+    var now = (new Date()).getTime();
+    if(pass == tcode && now - time<60000){
+        var person={
+            email:mail,
+            pass:pwd
+        };
+        var add = await user.userM.addUser(person)
+        if(add === 0 ){
             info={
                 code:0,
-                msg:'注册成功！'
-            }
-            // 插入数据
-            var person ={
-                pass:req.body.passwd,
-                tel:req.body.utel
-            }
-            await user.userM.addUser(person);
-            console.log(await user.userM.findAll());
-            res.json(info);
-        }else if(req.body.confirm ===''){
+                msg:"注册成功"
+            }       
+        }
+    }else{
+        if(pass != tcode){
             info={
                 code:1,
-                msg:'验证码错误'
+                msg:"验证码错误"
             }
-            res.json(info);
-
-        }else if(req.body.pass !== req.body.passwd){
-            info={
+        }else{
+            info ={
                 code:2,
-                msg:'两次密码不一致'
+                msg:"验证码已失效"
             }
-            res.json(info);
+
         }
     }
-
+    res.json(info);
+    
 });
 
 
