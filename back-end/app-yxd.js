@@ -70,4 +70,4 @@ app.use('/voice',voice);
 //语音记事
 app.use('/lover',lover);
 
-app.listen(3002);
+app.listen(3001);
