@@ -44,10 +44,10 @@ router.get('/confirm',async function(req,res,next){
             var data = await childM.findIdByUid(uid);
         }
         console.log(data)      
-        if(data == 1){
-            var message = {code:0,msg:"删除成功",data:null};
+        if(data == 0){
+            var message = {code:0,msg:"删除成功",data:data };
         }else{
-            var message = {code:0,msg:"删除成功",data:data};
+            var message = {code:0,msg:"删除失败",data:null};
         }
         
         res.json(message)

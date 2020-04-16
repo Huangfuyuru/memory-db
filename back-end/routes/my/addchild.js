@@ -27,7 +27,7 @@ router.post('/',async function(req,res,next){
         gender:gender,
         uid:uid
     })
-    if(result === 0){
+    if(result == 0){
         info = {code:0,msg:"添加成功"}
         res.json(info)
     }else{
