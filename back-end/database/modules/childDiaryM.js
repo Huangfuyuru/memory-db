@@ -8,10 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildDiary(text){
-    console.log(text)
-    // var img = text.imgurl.split(',');
-    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.cid]);
+    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid，bgimg,weather) values ($1,$2,$3,$4,$5,$6)';
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.cid,text.bgimg,text.weather]);
     if(ret.rowCount<=0){
         return 1
     }else{
