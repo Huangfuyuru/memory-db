@@ -27,9 +27,9 @@ router.post('/carticle',async function(req,res,next){
     var imgurl = JSON.parse(req.body.imgurl);
     var content = req.body.content;
     var tag = req.body.tag;
-    var num = req.body.num,
-    var style = req.body.style,
-    var uid = JSON.parse(req.body.uid)
+    var num = req.body.num;
+    var style = req.body.style;
+    var uid = JSON.parse(req.body.uid);
     var data = await articleM.addarticle({
         name:name,
         imgurl:imgurl,
@@ -47,7 +47,7 @@ router.post('/carticle',async function(req,res,next){
     res.json(message)
 })
 
-//删除日记
+//删除文章
 router.get('/delarticle',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.uid));
