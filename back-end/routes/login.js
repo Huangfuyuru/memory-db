@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 router.post('/',async function(req,res,next){
    
     var mail = req.body.email;
-    var pass = req.body.passwd;
+    var pass = req.body.upass;
     var getUser = await userM.findemail(mail);
     if(getUser == 0){
         var message = {code:1,id:null,msg:"该邮箱未注册，请先注册"}

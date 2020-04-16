@@ -1,4 +1,4 @@
-<!--
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +16,7 @@
 <script>
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
-        var url = 'http://localhost:3001/img/';
+        var url = 'http://148.70.223.218:3001/img/';
         var form = new FormData();
         form.append("file",fileObj);
         fetch(url,{
@@ -29,7 +29,7 @@
     }
 </script>
 </html>
--->
+
 
 
 <!-- <!DOCTYPE html>
@@ -102,7 +102,7 @@
 
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -111,7 +111,7 @@
     <title>Document</title>
 </head>
 <body>imgs
-    <form action="http://localhost:3001/imgs" enctype="multipart/form-data" method="post">
+    <form action="http://localhost:3001/img" enctype="multipart/form-data" method="post">
         <input type="file" name="file" multiple="multiple">
         <input type="submit">
     </form>
@@ -119,7 +119,7 @@
  <script>
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
-        var url = 'http://localhost:3000/img/';
+        var url = 'http://148.70.223.218:3001/img/';
         var form = new FormData();
         form.append("file",fileObj);
         fetch(url,{
@@ -131,7 +131,7 @@
         })
     }
 </script>
-</html> 
+</html>  -->
 
 
 

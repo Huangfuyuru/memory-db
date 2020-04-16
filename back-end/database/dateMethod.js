@@ -15,9 +15,11 @@ const loverPhotoM = require('./modules/loverPhotoM');
 const loverVoiceM = require('./modules/loverVoiceM');
 const userM = require('./modules/userM');
 const reportM = require('./modules/reportM');
+const friendsM = require('./modules/friendsM');
+const articleM = require('./modules/articleM');
 
 var data = {
     childAdolesceM,childDiaryM,childGrowM,childM,childPhotoListM,childPhotoM,childVoiceM,
-    listM,loveListM,loverDiaryM,loverImpDateM,loverM,loverPhotoListM,loverPhotoM,loverVoiceM,userM,reportM
+    listM,loveListM,loverDiaryM,loverImpDateM,loverM,loverPhotoListM,loverPhotoM,loverVoiceM,userM,reportM,friendsM,articleM
 }
 module.exports = data;
