@@ -53,15 +53,15 @@ router.post('/email',async function(req,res,next){
 })
 
 //点击注册
-router.post('/', async function(req,res,next){
-  
+router.post('/message', async function(req,res,next){
     console.log('resign body',req.body);
     var mail = req.body.email,
-        pass = req.body.pass,
-        pwd = req.body.password;
+        confirm = req.body.confirm,//验证码
+        pwd = req.body.passwd,
+        pass = req.body.pass//重复确认
 
     var now = (new Date()).getTime();
-    if(pass == tcode && now - time<60000){
+    if(confirm == tcode && pwd === pass && now - time <=60000 ){
         var person={
             email:mail,
             pass:pwd
@@ -79,12 +79,16 @@ router.post('/', async function(req,res,next){
                 code:1,
                 msg:"验证码错误"
             }
-        }else{
+        }else if( now - time > 60000 ){
             info ={
                 code:2,
                 msg:"验证码已失效"
             }
-
+        }else if(pass !== passwd){
+            info ={
+                code:3,
+                msg:"两次密码不一致"
+            }
         }
     }
     res.json(info);
