@@ -65,7 +65,51 @@ async function findByUser(user_id){
     }
 }
 
+/**
+ *根据邮箱查找该好友id
+ *
+ * @param {*} cid
+ * @returns 所有成长的内容
+ */
+async function findByUserEmail(user_email){
+    let sql = 'select id from user where email = $1';
+    let ret = await pgdb.query(sql,[user_email]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ * 根据好友id在friend查找该好友
+ * 
+ */
+async function findByFriendId(id){
+    let sql = 'select * from friends where friend_id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ * 根据好友id在user查找该好友
+ * 
+ */
+async function findByFriendIdInUser(id){
+    let sql = 'select * from user where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
 var friendsM = {
-    addfriends,findAll,delfriends,findByUser
+    addfriends,findAll,delfriends,findByUser,findByUserEmails,findByFriendId,findByFriendIdInUser
 }
 module.exports = friendsM
