@@ -22,7 +22,7 @@ router.post('/',async function(req,res,next){
     console.log(num);
     console.log(uid);
 
-    var result = await userM.changeNum(num,uid);
+    var result = await userM.changeNum({num:num,uid:uid});
     if(result === 0){
         info = {code:0,msg:"签到成功"}
         res.json(info)

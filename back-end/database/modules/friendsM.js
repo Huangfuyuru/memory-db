@@ -35,7 +35,7 @@ async function findAll(){
 
 /**
  *
- *根据user_id和friend_id删除该用户的这个好用
+ *根据user_id和friend_id删除该用户的这个好友
  * @param {int} idC
  * @returns
  */
