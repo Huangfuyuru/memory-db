@@ -46,7 +46,7 @@ router.post('/carticle', async function(req,res,next){
         res.json(message);
 })
 
-//删除日记
+//删除文章
 router.get('/delarticle',function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.uid));
@@ -68,5 +68,10 @@ router.get('/delarticle',function(req,res,next){
     }
     res.json(message);
 })
+
+//点赞数
+// router.get('/',function(req,res,next){
+
+// });
 
 module.exports = router;
