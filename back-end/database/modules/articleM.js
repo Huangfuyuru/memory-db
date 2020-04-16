@@ -33,6 +33,7 @@ async function findAll(){
     }
 }
 
+
 /**
  *
  *根据article id删除文章
@@ -57,6 +58,37 @@ async function delarticle(id){
  */
 async function findByUid(uid){
     let sql = 'select * from article where uid = $1 order by setdate desc';
+    let ret = await pgdb.query(sql,[uid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *根据Uid 找到该用户创建的所有亲子文章
+ *
+ * @param {*} cid
+ * @returns 所有成长的内容
+ */
+async function findChildByUid(uid){
+    let sql = 'select * from article where uid = $1 and style=true order by setdate desc';
+    let ret = await pgdb.query(sql,[uid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+/**
+ *根据Uid 找到该用户创建的所有爱人文章
+ *
+ * @param {*} cid
+ * @returns 所有成长的内容
+ */
+async function findLoverByUid(uid){
+    let sql = 'select * from article where uid = $1 and style=false order by setdate desc';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
@@ -119,6 +151,6 @@ async function delById(id){
 }
 
 var articleM = {
-    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById
+    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid
 }
 module.exports = articleM
