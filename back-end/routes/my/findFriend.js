@@ -21,7 +21,7 @@ router.post('/',async function(req,res,next){
     console.log(friendid);
     //根据email查找好友id
     var findResultByemail = await friendsM.findByUserEmail(email);
-    var findResultByid = await friendsM.findByUser(friendid);///
+    var findResultByid = await friendsM.findByFriendId(friendid);
     if(findResultByid == 1){
         if(findResultByemail == 1){
             info = {code:1,data:null};
