@@ -21,7 +21,7 @@ async function login(email,pass){
 
 /**
  * 验证是否已经注册
- * 传入电话，如何电话号存在，返回0，不存在返回1
+ * 传入email，如何email存在，返回0，不存在返回1
  * @param {String} email 
  */
 async function findemail(email){
@@ -35,8 +35,8 @@ async function findemail(email){
 }
 
 /**
- * 增加用户 前提是用户没有注册，也就是说数据库中没有这个电话
- * 如何增加成功，返回0
+ * 增加用户 前提是用户没有注册，也就是说数据库中没有这个email
+ * 如果增加成功，返回0
  * 增加不成功，返回1
  * @param {Object} person 
  */
@@ -83,7 +83,7 @@ async function findIdByemail(email){
 }
 
 /**
- *根据id查找用户电话
+ *根据id查找email
  *
  * @param {String} id
  * @returns
@@ -154,6 +154,6 @@ async function changeNum(num,id){
     }
 }
 var userM = {
-    login,findemail,addUser,delUser,findIdByemail,findemailById,findAll,changeById,findById
+    login,findemail,addUser,delUser,findIdByemail,findemailById,findAll,changeById,findById,changeNum
 }
 module.exports = userM;
