@@ -110,6 +110,6 @@ async function findByFriendIdInUser(id){
 }
 
 var friendsM = {
-    addfriends,findAll,delfriends,findByUser,findByUserEmails,findByFriendId,findByFriendIdInUser
+    addfriends,findAll,delfriends,findByUser,findByUserEmail,findByFriendId,findByFriendIdInUser
 }
 module.exports = friendsM
