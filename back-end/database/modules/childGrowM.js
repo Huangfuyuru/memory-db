@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildGrow(text){
-    let sql = 'insert into childGrow(weight,length,age,setdate,cid) values ($1,$2,$3,$4,$5)';
-    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,text.setdate,text.cid]);
+    let sql = 'insert into childGrow(weight,length,age,setdate,cid,unit) values ($1,$2,$3,$4,$5,$6)';
+    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,text.setdate,text.cid,text.unit]);
     if(ret.rowCount<=0){
         return 1
     }else{

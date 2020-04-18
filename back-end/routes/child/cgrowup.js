@@ -28,6 +28,7 @@ router.post('/ccgrowup',async function(req,res,next){
     var length = req.body.length;
     var weight = req.body.weight;
     var age = req.body.age;
+    var unit = req.body.unit;
     var message = {
         msg:'',
         data:[]
@@ -36,7 +37,8 @@ router.post('/ccgrowup',async function(req,res,next){
         weight:weight,
         length:length,
         age:age,
-        cid:childsid
+        cid:childsid,
+        unit:unit
     });
     if(a == 1){
         message.msg = '添加失败';
