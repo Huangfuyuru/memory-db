@@ -7,7 +7,8 @@ const express = require('express'),
       img = require('./routes/img'),      //单张图片
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice'),  //语音
-      my = require('./routes/my');
+      my = require('./routes/my'), //我的
+      share = require('./routes/share');
     
       
 app.all('*', function (req, res, next) {
@@ -27,6 +28,7 @@ app.use('/img',img);
 app.use('/imgs',imgs);
 app.use('/voice',voice);
 app.use('/my',my);
+app.use('/share',share);
 app.listen(3001);
 
 
