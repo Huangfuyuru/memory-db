@@ -11,6 +11,7 @@ router.use(bodyParser.json());
 
 //点击成长记录
 router.get('/',async function(req,res,next){
+    console.log('cgrowup');
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);

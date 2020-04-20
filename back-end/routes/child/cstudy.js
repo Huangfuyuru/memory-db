@@ -15,14 +15,25 @@ router.get('/',async function(req,res,next){
     var cid = Number(request.cid);
     var data = await childScoreM.findBycid(cid);
     if(data == 1){
+        console.log('null');
         res.json(null)
     }else{
+        var len = data.length;
+        console.log(len);
+        var data2 = [];
+        for(var i=0;i<len;i++){
+            var arr = [];
+            var sub = data[i].subject;
+            var sco = data[i].score;
+            var len2 = sub.length;
+            for(var j=0;j<len2;j++){
+                arr.push({subject:sub[j],score:sco[j]})
+            }
+            delete data[i].subject;
+            delete data[i].score;
+            data[i].cont = arr;
+        }
         console.log(data);
-        // var all = []
-        // for(var i=0;i<score.length;i++){
-        //     var obj = {subject:subject[i],score:score[i]};
-        //     all.push(obj)
-        // }
         res.json(data)
     }
     
