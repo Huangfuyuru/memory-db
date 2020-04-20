@@ -16,7 +16,8 @@ const cpictures = require('./child/cpictures'),
       cstudy = require('./child/cstudy'),
       cdairy = require('./child/cdairy'),
       change = require('./child/change'),
-      changebackground = require('./child/changebackground');
+      changebackground = require('./child/changebackground'),
+      cstudy = require('./child/cstudy');
 
 router.post('/',async function(req,res,next){
     var uid = Number(req.body.uid);
@@ -30,7 +31,8 @@ router.use('/cgrowup',cgrowup);
 router.use('/cstudy',cstudy);
 router.use('/cdairy',cdairy);
 router.use('/change',change);
-router.use('/changebackground',changebackground)
+router.use('/changebackground',changebackground);
+router.use('/cstudy',cstudy);
 
 
 
