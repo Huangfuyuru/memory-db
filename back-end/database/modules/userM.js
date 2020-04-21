@@ -21,11 +21,7 @@ async function login(email,pass){
 
 /**
  * 验证是否已经注册
-<<<<<<< HEAD
  * 传入电话，如何电话号存在，返回1，不存在返回0
-=======
- * 传入email，如何email存在，返回1，不存在返回0
->>>>>>> 45a3c356692c24db698c5da0bc835401aecceb4b
  * @param {String} email 
  */
 async function findemail(email){
