@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverImpDate(text){
-    let sql = 'insert into loverImpDate(name,content,imgurl,item,date,voiceurl,lid) values ($1,$2,$3,$4,$5,$6,$7)';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.lid]);
+    let sql = 'insert into loverImpDate(name,content,imgurl,item,date,voiceurl,lid,mood) values ($1,$2,$3,$4,$5,$6,$7,$8)';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.lid,text.mood]);
     if(ret.rowCount<=0){
         return 1
     }else{
