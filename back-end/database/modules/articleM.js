@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addarticle(text){
-    let sql = 'insert into article(name,imgurl,content,tag,num,style,uid) VALUES($1,$2,$3,$4,$5,$6,$7);';
-    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.content,text.tag,text.num,text.style,text.uid]);
+    let sql = 'insert into article(name,imgurl,content,tag,num,style,uid,zannum) VALUES($1,$2,$3,$4,$5,$6,$7,$8);';
+    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.content,text.tag,text.num,text.style,text.uid,text.zannum]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -131,9 +131,71 @@ async function appendNumById(uid,id){
     }
 }
 
+/**
+ *根据文章id减少文章的Num和用户自己的num
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function reduceNumById(uid,id){
+    let sql = 'update article set num=num-1 where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    let sql2 = 'update users set num=num-1 where id = $1';
+    let ret2 = await pgdb.query(sql2,[uid]);
+    if(ret.rowCount<=0 && ret2.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 
+/**
+ *用户给文章小花减少自己的num,这个num减少的是user表中的num
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function reduceNumByUId(uid){
+    let sql = 'update users set num=num-1 where uid = $1';
+    let ret = await pgdb.query(sql,[uid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 
+/**
+ *用户给文章点赞,增加文章的赞数
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function addZanumById(id){
+    let sql = 'update article set zannum=zannum+1 where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 
+/**
+ *用户给文章点赞,可能误点，减少文章的赞数
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function reduceZanumById(id){
+    let sql = 'update article set zannum=zannum-1 where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 /**
  *根据文章id删除article
  *
@@ -151,6 +213,6 @@ async function delById(id){
 }
 
 var articleM = {
-    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid
+    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addZanumById,reduceZanumById
 }
 module.exports = articleM
