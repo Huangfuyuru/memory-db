@@ -21,7 +21,7 @@ async function login(email,pass){
 
 /**
  * 验证是否已经注册
- * 传入电话，如何电话号存在，返回1，不存在返回0
+ * 传入email，如何email存在，返回1，不存在返回0
  * @param {String} email 
  */
 async function findemail(email){
@@ -144,9 +144,9 @@ async function findById(id){
     }
 }
 //新增加入 num 签到
-async function changeNum(num,id){
-    let sql = 'update users set num = $1 where id = $2';
-    let ret = await pgdb.query(sql,[num,id]);
+async function changeNum(id){
+    let sql = 'update users set num = num+1 where id = $2';
+    let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
     }else{
