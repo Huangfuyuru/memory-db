@@ -69,7 +69,7 @@ async function findByUid(uid){
 /**
  *根据Uid 找到该用户创建的所有亲子文章
  *
- * @param {*} cid
+ * @param {*} uid
  * @returns 所有成长的内容
  */
 async function findChildByUid(uid){
@@ -84,7 +84,7 @@ async function findChildByUid(uid){
 /**
  *根据Uid 找到该用户创建的所有爱人文章
  *
- * @param {*} cid
+ * @param {*} uid
  * @returns 所有成长的内容
  */
 async function findLoverByUid(uid){
