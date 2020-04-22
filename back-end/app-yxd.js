@@ -7,6 +7,7 @@ var img = require('./routes/img.js');
 var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var lover = require('./routes/lover');
+var share = require('./routes/share');
 
 
 
@@ -22,7 +23,7 @@ app.all('*', function (req, res, next) {
 // //若url中输入的不存在会进入'/'下面的（及index）里面找
 // app.use('/',index);
 
-app.get('/resign/email',function(req,res,next){
+app.get('/share',function(req,res,next){
     var html=fs.readFileSync('./testing-yxd/yangxindi.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
@@ -69,5 +70,7 @@ app.use('/voice',voice);
 
 //语音记事
 app.use('/lover',lover);
+
+app.use('/share',share);
 
 app.listen(3001);

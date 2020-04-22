@@ -27,36 +27,30 @@
 </body>
 <script>
     function getCode(){
-        var mail = document.getElementById('email');
-        // console.log('mail',mail.value);
-        // var url = 'http://localhost:3001/resign/email?email='+mail.value;
-        // fetch(url,{
-        //     method:'GET',
-        // })
-        // .then(res=>res.json())
-        // .then(res=>{
-        //     console.log('res1',res)
-        // })
-        var mail = document.getElementById('email');
-        console.log('mail',mail.value);
-        var url = 'http://localhost:3001/resign/email';
+        // var mail = document.getElementById('email');
+        console.log('触发');
+        var url = 'http://localhost:3001/share/num/addnum?uid=100002&auid=100001&id=4200001';
         fetch(url,{
-            method:'POST',
-            body:mail.value
-        }).then(res=>res.json())
+            method:'GET',
+        })
+        .then(res=>res.json())
         .then(res=>{
-            console.log('res',res)
+            console.log('res1',res)
         })
 
-        // fetch('http://localhost:3001/resign/confirm',{
+
+        // var mail = document.getElementById('email');
+        // console.log('mail',mail.value);
+        // var url = 'http://localhost:3001/resign/email';
+        // fetch(url,{
         //     method:'POST',
-        //     mode:'cors',
-        //     headers:{
-        //         'Content-Type':"application/x-www-form-urlencoded"
-        //     },
-        //     body:`utel=${tel}`
+        //     body:mail.value
         // }).then(res=>res.json())
-        // .then(json=>{console.log(json)})
+        // .then(res=>{
+        //     console.log('res',res)
+        // })
+
+        
     }
 </script>
 </html>

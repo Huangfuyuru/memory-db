@@ -114,7 +114,7 @@ async function findById(id){
 }
 
 /**
- *根据文章id增加文章的Num和用户自己的num
+ *根据文章id增加文章的Num和文章所有者num
  *
  * @param {*} id
  * @returns 返回id
@@ -156,7 +156,25 @@ async function reduceNumById(uid,id){
  * @returns 返回id
  */
 async function reduceNumByUId(uid){
-    let sql = 'update users set num=num-1 where uid = $1';
+    console.log('数据库',uid);
+    let sql = 'update users set num=num-1 where id = $1';
+    let ret = await pgdb.query(sql,[uid]);
+    console.log(ret)
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *用户取消给文章小花增加自己的num,这个num增加的是user表中的num
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function addNumByUId(uid){
+    let sql = 'update users set num=num+1 where id = $1';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
@@ -213,6 +231,6 @@ async function delById(id){
 }
 
 var articleM = {
-    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addZanumById,reduceZanumById
+    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addNumByUId,addZanumById,reduceZanumById
 }
 module.exports = articleM
