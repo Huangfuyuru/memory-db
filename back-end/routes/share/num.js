@@ -24,9 +24,10 @@ router.get('/addnum', async function(req,res,next){
     var user = await article.userM.findById(uid);
     console.log(uid+'的小花数为'+user.num)
     if(user.num>0){
+        console.log('uid',typeof(uid));
         var data = await article.articleM.reduceNumByUId(uid);
-        console.log('data',data)
-        // var data1 = await article.articleM.appendNumById(auid,id);
+        // console.log('data',data)
+        var data1 = await article.articleM.appendNumById(auid,id);
         // console.log(data1)
         if(data === 1 || data1 === 1){
             info={code:1,msg:null}
@@ -35,6 +36,8 @@ router.get('/addnum', async function(req,res,next){
             var auser = await article.userM.findById(auid);
             art.push(auser);
             art.push(user)
+            console.log(art)
+
             info={code:0,msg:art};
         }
     }else{
