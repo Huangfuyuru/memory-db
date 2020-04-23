@@ -5,6 +5,7 @@ const fs = require('fs');
 router.post('/',function(req,res){
     console.log("hello");
     var form = new formidable.IncomingForm();
+    console.log('form',form);
     form.uploadDir = "/home/shared_work/img";
     form.keepExtensions = true; 
     form.maxFieldSize = 2*1024*1024;
