@@ -5,12 +5,19 @@ const fs = require('fs');
 const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
-
-app.post('/', function (req, res) {
+router.use(bodyParser.text());
+/*
+router.post('/', function (req, res) {
     var jsonBody = req.body;
+    for(var i in jsonBody){
+        console.log(i,jsonBody[i])
+    }
+    console.log('jsonBody_parts',jsonBody['_parts']);
     //解析jsonBody
+    
     var file = jsonBody['_parts'][0][1];
-
+    console.log('file_parts',jsonBody['_parts']);
+    console.log('file',file);
     if(Object.keys(req.body).length<=0) {
         console.log('没有提交任何post参数');
     }
@@ -20,8 +27,10 @@ app.post('/', function (req, res) {
     var des_file ="/home/shared_work/img/"+file['name'];
 
     //读取文件地址
-    fs.readFile(file['uri'], function (err, data) {
+    console.log('file[uri]',file['uri']);
+    fs.readFile(JSON.stringify(file['uri']), function (err, data) {
         //开始写入文件
+        console.log('data',data);
         fs.writeFile(des_file, data, function (err) {
             if(err) {
                 console.log(err);
@@ -29,41 +38,51 @@ app.post('/', function (req, res) {
             }else {
                 response = {
                     message: 'File upload successfully',
-                    fileName: file['name']
+                    path: `http:148.70.223.218:3001/img/showimg/${file['name']}`
                 }
             }
+
             console.log(response);
-            res.end(JSON.stringify(response));
+            res.write(JSON.stringify(response));
+            res.end();
         })
     })
 });
-// router.post('/',function(req,res){
-//     console.log("hello");
-//     var form = new formidable.IncomingForm();
-//     form.uploadDir = "/home/shared_work/img";
-//     form.keepExtensions = true; 
-//     form.maxFieldSize = 2*1024*1024;
-//     form.parse(req, function (error, fields, files) { 
-//         if(error) {
-//             var message = {err:1, msg:"文件解析失败"};
-//         }
-//         var a = files.file.path.split("/");
-//         var b = a[a.length-1];
-//         var message = {err:0, path:`http:148.70.223.218:3001/img/showimg/${b}`};
-//         res.write(JSON.stringify(message));   
-//         res.end();
-//     });
-    
-// })
+*/
+
+ router.post('/',function(req,res){
+     console.log("hello");
+     var form = new formidable.IncomingForm();
+     form.uploadDir = "/home/shared_work/img";
+     form.keepExtensions = true; 
+     form.maxFieldSize = 2*1024*1024;
+    // console.log('req',req);
+     console.log('req.body',req.body);
+     form.parse(req, function (error, fields, files) { 
+         console.log('fields',fields);
+         console.log('files',files);
+         if(error) {
+             var message = {err:1, msg:"文件解析失败"};
+         }
+         
+         var a = files.file.path.split("/");
+         console.log('a',a);
+         var b = a[a.length-1];
+         
+         var message = {err:0, path:`http:148.70.223.218:3001/img/showimg${b}`};
+         res.write(JSON.stringify(message));   
+         res.end();
+     });
+       
+ })
 
 router.get('/showimg/:name',function(req,res){
-    console.log('显示');
     var filename = req.params.name;
     var ext = filename.split('.')[1];
-    var img = fs.readFileSync(`/home/shared_work/img/${filename}`);
-    
+    if(ext == 'jpg'){ext = 'jpeg'}
+    var img = fs.readFileSync(`/home/shared_work/img/${filename}`); 
     res.writeHead(200,{
-        "Content-Type":"image"+ext
+        "Content-Type":"image/"+ext
     })
     res.end(img)
 })
