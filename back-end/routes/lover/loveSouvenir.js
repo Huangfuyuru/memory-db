@@ -38,7 +38,8 @@ router.post('/lcsouvenir',async function(req,res,next){
         lid:daid,
         date:req.body.date,
         contnet: '纪念日',
-        voiceurl:'#'
+        voiceurl:'#',
+        mood:Number(req.body.mood)
     }
     var addsou = await lover.loverImpDateM.addLoverImpDate(text);
     console.log(addsou);

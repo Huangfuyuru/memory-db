@@ -69,7 +69,7 @@ async function findByUid(uid){
 /**
  *根据Uid 找到该用户创建的所有亲子文章
  *
- * @param {*} cid
+ * @param {*} uid
  * @returns 所有成长的内容
  */
 async function findChildByUid(uid){
@@ -84,7 +84,7 @@ async function findChildByUid(uid){
 /**
  *根据Uid 找到该用户创建的所有爱人文章
  *
- * @param {*} cid
+ * @param {*} uid
  * @returns 所有成长的内容
  */
 async function findLoverByUid(uid){
@@ -114,7 +114,7 @@ async function findById(id){
 }
 
 /**
- *根据文章id增加文章的Num和用户自己的num
+ *根据文章id增加文章的Num和文章所有者num
  *
  * @param {*} id
  * @returns 返回id
@@ -124,6 +124,7 @@ async function appendNumById(uid,id){
     let ret = await pgdb.query(sql,[id]);
     let sql2 = 'update users set num=num+1 where id = $1';
     let ret2 = await pgdb.query(sql2,[uid]);
+
     if(ret.rowCount<=0 && ret2.rowCount<=0){
         return 1
     }else{
@@ -156,7 +157,27 @@ async function reduceNumById(uid,id){
  * @returns 返回id
  */
 async function reduceNumByUId(uid){
-    let sql = 'update users set num=num-1 where uid = $1';
+    // console.log('数据库',uid);
+    // let sql1 = 'select * from users where id =$1';
+    // let ret1 = await pgdb.query(sql1,[uid]);
+    // console.log(ret1);
+    let sql = 'update users set num=num-1 where id = $1';
+    let ret = await pgdb.query(sql,[uid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *用户取消给文章小花增加自己的num,这个num增加的是user表中的num
+ *
+ * @param {*} id
+ * @returns 返回id
+ */
+async function addNumByUId(uid){
+    let sql = 'update users set num=num+1 where id = $1';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
@@ -213,6 +234,6 @@ async function delById(id){
 }
 
 var articleM = {
-    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addZanumById,reduceZanumById
+    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addNumByUId,addZanumById,reduceZanumById
 }
 module.exports = articleM

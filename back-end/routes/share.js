@@ -1,26 +1,32 @@
 const express = require('express'),
       router = express.Router(),
+      fs = require('fs'),
       qs = require('querystring'),
-      url = require('url'),
+      url = require('url');
       bodyParser = require("body-parser");
-var {userM} = require('../database/dateMethod')
+var userM = require('../database/dateMethod')
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-//下面是示例
-const cpictures = require('./child/cpictures');
 
-router.post('/',async function(req,res,next){
-    var uid = Number(req.body.uid);
-    var data = await childM.findIdByUid(uid);
-    res.json(data);
+const num = require('./share/num'),
+      praise = require('./share/praise');
+
+router.get('/',async function(req,res,next){
+    var data = await userM.articleM.findAll();
+    if(data===1){
+        var info={code:1,msg:null};
+    }else{
+        var info = {code:0,msg:data};
+    }
+    res.json(info);
 })
-//下面是示例
-router.use('/cpictures',cpictures);
 
-
+/* /share/num(praise) */
+router.use('/num',num);
+// router.use('/praise',praise);
 
 
 module.exports = router;
