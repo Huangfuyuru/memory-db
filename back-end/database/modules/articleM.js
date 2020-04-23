@@ -124,6 +124,7 @@ async function appendNumById(uid,id){
     let ret = await pgdb.query(sql,[id]);
     let sql2 = 'update users set num=num+1 where id = $1';
     let ret2 = await pgdb.query(sql2,[uid]);
+
     if(ret.rowCount<=0 && ret2.rowCount<=0){
         return 1
     }else{
@@ -156,10 +157,12 @@ async function reduceNumById(uid,id){
  * @returns 返回id
  */
 async function reduceNumByUId(uid){
-    console.log('数据库',uid);
+    // console.log('数据库',uid);
+    // let sql1 = 'select * from users where id =$1';
+    // let ret1 = await pgdb.query(sql1,[uid]);
+    // console.log(ret1);
     let sql = 'update users set num=num-1 where id = $1';
     let ret = await pgdb.query(sql,[uid]);
-    console.log(ret)
     if(ret.rowCount<=0){
         return 1
     }else{
