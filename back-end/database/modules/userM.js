@@ -41,8 +41,8 @@ async function findemail(email){
  * @param {Object} person 
  */
 async function addUser(person){
-    let sql = 'insert into users(pass,email) values($1,$2)';
-    let ret = await pgdb.query(sql,[person.pass,person.email]);
+    let sql = 'insert into users(pass,email,name) values($1,$2,$3)';
+    let ret = await pgdb.query(sql,[person.pass,person.email,person.name]);
     if(ret.rowCount<=0){
         return 1;
     }else{
