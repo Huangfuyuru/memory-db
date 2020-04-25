@@ -37,7 +37,7 @@ router.post('/email',async function(req,res,next){
             subject:'记得APP验证码',
             //收件人
             to:req.body.email,
-            text:'【记得】您当前正在注册记得验证码为: '+code
+            text:'【记得】验证码: '+code+',您当前正在注册记得,十分钟内有效，请勿泄露给他人。'
         }
         tcode = code;
         console.log('tcode',tcode)
@@ -65,7 +65,7 @@ router.post('/message', async function(req,res,next){
     // console.log('result',result);
     if(result === 0){
         var now = (new Date()).getTime();
-        if(confirm == tcode && pwd === pass && now - time <=60000 ){
+        if(confirm == tcode && pwd === pass && now - time <= 600000 ){
             var person={
                 email:mail,
                 pass:pwd
