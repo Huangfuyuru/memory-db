@@ -20,9 +20,7 @@ router.post('/',async function(req,res,next){
             var message = {code:1,id:null,msg:"邮箱或密码有误"}
         }else{
             var username = '用户' + mail.substring(0,6);
-            var getId = data.id;
-            var data1 = await userM.findById(getId)
-            var message = {code:0,data:{"name":data.name,"gender":data.gender,"imgurl":data.imgurl,"num":data.num},id:getId,msg:username+'欢迎使用记得'}
+            var message = {code:0,data:{"id":data.id,"name":data.name,"gender":data.gender,"imgurl":data.imgurl,"num":data.num},msg:username+',欢迎使用记得'}
         }
     }
     res.json(message)
