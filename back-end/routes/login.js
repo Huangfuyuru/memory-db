@@ -21,7 +21,7 @@ router.post('/',async function(req,res,next){
         }else{
             var getId = data.id;
             var data1 = await userM.findById(getId)
-            var message = {code:0,id:getId,msg:"登陆成功",data:data1}
+            var message = {code:0,id:getId,msg:data.email+"登陆成功",}
         }
     }
     res.json(message)
