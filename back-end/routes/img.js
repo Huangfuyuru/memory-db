@@ -7,29 +7,25 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 router.use(bodyParser.text());
 
-router.post('/', function (req, res) {
+router.post('/uploadImage', function (req, res) {
+    console.log('Content-Type====' + req.get('Content-Type'));
     var jsonBody = req.body;
-    for(var i in jsonBody){
-        console.log(i,jsonBody[i])
-    }
-    console.log('jsonBody_parts',jsonBody['_parts']);
     //解析jsonBody
-    var file = jsonBody['_parts'][1][1];
-    var filemsg = jsonBody['_parts'][0][1];
-    console.log('file',filemsg);
+    var file = jsonBody['_parts'][0][1];
+
+    console.log('jsonBody=====' + JSON.stringify(jsonBody) + 'file====' + JSON.stringify(file));
+
     if(Object.keys(req.body).length<=0) {
         console.log('没有提交任何post参数');
     }
 
     var response;
     //设置写入文件的路径
-    //console.log("name",file[3][1])
     var des_file ="/home/shared_work/img/"+file['name'];
+
     //读取文件地址
-    console.log('file[uri]',file['uri']);
-    fs.readFile(JSON.stringify(file['uri']),'binary', function (err, data) {
+    fs.readFile(file['uri'], function (err, data) {
         //开始写入文件
-        console.log(data);
         fs.writeFile(des_file, data, function (err) {
             if(err) {
                 console.log(err);
@@ -37,16 +33,54 @@ router.post('/', function (req, res) {
             }else {
                 response = {
                     message: 'File upload successfully',
-                    path: `http:148.70.223.218:3001/img/showimg/${file['name']}`
+                    fileName: file['name']
                 }
             }
-
             console.log(response);
-            res.write(JSON.stringify(response));
-            res.end();
+            res.end(JSON.stringify(response));
         })
     })
 });
+// router.post('/', function (req, res) {
+//     var jsonBody = req.body;
+//     for(var i in jsonBody){
+//         console.log(i,jsonBody[i])
+//     }
+//     console.log('jsonBody_parts',jsonBody['_parts']);
+//     //解析jsonBody
+//     var file = jsonBody['_parts'][1][1];
+//     var filemsg = jsonBody['_parts'][0][1];
+//     console.log('file',filemsg);
+//     if(Object.keys(req.body).length<=0) {
+//         console.log('没有提交任何post参数');
+//     }
+
+//     var response;
+//     //设置写入文件的路径
+//     //console.log("name",file[3][1])
+//     var des_file ="/home/shared_work/img/"+file['name'];
+//     //读取文件地址
+//     console.log('file[uri]',file['uri']);
+//     fs.readFile(JSON.stringify(file['uri']),'binary', function (err, data) {
+//         //开始写入文件
+//         console.log(data);
+//         fs.writeFile(des_file, data, function (err) {
+//             if(err) {
+//                 console.log(err);
+//                 response = err;
+//             }else {
+//                 response = {
+//                     message: 'File upload successfully',
+//                     path: `http:148.70.223.218:3001/img/showimg/${file['name']}`
+//                 }
+//             }
+
+//             console.log(response);
+//             res.write(JSON.stringify(response));
+//             res.end();
+//         })
+//     })
+// });
 /*
 router.post('/',function(req,res){
      console.log("hello");
