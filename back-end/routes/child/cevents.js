@@ -26,7 +26,7 @@ router.get('/',async function(req,res,next){
 
 //增加大事
 router.post('/ccevents',async function(req,res,next){
-    var childsid = req.body.cid;
+    var childsid = req.body.childsid;
     var item = req.body.item;
     var name = req.body.name;
     var imgurl = req.body.imgurl;
@@ -44,7 +44,7 @@ router.post('/ccevents',async function(req,res,next){
     if(data == 1){
         var message={code:1,msg:"添加失败",data:null};
     }else{
-        var data1 = childAdolesceM.findByCid(childsid);
+        var data1 = await childAdolesceM.findByCid(childsid);
         var message={code:0,msg:"添加成功",data:data1};
     }
     res.json(message);
