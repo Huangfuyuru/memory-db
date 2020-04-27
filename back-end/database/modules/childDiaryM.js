@@ -8,7 +8,7 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildDiary(text){
-    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid，bgimg,weather) values ($1,$2,$3,$4,$5,$6)';
+    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid,bgimg,weather) values ($1,$2,$3,$4,$5,$6,$7)';
     let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.cid,text.bgimg,text.weather]);
     if(ret.rowCount<=0){
         return 1

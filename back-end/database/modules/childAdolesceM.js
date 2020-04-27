@@ -58,8 +58,9 @@ async function delChildAdolesce(id){
  * @returns 所有成长的内容
  */
 async function findByCid(cid){
-    let sql = 'select * from childAdolesce where cid = $1 order by setdate desc';
+    let sql = 'select * from childAdolesce where cid = $1 order by setdate';
     let ret = await pgdb.query(sql,[cid]);
+    console.log(ret.rows);
     if(ret.rowCount<=0){
         return 1
     }else{
