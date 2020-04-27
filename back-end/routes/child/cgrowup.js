@@ -30,25 +30,21 @@ router.post('/ccgrowup',async function(req,res,next){
     var weight = req.body.weight;
     var age = req.body.age;
     var unit = req.body.unit;
-    var message = {
-        msg:'',
-        data:[]
-    }
-    var a =await childGrowM.addChildGrow({
+    var data = await childGrowM.addChildGrow({
         weight:weight,
         length:length,
         age:age,
         cid:childsid,
         unit:unit
-    });
-    if(a == 1){
-        message.msg = '添加失败';
+    })
+    if(data == 1){
+        var message={code:1,msg:"添加失败",data:null};
     }else{
-        message.msg = '添加成功';
-        var data1 = await childGrowM.findByCid(childsid);
-        message.data = data1;
+        var data1 = childGrowM.findByCid(childsid);
+        var message={code:0,msg:"添加成功",data:data1};
     }
-    res.json(message)
+    res.json(message);
+    
 })
 
 //删除成长记录

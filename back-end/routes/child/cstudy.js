@@ -52,12 +52,16 @@ router.post('/cchildScore',async function(req,res,next){
         setdate:setdate,
         cid:cid
     }
-    var a =await childScoreM.addchildScore({message});
-    if(a == 1){
-        res.json({msg:'添加失败',code:1})
+
+    
+    var data =await childScoreM.addchildScore({message});
+    if(data == 1){
+        var message={code:1,msg:"添加失败",data:null};
     }else{
-        res.json({msg:'添加成功',code:0})
+        var data1 = childScoreM.findBycid(cid);
+        var message={code:0,msg:"添加成功",data:data1};
     }
+    
     
 })
 

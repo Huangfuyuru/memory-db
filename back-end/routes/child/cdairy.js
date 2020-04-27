@@ -35,9 +35,10 @@ router.post('/ccdairy',async function(req,res,next){
         cid:childsid
     });
     if(data == 1){
-        var message = {code:1,msg:"添加失败"}
+        var message = {code:1,msg:"添加失败",data:null}
     }else{
-        var message = {code:0,msg:"添加成功"}
+        var data1 = await childDiaryM.findByCid(childsid);
+        var message = {code:0,msg:"添加成功",data:data1}
     }
     res.json(message)
 })

@@ -33,7 +33,7 @@ router.post('/ccevents',async function(req,res,next){
     var content = req.body.content;
     var setdate = req.body.setdate;
     // console.log(item,imgurl)
-    await childAdolesceM.addChildAdolesce({
+    var data = await childAdolesceM.addChildAdolesce({
         item:item,
         imgurl:imgurl,
         content:content,
@@ -41,13 +41,11 @@ router.post('/ccevents',async function(req,res,next){
         name:name,
         setdate:setdate
     })
-    var data = await childAdolesceM.findByCid(childsid);
     if(data == 1){
-        var message={code:1,msg:"添加失败"};
-        console.log('添加失败')
+        var message={code:1,msg:"添加失败",data:null};
     }else{
-        var message={code:0,msg:"添加成功"};
-        console.log('添加失败')
+        var data1 = childAdolesceM.findByCid(childsid);
+        var message={code:0,msg:"添加成功",data:data1};
     }
     res.json(message);
 })
