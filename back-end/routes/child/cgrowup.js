@@ -35,7 +35,8 @@ router.post('/ccgrowup',async function(req,res,next){
         length:length,
         age:age,
         cid:childsid,
-        unit:unit
+        unit:unit,
+        setdate:setdate
     })
     if(data == 1){
         var message={code:1,msg:"添加失败",data:null};
