@@ -45,7 +45,7 @@ router.get('/ccpictures',async function(req,res,next){
     if(data == 1){
         res.json({code:1,msg:"创建失败",data:null})
     }else{
-        var data1 = childPhotoListM.findByCid(childsid);
+        var data1 = await childPhotoListM.findByCid(childsid);
         res.json({code:0,msg:"创建成功",data:data1})
     }
 })
