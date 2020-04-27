@@ -43,9 +43,9 @@ router.get('/ccpictures',async function(req,res,next){
     var setdate = request.setdate
     var data = await childPhotoListM.addChildPhotoList({name:name,cid:childsid,background:background,setdate:setdate});
     if(data == 1){
-        res.json({code:1,msg:"创建失败"})
+        res.json({code:1,msg:"创建失败",data:null})
     }else{
-        res.json({code:0,msg:"创建成功"})
+        res.json({code:0,msg:"创建成功",date:data})
     }
 })
 
