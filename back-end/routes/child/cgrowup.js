@@ -11,7 +11,6 @@ router.use(bodyParser.json());
 
 //点击成长记录
 router.get('/',async function(req,res,next){
-    console.log('cgrowup');
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
@@ -30,6 +29,10 @@ router.post('/ccgrowup',async function(req,res,next){
     var weight = req.body.weight;
     var age = req.body.age;
     var unit = req.body.unit;
+    var setdate = req.body.setdate;
+    console.log('成长记录');
+    console.log(childsid);
+    
     var data = await childGrowM.addChildGrow({
         weight:weight,
         length:length,
@@ -41,9 +44,10 @@ router.post('/ccgrowup',async function(req,res,next){
     if(data == 1){
         var message={code:1,msg:"添加失败",data:null};
     }else{
-        var data1 = childGrowM.findByCid(childsid);
+        var data1 = await childGrowM.findByCid(Number(childsid));
         var message={code:0,msg:"添加成功",data:data1};
     }
+    
     res.json(message);
     
 })
