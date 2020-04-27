@@ -58,7 +58,7 @@ router.post('/addloverlist',async function(req,res,next){
         name:req.body.name,
         content:req.body.content,
         imgurl:req.body.imgurl,
-        local:req.bodylocal,
+        local:req.body.local,
         setdate:req.body.setdate,
         listid:listid,
         lid:lid
