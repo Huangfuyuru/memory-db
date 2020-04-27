@@ -11,10 +11,11 @@ router.get('/',async function(req,res,next){
     console.log('点击清单',req.query);
     var lid = req.query.loverid;
     var data = await lover.loveListM.findByLid(lid);
+    var data1 = await lover.listM.findAll();
     if(data === 1){
         info={code:0,msg:null};
     }else{
-        info={code:0,msg:data};
+        info={code:0,msg:data,difficulty:data1.difficulty};
     }
     res.json(info);
 
