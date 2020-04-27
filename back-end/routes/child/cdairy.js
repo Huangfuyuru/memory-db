@@ -24,20 +24,27 @@ router.get('/',async function(req,res,next){
 
 //增加日记
 router.post('/ccdairy',async function(req,res,next){
-    var childsid = JSON.parse(req.body.childsid)
+    var childsid = req.body.childsid;
     var backcolor = req.body.backcolor;
     var content = req.body.content;
     var imgurl = JSON.parse(req.body.imgurl);
+    var setdate = req.body.setdate;
+    var weather = req.body.weather;
+    var bgimg = req.body.bgimg;
     var data = await childDiaryM.addChildDiary({
         backcolor:backcolor,
         content:content,
         imgurl:imgurl,
-        cid:childsid
+        cid:childsid,
+        setdate:setdate,
+        weather:weather,
+        bgimg:bgimg
     });
     if(data == 1){
-        var message = {code:1,msg:"添加失败"}
+        var message = {code:1,msg:"添加失败",data:null}
     }else{
-        var message = {code:0,msg:"添加成功"}
+        var data1 = await childDiaryM.findByCid(childsid);
+        var message = {code:0,msg:"添加成功",data:data1}
     }
     res.json(message)
 })
