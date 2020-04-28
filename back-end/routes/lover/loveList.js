@@ -12,10 +12,14 @@ router.get('/',async function(req,res,next){
     var lid = req.query.loverid;
     var data = await lover.loveListM.findByLid(lid);
     var data1 = await lover.listM.findAll();
+    var diff = new Array();
+    for (var i = 0;i<data1.length;i++){
+        diff.push(data1[i].difficulty);
+    }
     if(data === 1){
-        info={code:0,msg:null};
+        info={code:0,msg:null,difficulty:diff};
     }else{
-        info={code:0,msg:data,difficulty:data1.difficulty};
+        info={code:0,msg:data,difficulty:diff};
     }
     res.json(info);
 
