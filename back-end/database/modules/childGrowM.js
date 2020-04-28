@@ -102,22 +102,23 @@ async function findIdByCid(cid){
 /**
  *根据成长记录id修改成长记录信息
  传入要修改的id ,以及要修改的内容
- 注意id类的都不能修改,所以text中可以没有id
- setdate类不用修改，所有text中可以没有setdate字段
+ 注意id类的都不能修改
  有些内容不需要修改，但是要传入原内容  看函数中的字段
  *
  * @param {int} id
  * @param {Object} text
  * @returns
  */
-async function changeById(id,text){
-    let sql = 'update childGrow set weight=$1,length=$2,age=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,id]);
+
+async function changeById(text){
+    let sql = 'update childGrow set weight=$1,length=$2,age=$3,setdate=$4,unit=$5 where id=$6';
+    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,text.setdate,text.unit,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return 0;
     }
+
 }
 
 

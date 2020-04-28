@@ -108,9 +108,10 @@ async function findIdByLid(lid){
  * @param {Object} text
  * @returns
  */
-async function changeById(id,text){
-    let sql = 'update loverPhotoList set name=$1,background=$2 where id = $3'
-    let ret = await pgdb.query(sql,[text.name,text.background,id]);
+
+async function changeById(text){
+    let sql = 'update loverPhotoList set name=$1,background=$2,setdate=$3 where id = $4'
+    let ret = await pgdb.query(sql,[text.name,text.background,text.setdate,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{

@@ -101,7 +101,6 @@ async function findIdByLid(lid){
  *根据id修改爱人语音
  传入要修改的爱人语音id,以及要修改的内容
  注意id类的都不能修改,所以text中可以没有id
- setdate类不用修改，所有text中可以没有setdate字段
  有些内容不需要修改，但是要传入原内容  看函数中的字段
  *
  * @param {int} id

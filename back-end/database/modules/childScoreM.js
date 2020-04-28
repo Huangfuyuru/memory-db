@@ -98,25 +98,27 @@ async function findIdBycid(cid){
 }
 
 /**
- *根据id修改爱人日记
+ *根据亲子id修改亲子日记
  传入要修改的爱人日记id,以及要修改的内容
- 注意id类的都不能修改,所以text中可以没有id
- setdate类不用修改，所有text中可以没有setdate字段
+ 注意id类的都不能修改
  有些内容不需要修改，但是要传入原内容  看函数中的字段
  *
  * @param {int} id
  * @param {Object} text
  * @returns
  */
-async function changeById(id,text){
-    let sql = 'update childScore set name=$1,content=$2,imgurl=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,id]);
+
+async function changeById(text){
+    let sql = 'update childScore set stage=$1,subject=$2,score=$3,setdate=$4 where id=$5';
+    let ret = await pgdb.query(sql,[text.stage,text.subject,text.score,text.setdate,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return 0;
     }
+
 }
+
 
 /**
  *根据爱人cid删除childScore 中该亲子创建的内容
