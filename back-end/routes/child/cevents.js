@@ -32,6 +32,7 @@ router.post('/ccevents',async function(req,res,next){
     var imgurl = req.body.imgurl;
     var content = req.body.content;
     var setdate = req.body.setdate;
+    var date = req.body.date;
     // console.log(item,imgurl)
     var data = await childAdolesceM.addChildAdolesce({
         item:item,
@@ -39,6 +40,7 @@ router.post('/ccevents',async function(req,res,next){
         content:content,
         cid:childsid,
         name:name,
+        date:date,
         setdate:setdate
     })
     if(data == 1){

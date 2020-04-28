@@ -10,8 +10,8 @@ const pgdb = require('./connect');
 async function addChildAdolesce(text){
     var img = text.imgurl.split(',');
     var item = text.item.split(',')
-    let sql = 'insert into childAdolesce(item,imgurl,content,cid,name,setdate) values ($1,$2,$3,$4,$5,$6)';
-    let ret = await pgdb.query(sql,[item,img,text.content,text.cid,text.name,text.setdate]);
+    let sql = 'insert into childAdolesce(item,imgurl,content,cid,name,setdate,date) values ($1,$2,$3,$4,$5,$6,$7)';
+    let ret = await pgdb.query(sql,[item,img,text.content,text.cid,text.name,text.setdate,text.date]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -58,7 +58,7 @@ async function delChildAdolesce(id){
  * @returns 所有成长的内容
  */
 async function findByCid(cid){
-    let sql = 'select * from childAdolesce where cid = $1 order by setdate';
+    let sql = 'select * from childAdolesce where cid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[cid]);
     console.log(ret.rows);
     if(ret.rowCount<=0){
