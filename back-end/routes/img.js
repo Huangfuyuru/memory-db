@@ -7,6 +7,28 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json({limit:'50mb'}));
 router.use(bodyParser.urlencoded({limit:'50mb',extended:true}))
 router.use(bodyParser.text());
+router.post('/',function(req,res){
+   var data = req.body.data;
+   var message;
+   var dataBuffer = Buffer.from(data,'base64');
+   var des_file = "/home/shared_work/img/demo_copy.jpg";
+   //console.log('data',data);
+   //console.log('dataBuffer',dataBuffer);
+   fs.writeFile(des_file,dataBuffer,function(err){
+      if(err){
+        console.log(err);
+        message = err;
+      }else{
+        message = {
+            code:0
+        }
+      }  
+      res.end(JSON.stringify(message));
+   })
+
+        
+})
+/*
 router.post('/', function (req, res) {
     var jsonBody = req.body;
     //解析jsonBody
@@ -29,7 +51,7 @@ router.post('/', function (req, res) {
             res.end(JSON.stringify(response));
     })
 });
-
+*/
 // router.post('/', function (req, res) {
 //     var jsonBody = req.body;
 //     for(var i in jsonBody){
@@ -109,10 +131,11 @@ router.get('/showimg/:name',function(req,res){
     var filename = req.params.name;
     var ext = filename.split('.')[1];
     var buf = fs.readFileSync(`/home/shared_work/img/${filename}`);
-    var img = new Buffer(buf,'base64');
-    res.writeHead(200,{
-        "Content-Type":"image/jpeg"
-    })
-    res.end(buf)
+    var img = Buffer.from(buf,'base64');
+    //var img = new Buffer(buf,'base64');
+    //var img = 'data:image/jpeg;'+buf;
+    console.log(`${filename}buf`,buf);
+    //res.write(JSON.stringify({'img':img}));
+    res.json({'img':img});
 })
 module.exports = router;
