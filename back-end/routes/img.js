@@ -3,31 +3,59 @@ const formidable = require('formidable');
 const router = express.Router();
 const fs = require('fs');
 const bodyParser = require("body-parser");
+const {imgM} = require("../database/dateMethod");
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json({limit:'50mb'}));
-router.use(bodyParser.urlencoded({limit:'50mb',extended:true}))
+router.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 router.use(bodyParser.text());
+
 router.post('/',function(req,res){
    var data = req.body.data;
-   var message;
-   var dataBuffer = Buffer.from(data,'base64');
-   var des_file = "/home/shared_work/img/demo_copy.jpg";
-   //console.log('data',data);
-   //console.log('dataBuffer',dataBuffer);
-   fs.writeFile(des_file,dataBuffer,function(err){
-      if(err){
-        console.log(err);
-        message = err;
-      }else{
-        message = {
-            code:0
-        }
-      }  
-      res.end(JSON.stringify(message));
-   })
+   var ok = await imgM.addImg(data);
+   if(ok == 0){
+     res.json({'data':'ok'})
+   }else{
+     res.json({'data':'no'})
+   }
+
+})
+
+module.exports = router
+/*
+router.get('/showimg/:name',function(req,res){
+    var filename = req.params.name;
+    var ext = filename.split('.')[1];
+    var buf = fs.readFileSync(`/home/shared_work/img/${filename}`);
+    var img = Buffer.from(buf,'base64');
+    //var img = new Buffer(buf,'base64');
+    //var img = 'data:image/jpeg;'+buf;
+    console.log(`${filename}buf`,buf);
+    //res.write(JSON.stringify({'img':img}));
+    res.json({'img':img});
+})
+*/
+
+// router.post('/',function(req,res){
+//    var data = req.body.data;
+//    var message;
+//    var dataBuffer = Buffer.from(data,'base64');
+//    var des_file = "/home/shared_work/img/demo_copy.jpg";
+//    //console.log('data',data);
+//    //console.log('dataBuffer',dataBuffer);
+//    fs.writeFile(des_file,dataBuffer,function(err){
+//       if(err){
+//         console.log(err);
+//         message = err;
+//       }else{
+//         message = {
+//             code:0
+//         }
+//       }  
+//       res.end(JSON.stringify(message));
+//    })
 
         
-})
+// })
 /*
 router.post('/', function (req, res) {
     var jsonBody = req.body;
@@ -127,15 +155,15 @@ router.post('/',function(req,res){
      
  })
  */
-router.get('/showimg/:name',function(req,res){
-    var filename = req.params.name;
-    var ext = filename.split('.')[1];
-    var buf = fs.readFileSync(`/home/shared_work/img/${filename}`);
-    var img = Buffer.from(buf,'base64');
-    //var img = new Buffer(buf,'base64');
-    //var img = 'data:image/jpeg;'+buf;
-    console.log(`${filename}buf`,buf);
-    //res.write(JSON.stringify({'img':img}));
-    res.json({'img':img});
-})
-module.exports = router;
+// router.get('/showimg/:name',function(req,res){
+//     var filename = req.params.name;
+//     var ext = filename.split('.')[1];
+//     var buf = fs.readFileSync(`/home/shared_work/img/${filename}`);
+//     var img = Buffer.from(buf,'base64');
+//     //var img = new Buffer(buf,'base64');
+//     //var img = 'data:image/jpeg;'+buf;
+//     console.log(`${filename}buf`,buf);
+//     //res.write(JSON.stringify({'img':img}));
+//     res.json({'img':img});
+// })
+
