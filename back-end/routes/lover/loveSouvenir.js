@@ -30,15 +30,13 @@ router.post('/lcsouvenir',async function(req,res,next){
     console.log('增加纪念日');
     console.log(req.body);
     var daid = Number(req.body.loverid);
-    var item = req.body.item.split( );
     var text ={
-        item:item,
         name:req.body.name,
         imgurl:req.body.imgurl,
         lid:daid,
         date:req.body.date,
-        contnet: '纪念日',
-        voiceurl:'#',
+        content: req.body.content,
+        voiceurl:req.body.voiceurl,
         mood:Number(req.body.mood),
         setdate:req.body.setdate
     }
@@ -51,7 +49,7 @@ router.post('/lcsouvenir',async function(req,res,next){
             msg:data
         };
         console.log('增加纪念日后查看所有信息',await lover.loverImpDateM.findByPid(daid));
-        res.json(data);
+        res.json(info);
     }else{
         info={
             code:1,
@@ -79,11 +77,7 @@ router.get('/delSouvenir',async function(req,res,next){
             info ={code:0,msg:data};
         }
     }else{
-        if(data === 1){
-            info ={code:1,msg:null}
-        }else{
-            info ={code:1,msg:data};
-        }
+info={code:1,msg:"删除失败!"}
     }
     res.json(info);
 
