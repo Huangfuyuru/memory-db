@@ -17,10 +17,11 @@ const userM = require('./modules/userM');
 const reportM = require('./modules/reportM');
 const friendsM = require('./modules/friendsM');
 const articleM = require('./modules/articleM');
-const childScoreM = require('./modules/childScoreM')
+const childScoreM = require('./modules/childScoreM');
+const imgM = require('./modules/imgM')
 
 var data = {
     childAdolesceM,childDiaryM,childGrowM,childM,childPhotoListM,childPhotoM,childVoiceM,
-    listM,loveListM,loverDiaryM,loverImpDateM,loverM,loverPhotoListM,loverPhotoM,loverVoiceM,userM,reportM,friendsM,articleM,childScoreM
+    listM,loveListM,loverDiaryM,loverImpDateM,loverM,loverPhotoListM,loverPhotoM,loverVoiceM,userM,reportM,friendsM,articleM,childScoreM,imgM
 }
 module.exports = data;

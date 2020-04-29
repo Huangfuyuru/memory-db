@@ -100,23 +100,25 @@ async function findIdByPid(lid){
 /**
  *根据id修改重要日期
  传入要修改的重要日期id,以及要修改的内容
- 注意id类的都不能修改,所以text中可以没有id
- setdate类不用修改，所有text中可以没有setdate字段
+ 注意id类的都不能修改
  有些内容不需要修改，但是要传入原内容  看函数中的字段
  *
  * @param {int} id
  * @param {Object} text
  * @returns
  */
-async function changeById(id,text){
-    let sql = 'update loverImpDate set name=$1,content=$2,imgurl=$3,item=$4,date=$5,voiceurl=$6 setdate= $7 where id=$8'
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.setdate,id]);
+
+async function changeById(text){
+    let sql = 'update loverImpDate set name=$1,content=$2,imgurl=$3,item=$4,date=$5,voiceurl=$6,mood=$7,setdate=$8 where id=$9';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.mood,text.setdate,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return 0;
     }
+
 }
+
 
 
 /**

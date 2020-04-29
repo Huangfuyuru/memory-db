@@ -233,7 +233,28 @@ async function delById(id){
     }
 }
 
+/**
+ *根据文章id修改文章信息
+ 传入要修改的id ,以及要修改的内容
+ 注意id类的都不能修改
+ 有些内容不需要修改，但是要传入原内容  看函数中的字段
+ *
+ * @param {int} id
+ * @param {Object} text
+ * @returns
+ */
+
+async function changeById(text){
+    let sql = 'update article set name=$1,imgurl=$2,content=$3,tag=$4 where id=$5';
+    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.content,text.tag,text.id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+
+}
 var articleM = {
-    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addNumByUId,addZanumById,reduceZanumById
+    addarticle,findAll,delarticle,findById,findByUid,appendNumById,delById,findChildByUid,findLoverByUid,reduceNumById,reduceNumByUId,addNumByUId,addZanumById,reduceZanumById,changeById
 }
 module.exports = articleM

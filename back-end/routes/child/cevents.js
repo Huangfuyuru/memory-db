@@ -32,6 +32,7 @@ router.post('/ccevents',async function(req,res,next){
     var imgurl = req.body.imgurl;
     var content = req.body.content;
     var setdate = req.body.setdate;
+    var date = req.body.date;
     // console.log(item,imgurl)
     var data = await childAdolesceM.addChildAdolesce({
         item:item,
@@ -39,6 +40,7 @@ router.post('/ccevents',async function(req,res,next){
         content:content,
         cid:childsid,
         name:name,
+        date:date,
         setdate:setdate
     })
     if(data == 1){
@@ -63,5 +65,34 @@ router.get('/crevents',async function(req,res,next){
         res.json(data);
         
     }
+})
+
+//修改大事
+router.post('/change',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var item = req.body.item;
+    var name = req.body.name;
+    var imgurl = req.body.imgurl;
+    var content = req.body.content;
+    var setdate = req.body.setdate;
+    var date = req.body.date;
+    var id = req.body.id;
+    // console.log(item,imgurl)
+    var data = await childAdolesceM.changeById({
+        item:item,
+        imgurl:imgurl,
+        content:content,
+        name:name,
+        date:date,
+        setdate:setdate,
+        id:id
+    })
+    if(data == 1){
+        var message={code:1,msg:"修改失败",data:null};
+    }else{
+        var data1 = await childAdolesceM.findByCid(childsid);
+        var message={code:0,msg:"修改成功",data:data1};
+    }
+    res.json(message);
 })
 module.exports = router;

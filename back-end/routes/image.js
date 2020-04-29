@@ -9,25 +9,6 @@ router.use(bodyParser.json({limit:'50mb'}));
 router.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 router.use(bodyParser.text());
 
-router.post('/',async function(req,res){
-   var data = req.body.data;
-   var ok = await imgM.addImg({uri:data});
-  // console.log(ok);
-   if(ok == 0){
-     res.json({'data':'ok'})
-   }else{
-     res.json({'data':'no'})
-   }
-
-})
-router.get('/showimg/:name',async function(req,res){
-    var id = req.params.name;
-    var ok = await imgM.findById(Number(id));
-    if(ok !== 1){
-        res.json(ok);
-    }
-})
-module.exports = router
 /*
 router.get('/showimg/:name',function(req,res){
     var filename = req.params.name;
@@ -47,8 +28,6 @@ router.get('/showimg/:name',function(req,res){
 //    var message;
 //    var dataBuffer = Buffer.from(data,'base64');
 //    var des_file = "/home/shared_work/img/demo_copy.jpg";
-//    //console.log('data',data);
-//    //console.log('dataBuffer',dataBuffer);
 //    fs.writeFile(des_file,dataBuffer,function(err){
 //       if(err){
 //         console.log(err);
@@ -128,9 +107,9 @@ router.post('/', function (req, res) {
 //     })
 // });
 
-/*
+
 router.post('/',function(req,res){
-     console.log('hello')
+     console.log('req.body')
      /*
      var form = new formidable.IncomingForm();
      form.uploadDir = "/home/shared_work/img";
@@ -158,10 +137,11 @@ router.post('/',function(req,res){
      });
      
      res.write(JSON.stringify({url:'http'}))
+     */
      res.end();
      
  })
- */
+ module.exports = router
 // router.get('/showimg/:name',function(req,res){
 //     var filename = req.params.name;
 //     var ext = filename.split('.')[1];

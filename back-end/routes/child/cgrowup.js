@@ -85,4 +85,31 @@ router.get('/charts',async function(req,res,next){
     }
     res.json(message)
 })
+
+router.post('/change',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var length = req.body.length;
+    var weight = req.body.weight;
+    var age = req.body.age;
+    var unit = req.body.unit;
+    var setdate = req.body.setdate;
+    var id = req.body.id;
+    var data = await childGrowM.changeById({
+        weight:weight,
+        length:length,
+        age:age,
+        id:id,
+        unit:unit,
+        setdate:setdate
+    })
+    if(data == 1){
+        var message={code:1,msg:"修改失败",data:null};
+    }else{
+        var data1 = await childGrowM.findByCid(Number(childsid));
+        var message={code:0,msg:"修改成功",data:data1};
+    }
+    
+    res.json(message);
+    
+})
 module.exports = router;

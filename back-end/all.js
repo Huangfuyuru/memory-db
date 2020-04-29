@@ -4,11 +4,12 @@ const express = require('express'),
       resign =require('./routes/register'),  //注册
       child = require('./routes/child'),  //亲子
       lover = require('./routes/lover');   //爱人
-      img = require('./routes/img'),      //单张图片
+      img = require('./routes/img'),      //单张图片 使用数据库进行存储
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice'),  //语音
       my = require('./routes/my'), //我的
-      share = require('./routes/share');
+      share = require('./routes/share'),
+      image = require('./routes/image'); //单张图片,使用服务器进行存储
     
       
 app.all('*', function (req, res, next) {
@@ -29,6 +30,7 @@ app.use('/imgs',imgs);
 app.use('/voice',voice);
 app.use('/my',my);
 app.use('/share',share);
+app.use('/image',image);
 app.listen(3001);
 
 
