@@ -7,10 +7,10 @@ const pgdb = require('./connect');
  * @param {Object} text
  * @returns
  */
-async function addImg(uri){
+async function addImg(text){
     let sql = 'insert into img(uri) values ($1)';
-    let ret = await pgdb.query(sql,[uri]);
-    console.log('ret.rowCount',ret.rowCount);
+    let ret = await pgdb.query(sql,[text.uri]);
+    //`console.log('ret.rowCount',ret['_types']);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -34,7 +34,7 @@ async function findById(id){
     if(ret.rowCount<=0){
         return 1
     }else{
-        return ret.rows;
+        return ret.rows[0];
     }
 }
 

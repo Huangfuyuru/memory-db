@@ -9,9 +9,10 @@ router.use(bodyParser.json({limit:'50mb'}));
 router.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 router.use(bodyParser.text());
 
-router.post('/',function(req,res){
+router.post('/',async function(req,res){
    var data = req.body.data;
-   var ok = await imgM.addImg(data);
+   var ok = await imgM.addImg({uri:data});
+  // console.log(ok);
    if(ok == 0){
      res.json({'data':'ok'})
    }else{
@@ -19,7 +20,13 @@ router.post('/',function(req,res){
    }
 
 })
-
+router.get('/showimg/:name',async function(req,res){
+    var id = req.params.name;
+    var ok = await imgM.findById(Number(id));
+    if(ok !== 1){
+        res.json(ok);
+    }
+})
 module.exports = router
 /*
 router.get('/showimg/:name',function(req,res){
