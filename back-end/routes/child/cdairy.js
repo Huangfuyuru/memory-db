@@ -71,4 +71,32 @@ router.get('/crdairy',async function(req,res,next){
     }
     res.json(message)
 })
+
+//修改日记
+router.post('/change',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var id = req.body.id;
+    var backcolor = req.body.backcolor;
+    var content = req.body.content;
+    var imgurl = JSON.parse(req.body.imgurl);
+    var setdate = req.body.setdate;
+    var weather = req.body.weather;
+    var bgimg = req.body.bgimg;
+    var data = await childDiaryM.changeById({
+        backcolor:backcolor,
+        content:content,
+        imgurl:imgurl,
+        id:id,
+        setdate:setdate,
+        weather:weather,
+        bgimg:bgimg
+    });
+    if(data == 1){
+        var message = {code:1,msg:"修改失败",data:null}
+    }else{
+        var data1 = await childDiaryM.findByCid(childsid);
+        var message = {code:0,msg:"修改成功",data:data1}
+    }
+    res.json(message)
+})
 module.exports = router;
