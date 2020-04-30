@@ -9,6 +9,12 @@ router.use(bodyParser.json({limit:'50mb'}));
 router.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 router.use(bodyParser.text());
 
+router.post('/',function(req,res){
+    console.log('xxxx');
+    console.log(req.body);
+    res.end();
+})
+/*
 router.post('/',async function(req,res){
    var data = req.body.data;
    var ok = await imgM.addImg({uri:data});
@@ -20,6 +26,7 @@ router.post('/',async function(req,res){
    }
 
 })
+*/
 router.get('/showimg/:name',async function(req,res){
     var id = req.params.name;
     var ok = await imgM.findById(Number(id));
