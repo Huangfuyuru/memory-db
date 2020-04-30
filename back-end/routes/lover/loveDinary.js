@@ -34,7 +34,6 @@ router.post('/addDairy',async function(req,res,next){
     console.log('添加日记',req.body);
     var text ={
         lid:req.body.loverid,
-        name:req.body.name,
         content:req.body.content,
         imgurl:JSON.parse(req.body.imgurl),
         setdate:req.body.setdate,
