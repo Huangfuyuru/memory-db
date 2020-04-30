@@ -17,9 +17,9 @@ router.post('/',async function(req,res,next){
         content:content
     })
     if(result !== 1){
-        var message = {code:0,msg:"消息反馈成功"}
+        var message = {code:0,msg:"消息反馈成功",data:result}
     }else{
-        var message = {code:1,msg:"消息反馈失败"}
+        var message = {code:1,msg:"消息反馈失败",data:null}
     }
     res.json(message)
     

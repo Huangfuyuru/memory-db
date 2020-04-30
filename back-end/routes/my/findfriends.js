@@ -46,10 +46,10 @@ router.get('/addfriends',async function(req,res,next){
     var friend_id = req.body.friend_id;
     var result = await friendsM.addfriends({user_id:user_id,friend_id:friend_id});
     if(result == 0){
-        info = {code:0,msg:"添加成功"}
+        info = {code:0,msg:"添加成功",data:result}
         res.json(info)
     }else{
-        info = {code:1,msg:"添加失败"};
+        info = {code:1,msg:"添加失败",data:null};
         res.json(info)
     }
 })

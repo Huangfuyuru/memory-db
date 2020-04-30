@@ -10,9 +10,9 @@ var info = {}
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-//消息反馈
+//设置页面
 router.post('/',async function(req,res,next){
-    var imgurl = req.body.uimage;
+    // var imgurl = req.body.uimage;
     // var uimage = JSON.parse(req.body.uimage);
     var uname = req.body.uname;
     var pass = req.body.pass;
@@ -23,7 +23,6 @@ router.post('/',async function(req,res,next){
     console.log("uid",uid);
     var result = await userM.changeById(uid,{
         name:uname,
-        imgurl:imgurl,
         pass:pass,
         gender:gender
     })
