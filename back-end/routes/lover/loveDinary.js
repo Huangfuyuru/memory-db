@@ -32,8 +32,9 @@ router.get('/',async function(req,res,next){
 //增加日记
 router.post('/addDairy',async function(req,res,next){
     console.log('添加日记',req.body);
+    var id = req.body.loverid;
     var text ={
-        lid:req.body.loverid,
+        lid:id,
         content:req.body.content,
         imgurl:JSON.parse(req.body.imgurl),
         setdate:req.body.setdate,
@@ -73,16 +74,13 @@ router.get('/delDairy',async function(req,res,next){
 
     if(delDai === 0){
         if(data === 1){
-            info ={code:0,msg:null}
+            info ={code:0,msg:null,des:'删除成功，用户日记数为0'};
         }else{
-            info ={code:0,msg:data};
+            info ={code:0,msg:data,des:'删除成功'};
         }
     }else{
-        if(data === 1){
-            info ={code:1,msg:null}
-        }else{
-            info ={code:1,msg:data};
-        }
+        info ={code:1,msg:data,des:'删除失败'};
+        
     }
     res.json(info);
 
