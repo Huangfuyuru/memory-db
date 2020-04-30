@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverDiary(text){
-    let sql = 'insert into loverDiary(name,content,imgurl,setdate,lid) values ($1,$2,$3,$4,$5)';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.setdate,text.lid]);
+    let sql = 'insert into loverDiary(content,imgurl,setdate,weather,bgimg,backcolor,lid) values ($1,$2,$3,$4,$5,$6,$7)';
+    let ret = await pgdb.query(sql,[text.content,text.imgurl,text.setdate,text.weather,text.bgimg,text.backcolor,text.lid]);
     if(ret.rowCount<=0){
         return 1
     }else{
