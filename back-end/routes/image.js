@@ -109,6 +109,7 @@ router.post('/', function (req, res) {
 
 
 router.post('/',function(req,res){
+     console.log('hello');
      console.log('req.body')
      /*
      var form = new formidable.IncomingForm();
