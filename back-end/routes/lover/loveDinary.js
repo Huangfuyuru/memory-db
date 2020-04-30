@@ -32,13 +32,15 @@ router.get('/',async function(req,res,next){
 //增加日记
 router.post('/addDairy',async function(req,res,next){
     console.log('添加日记',req.body);
-    var id = req.body.loverid;
-    var imgs = req.body.imgurl.split(',');
     var text ={
-        lid:id,
+        lid:req.body.loverid,
         name:req.body.name,
         content:req.body.content,
-        imgurl:imgs
+        imgurl:JSON.parse(req.body.imgurl),
+        setdate:req.body.setdate,
+        weather:req.body.weather,
+        bgimg:req.body.bgimg,
+        backcolor:req.body.backcolor,
     }
     var addDairy = await lover.loverDiaryM.addLoverDiary(text);
     console.log('addDairy',addDairy);
@@ -52,7 +54,8 @@ router.post('/addDairy',async function(req,res,next){
     }else{
         info ={
             code :1,
-            msg:'增加日记失败'
+            msg:null,
+            des:'增加日记失败'
         };
         res.json(info);
     }
