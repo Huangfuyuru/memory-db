@@ -37,7 +37,7 @@ router.post('/email',async function(req,res,next){
             subject:'记得APP验证码',
             //收件人
             to:req.body.email,
-            text:'【记得】您当前正在注册记得验证码为: '+code
+            text:'【记得】验证码: '+code+',您当前正在注册记得,十分钟内有效，请勿泄露给他人。'
         }
         tcode = code;
         console.log('tcode',tcode)
@@ -56,19 +56,20 @@ router.post('/email',async function(req,res,next){
 
 //点击注册
 router.post('/message', async function(req,res,next){
-    var mail = req.body.email,
+    var name = req.body.name,
+        mail = req.body.email,
         confirm = req.body.confirm,//验证码
-        pwd = req.body.passwd,
         pass = req.body.pass;
 
     var result =await user.userM.findemail(mail);
     // console.log('result',result);
     if(result === 0){
         var now = (new Date()).getTime();
-        if(confirm == tcode && pwd === pass && now - time <=60000 ){
+        if(confirm == tcode && now - time <= 600000 ){
             var person={
                 email:mail,
-                pass:pwd
+                pass:pass,
+                name:name
             };
             var add = await user.userM.addUser(person);
             if(add === 0 ){
@@ -88,16 +89,11 @@ router.post('/message', async function(req,res,next){
                     code:2,
                     msg:"验证码已失效"
                 }
-            }else if(pass !== passwd){
-                info ={
-                    code:3,
-                    msg:"两次密码不一致"
-                }
             }
         }
     }else{
         info={
-            code:4,
+            code:3,
             msg:'该邮箱已注册过'    
         }
     }

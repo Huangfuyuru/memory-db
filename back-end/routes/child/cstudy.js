@@ -19,7 +19,6 @@ router.get('/',async function(req,res,next){
         res.json(null)
     }else{
         var len = data.length;
-        console.log(len);
         for(var i=0;i<len;i++){
             var arr = [];
             var sub = data[i].subject;
@@ -32,7 +31,6 @@ router.get('/',async function(req,res,next){
             delete data[i].score;
             data[i].cont = arr;
         }
-        console.log(data);
         res.json(data)
     }
     
@@ -52,12 +50,30 @@ router.post('/cchildScore',async function(req,res,next){
         setdate:setdate,
         cid:cid
     }
-    var a =await childScoreM.addchildScore({message});
-    if(a == 1){
-        res.json({msg:'添加失败',code:1})
+
+    
+    var data =await childScoreM.addchildScore({message});
+    if(data == 1){
+        var message={code:1,msg:"添加失败",data:null};
     }else{
-        res.json({msg:'添加成功',code:0})
+        var data1 = childScoreM.findBycid(cid);
+        var len = data1.length;
+        for(var i=0;i<len;i++){
+            var arr = [];
+            var sub = data1[i].subject;
+            var sco = data1[i].score;
+            var len2 = sub.length;
+            for(var j=0;j<len2;j++){
+                arr.push({subject:sub[j],score:sco[j]})
+            }
+            delete data1[i].subject;
+            delete data1[i].score;
+            data1[i].cont = arr;
+        }
+        var message={code:0,msg:"添加成功",data:data1};
     }
+    res.json(message);
+    
     
 })
 
@@ -68,6 +84,21 @@ router.get('/dchildScore',async function(req,res,next){
     var id = Number(request.id);
     var data2 = await childScoreM.delchildScore(id);
     var data1 = await childScoreM.findBycid(cid);
+
+    var len = data1.length;
+    for(var i=0;i<len;i++){
+        var arr = [];
+        var sub = data1[i].subject;
+        var sco = data1[i].score;
+        var len2 = sub.length;
+        for(var j=0;j<len2;j++){
+            arr.push({subject:sub[j],score:sco[j]})
+        }
+        delete data1[i].subject;
+        delete data1[i].score;
+        data1[i].cont = arr;
+    }
+    
     if(data2 == 1){
         var message = {
             data:data1,
@@ -80,6 +111,46 @@ router.get('/dchildScore',async function(req,res,next){
         }
     }
     res.json(message)
+})
+router.post('/change',async function(req,res,next){
+    var stage = req.body.stage,
+        subject = req.body.subject,
+        score = req.body.score,
+        setdate = req.body.setdate,
+        cid = req.body.cid;
+        id = req.body.id;
+    var message = {
+        stage:stage,
+        subject:subject,
+        score:score,
+        setdate:setdate,
+        id:id
+    }
+
+    
+    var data =await childScoreM.addchildScore({message});
+    if(data == 1){
+        var message={code:1,msg:"添加失败",data:null};
+    }else{
+        var data1 = childScoreM.findBycid(cid);
+        var len = data1.length;
+        for(var i=0;i<len;i++){
+            var arr = [];
+            var sub = data1[i].subject;
+            var sco = data1[i].score;
+            var len2 = sub.length;
+            for(var j=0;j<len2;j++){
+                arr.push({subject:sub[j],score:sco[j]})
+            }
+            delete data1[i].subject;
+            delete data1[i].score;
+            data1[i].cont = arr;
+        }
+        var message={code:0,msg:"添加成功",data:data1};
+    }
+    res.json(message);
+    
+    
 })
 
 module.exports = router;

@@ -11,7 +11,6 @@ router.use(bodyParser.json());
 
 //点击成长记录
 router.get('/',async function(req,res,next){
-    console.log('cgrowup');
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
@@ -30,25 +29,27 @@ router.post('/ccgrowup',async function(req,res,next){
     var weight = req.body.weight;
     var age = req.body.age;
     var unit = req.body.unit;
-    var message = {
-        msg:'',
-        data:[]
-    }
-    var a =await childGrowM.addChildGrow({
+    var setdate = req.body.setdate;
+    console.log('成长记录');
+    console.log(childsid);
+    
+    var data = await childGrowM.addChildGrow({
         weight:weight,
         length:length,
         age:age,
         cid:childsid,
-        unit:unit
-    });
-    if(a == 1){
-        message.msg = '添加失败';
+        unit:unit,
+        setdate:setdate
+    })
+    if(data == 1){
+        var message={code:1,msg:"添加失败",data:null};
     }else{
-        message.msg = '添加成功';
-        var data1 = await childGrowM.findByCid(childsid);
-        message.data = data1;
+        var data1 = await childGrowM.findByCid(Number(childsid));
+        var message={code:0,msg:"添加成功",data:data1};
     }
-    res.json(message)
+    
+    res.json(message);
+    
 })
 
 //删除成长记录
@@ -83,5 +84,32 @@ router.get('/charts',async function(req,res,next){
         var message = {data:data}
     }
     res.json(message)
+})
+
+router.post('/change',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var length = req.body.length;
+    var weight = req.body.weight;
+    var age = req.body.age;
+    var unit = req.body.unit;
+    var setdate = req.body.setdate;
+    var id = req.body.id;
+    var data = await childGrowM.changeById({
+        weight:weight,
+        length:length,
+        age:age,
+        id:id,
+        unit:unit,
+        setdate:setdate
+    })
+    if(data == 1){
+        var message={code:1,msg:"修改失败",data:null};
+    }else{
+        var data1 = await childGrowM.findByCid(Number(childsid));
+        var message={code:0,msg:"修改成功",data:data1};
+    }
+    
+    res.json(message);
+    
 })
 module.exports = router;

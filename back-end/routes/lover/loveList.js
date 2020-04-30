@@ -11,8 +11,17 @@ router.get('/',async function(req,res,next){
     console.log('点击清单',req.query);
     var lid = req.query.loverid;
     var data = await lover.loveListM.findByLid(lid);
+    var data1 = await lover.listM.findAll();
+    for (var i = 0;i<data.length;i++){
+        for(var j=0;j<data1.length;j++){
+            if(data[i].listid ==data1[j].id){
+                data[i].difficulty = data1[j].difficulty;
+                console.log("data1",data1[j])
+            }
+        }
+    }
     if(data === 1){
-        info={code:0,msg:[{id:'',name:'快来创建吧',content:'',imgurl:'#',local:'',setdate:'',listid:'',lid:lid}]};
+        info={code:0,msg:null};
     }else{
         info={code:0,msg:data};
     }
@@ -58,7 +67,7 @@ router.post('/addloverlist',async function(req,res,next){
         name:req.body.name,
         content:req.body.content,
         imgurl:req.body.imgurl,
-        local:req.bodylocal,
+        local:req.body.local,
         setdate:req.body.setdate,
         listid:listid,
         lid:lid

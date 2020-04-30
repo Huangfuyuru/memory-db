@@ -8,7 +8,7 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildDiary(text){
-    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid，bgimg,weather) values ($1,$2,$3,$4,$5,$6)';
+    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid,bgimg,weather) values ($1,$2,$3,$4,$5,$6,$7)';
     let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.cid,text.bgimg,text.weather]);
     if(ret.rowCount<=0){
         return 1
@@ -84,22 +84,23 @@ async function findById(id){
 /**
  *根据亲子日记id修改亲子日记信息
  传入要修改的id ,以及要修改的内容
- 注意id类的都不能修改,所以text中可以没有id
- setdate类不用修改，所有text中可以没有setdate字段
+ 注意id类的都不能修改
  有些内容不需要修改，但是要传入原内容  看函数中的字段
  *
  * @param {int} id
  * @param {Object} text
  * @returns
  */
-async function changeById(id,text){
-    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3,setdate=$4 where id = $4'
-    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,id]);
+
+async function changeById(text){
+    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3,setdate=$4,bgimg=$5,weather=$6 where id=$6';
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.bgimg,text.weather,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return 0;
     }
+
 }
 
 /**

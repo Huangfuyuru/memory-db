@@ -7,7 +7,7 @@ const pgdb = require('./connect');
  * @returns
  */
 async function findAll(){
-    let sql = 'select * from list';
+    let sql = 'select * from list order BY id';
     let ret = await pgdb.query(sql);
     if(ret.rowCount<=0){
         return 1
