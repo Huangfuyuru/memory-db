@@ -45,7 +45,8 @@ router.get('/list',async function(req,res,next){
             // console.log(data1[i].listid );
         }
     }
-    res.json(data);
+   info={data:data1,msg:data};
+    res.json(info);
     // console.log('data',data)
 
     // if(data === 1){
@@ -74,9 +75,21 @@ router.post('/addloverlist',async function(req,res,next){
     }
     
     var addlL = await lover.loveListM.addloveList(text);
-    // var data = await lover.loveListM.findByLid(lid);
+    var data = await lover.listM.findAll();
+    var data1 = await lover.loveListM.findByLid(lid);
+    var newdata =new Array(2);
+    newdata[0]=data;
+
+    newdata[1]=data1;
+    for(var i=0;i<data1.length;i++){
+        for(var j=0;j<data.length;j++){
+            data[j].id == data1[i].listid?data[j] = data1[i]: data[j] 
+            
+            // console.log(data1[i].listid );
+        }
+    }
     if(addlL=== 0 ){
-        info={code:0,msg:'增加成功'};
+        info={code:0,msg:data};
     }else{
         info={code:1,msg:'增加失败'};
     }
