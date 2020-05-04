@@ -39,9 +39,9 @@ async function findAll(){
  * @param {int} idC
  * @returns
  */
-async function delfriends(user_id,friend_id){
-    let sql = 'delete from friends where user_id = $1 and friend_id =$2';
-    let ret = await pgdb.query(sql,[user_id,friend_id]);
+async function delfriends(friend_id){
+    let sql = 'delete from friends where  friend_id =$1';
+    let ret = await pgdb.query(sql,[friend_id]);
     if(ret.rowCount<=0){
         return 1
     }else{

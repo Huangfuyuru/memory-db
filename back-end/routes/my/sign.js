@@ -24,10 +24,10 @@ router.post('/',async function(req,res,next){
 
     var result = await userM.changeNum(uid);
     if(result == 0){
-        info = {code:0,msg:"签到成功"}
+        info = {code:0,msg:"签到成功",data:result}
         res.json(info)
     }else{
-        info = {code:1,msg:"签到失败"};
+        info = {code:1,msg:"签到失败",data:null};
         res.json(info)
     }
 
