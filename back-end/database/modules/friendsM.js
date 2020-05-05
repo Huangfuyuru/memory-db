@@ -50,13 +50,29 @@ async function delfriends(friend_id){
 }
 
 /**
- *根据user_id找到所有 该用户的好友
+ *根据user_id找到所有 该用户关注的人
  *
  * @param {*} cid
  * @returns 所有成长的内容
  */
 async function findByUser(user_id){
     let sql = 'select * from friends where user_id = $1';
+    let ret = await pgdb.query(sql,[user_id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *根据user_id找到所有关注user_id的人
+ *
+ * @param {*} cid
+ * @returns 所有成长的内容
+ */
+async function findByPerson(user_id){
+    let sql = 'select user_id from friends where friend_id = $1';
     let ret = await pgdb.query(sql,[user_id]);
     if(ret.rowCount<=0){
         return 1
@@ -110,6 +126,6 @@ async function findByFriendIdInUser(id){
 }
 
 var friendsM = {
-    addfriends,findAll,delfriends,findByUser,findByUserEmail,findByFriendId,findByFriendIdInUser
+    addfriends,findAll,delfriends,findByUser,findByUserEmail,findByFriendId,findByFriendIdInUser,findByPerson
 }
 module.exports = friendsM
