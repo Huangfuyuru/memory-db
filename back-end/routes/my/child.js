@@ -38,7 +38,7 @@ router.post('/addchild',async function(req,res,next){
     if(data == 1){
         var message={code:1,msg:"添加失败",data:null};
     }else{
-        var data1 = await findIdByUid(uid);
+        var data1 = await childM.findIdByUid(uid);
         var message={code:0,msg:"添加成功",data:data1};
     }
     res.json(message);
@@ -69,7 +69,7 @@ router.get('/delchild',async function(req,res,next){
         }
         console.log(data)      
         if(data == 0){
-            var data1 = await findIdByUid(uid);
+            var data1 = await childM.findIdByUid(uid);
             var message = {code:0,msg:"删除成功",data:data1 };
         }else{
             var message = {code:0,msg:"删除失败",data:null};
