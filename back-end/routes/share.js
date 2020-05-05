@@ -14,7 +14,10 @@ router.use(bodyParser.json());
 const num = require('./share/num'),
       praise = require('./share/praise');
 
+//点击社区
 router.get('/',async function(req,res,next){
+    console.log('点击社区模块');
+    var uid = Number(req.query.uid);
     var data = await userM.articleM.findAll();
     if(data===1){
         var info={code:1,msg:null};

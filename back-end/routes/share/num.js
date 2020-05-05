@@ -26,9 +26,7 @@ router.get('/addnum', async function(req,res,next){
     if(user.num>0){
         console.log('uid',typeof(uid));
         var data = await article.articleM.reduceNumByUId(uid);
-        // console.log('data',data)
         var data1 = await article.articleM.appendNumById(auid,id);
-        // console.log(data1)
         if(data === 1 || data1 === 1){
             info={code:1,msg:null}
         }else{
