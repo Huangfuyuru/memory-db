@@ -78,3 +78,5 @@ router.get('/delchild',async function(req,res,next){
     }
     delChild(cid);
 })
+
+module.exports = router;

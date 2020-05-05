@@ -81,3 +81,5 @@ router.get('/delchild',async function(req,res,next){
     
     delLover(lid);
 })
+
+module.exports = router;
