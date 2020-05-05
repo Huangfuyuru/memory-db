@@ -26,9 +26,9 @@ router.get('/',async function(req,res,next){
 //增加孩子
 router.post('/addchild',async function(req,res,next){
     var name = req.body.name;
-    var birthday = req.body.imgurl;
+    var birthday = req.body.birthday;
     var gender = req.body.gender;
-    var uid = req.body.setdate;
+    var uid = req.body.uid;
     var data = await childM.addChild({
         name:name,
         birthday:birthday,

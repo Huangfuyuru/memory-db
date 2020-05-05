@@ -27,7 +27,7 @@ router.post('/addlover',async function(req,res,next){
     var name = req.body.name;
     var ldate = req.body.ldate;
     var gender = req.body.gender;
-    var uid = req.body.setdate;
+    var uid = req.body.uid;
     var data = await loverM.addLover({
         name:name,
         ldate:ldate,
