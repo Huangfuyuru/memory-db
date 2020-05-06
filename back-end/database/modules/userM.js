@@ -153,7 +153,18 @@ async function changeNum(id){
         return ret.rows[0]
     }
 }
+
+//更改头像
+async function changeImgById(id,imgurl){
+    let sql = 'update users set imgurl = $1 where id = $2';
+    let ret = await pgdb.query(sql,[imgurl,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0
+    }
+}
 var userM = {
-    login,findemail,addUser,delUser,findIdByemail,findemailById,findAll,changeById,findById,changeNum
+    login,findemail,addUser,delUser,findIdByemail,findemailById,findAll,changeById,findById,changeNum,changeImgById
 }
 module.exports = userM;
