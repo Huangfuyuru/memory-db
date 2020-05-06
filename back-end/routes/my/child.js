@@ -5,7 +5,7 @@ const express = require('express'),
       bodyParser = require("body-parser");
 
 //引入数据库      
-const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
+const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoM,childPhotoListM,childVoiceM,childScoreM} = require("../../database/dateMethod");
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
@@ -50,33 +50,34 @@ router.get('/delchild',async function(req,res,next){
     var uid = Number(request.uid);
     var cid = Number(request.cid);
     console.log(cid);
-    async function delChild(cid){
+    // async function delChild(cid){
         await childAdolesceM.delAllByCid(cid);
         await childGrowM.delAllByCid(cid);
         await childDiaryM.delAllByCid(cid);
         await childVoiceM.delAllByCid(cid);
+        await childScoreM.delAllBycid(cid);
         var childPhotoList = await childPhotoListM.findIdByCid(cid)
         if(childPhotoList == 1){
-            await childM.delChild(cid);
-            var data = await childM.findIdByUid(uid);
+            var data = await childM.delChild(cid);
+            // var data = await childM.findIdByUid(uid);
         }else{
             await Promise.all(childPhotoList.map(async function(item){
                 await childPhotoM.delChildPhoto(item.id);
             }))
             await childPhotoListM.delAllByCid(cid);
-            await childM.delChild(cid);
-            var data = await childM.findIdByUid(uid);
+            var data = await childM.delChild(cid);
+            // var data = await childM.findById(cid);
         }
         console.log(data)      
         if(data == 0){
             var data1 = await childM.findIdByUid(uid);
             var message = {code:0,msg:"删除成功",data:data1 };
         }else{
-            var message = {code:0,msg:"删除失败",data:null};
+            var message = {code:1,msg:"删除失败",data:null};
         }
         res.json(message)
-    }
-    delChild(cid);
+    // }
+    // delChild(cid);
 })
 
 module.exports = router;
