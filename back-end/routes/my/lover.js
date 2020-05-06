@@ -50,23 +50,27 @@ router.get('/delchild',async function(req,res,next){
     var lid = Number(request.loverid);
     console.log(lid);
     // async function delLover(lid){
-        await loveListM.delAllByLid(lid);
-        await loverDiaryM.delAllByLid(lid);
-        await loverVoiceM.delAllByLid(lid);
-        await loverImpDateM.delAllByLid(lid);
+        var loveList = await loveListM.delAllByLid(lid);
+        var loverDiary = await loverDiaryM.delAllByLid(lid);
+        var loverVoice = await loverVoiceM.delAllByLid(lid);
+        var loverImpDate = await loverImpDateM.delAllByLid(lid);
         var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
-        if(loverPhotoList == 1){
-            var data = await loverM.delLover(lid);
-            // var data = await loverM.findIdByUid(uid);
+        if(loveList==0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
+            if(loverPhotoList == 1){
+                var data = await loverM.delLover(lid);
+                // var data = await loverM.findIdByUid(uid);
+            }else{
+                await Promise.all(
+                    loverPhotoList.map(async function(item){
+                        await loverPhotoM.delAllByPid(item.id);
+                    })
+                )
+                await childPhotoList.delAllByLid(lid);
+                var data = await loverM.delLover(lid);
+                // var data = await loverM.findIdByUid(uid);
+            }
         }else{
-            await Promise.all(
-                loverPhotoList.map(async function(item){
-                    await loverPhotoM.delAllByPid(item.id);
-                })
-            )
-            await childPhotoList.delAllByLid(lid);
-            var data = await loverM.delLover(lid);
-            // var data = await loverM.findIdByUid(uid);
+            var message = {code :0 ,msg :'未进入',data:null};
         }
         console.log(data);
         if(data == 0){
