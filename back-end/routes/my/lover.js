@@ -49,15 +49,15 @@ router.get('/delchild',async function(req,res,next){
     var uid = Number(request.uid);
     var lid = Number(request.loverid);
     console.log(lid);
-    async function delLover(lid){
+    // async function delLover(lid){
         await loveListM.delAllByLid(lid);
         await loverDiaryM.delAllByLid(lid);
         await loverVoiceM.delAllByLid(lid);
         await loverImpDateM.delAllByLid(lid);
         var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
         if(loverPhotoList == 1){
-            await loverM.delLover(lid);
-            var data = await loverM.findIdByUid(uid);
+            var data = await loverM.delLover(lid);
+            // var data = await loverM.findIdByUid(uid);
         }else{
             await Promise.all(
                 loverPhotoList.map(async function(item){
@@ -65,8 +65,8 @@ router.get('/delchild',async function(req,res,next){
                 })
             )
             await childPhotoList.delAllByLid(lid);
-            await loverM.delLover(lid);
-            var data = await loverM.findIdByUid(uid);
+            var data = await loverM.delLover(lid);
+            // var data = await loverM.findIdByUid(uid);
         }
         console.log(data);
         if(data == 0){
@@ -77,9 +77,9 @@ router.get('/delchild',async function(req,res,next){
         }
         
         res.json(message)
-    }
+    // }
     
-    delLover(lid);
+    // delLover(lid);
 })
 
 module.exports = router;
