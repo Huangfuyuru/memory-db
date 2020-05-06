@@ -17,7 +17,8 @@ const maddchild = require('./my/addchild'),
       msign = require('./my/sign'),
       mlover = require('./my/lover'),
       mfriend = require('./my/friends'),
-      mchild = require('./my/child');
+      mchild = require('./my/child'),
+      mmypage = require('./my/mypage');
       
 
     //参照child.js 12/10
@@ -30,6 +31,7 @@ router.post('/',async function(req,res,next){
 
 })
 
+router.use('/mypage',mmypage);
 router.use('/sign',msign);
 router.use('/lover',mlover);
 router.use('/friends',mfriend);

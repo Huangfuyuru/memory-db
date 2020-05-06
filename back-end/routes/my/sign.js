@@ -18,7 +18,8 @@ router.get('/',async function(req,res,next){
     var uid = Number(request.uid);
     var result = await userM.changeNum(uid);
     if(result == 0){
-        var info = {code:0,msg:"签到成功",data:result}
+        var data1 = userM.findById(uid);
+        var info = {code:0,msg:"签到成功",data:data1}
     }else{
         var info = {code:1,msg:"签到失败",data:null};
     }
