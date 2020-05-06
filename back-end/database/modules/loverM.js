@@ -10,8 +10,8 @@ const pgdb = require('./connect');
 async function addLover(person){
     let ret;
     if(person.gender){
-        let sql = 'insert into lovers(name,ldate,gender,background,uid) values ($1,$2,$3,$4,$5)';
-        ret = await pgdb.query(sql,[person.name,person.ldate,person.gender,person.background,person.uid])
+        let sql = 'insert into lovers(name,ldate,gender,uid) values ($1,$2,$3,$4)';
+        ret = await pgdb.query(sql,[person.name,person.ldate,person.gender,person.uid])
     }else{
         let sql = 'insert into lovers(name,ldate,uid) values ($1,$2,$3)';
         ret = await pgdb.query(sql,[person.name,person.ldate,person.uid])

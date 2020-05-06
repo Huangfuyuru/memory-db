@@ -7,6 +7,7 @@ var img = require('./routes/img.js');
 var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var lover = require('./routes/lover');
+var my = require('./routes/my');
 var share = require('./routes/share');
 
 
@@ -25,6 +26,15 @@ app.all('*', function (req, res, next) {
 
 app.get('/resign/email',function(req,res,next){
     var html=fs.readFileSync('./testing-yxd/yangxindi.html').toString('utf8');
+    res.writeHead(200,{
+        'Content-Type':'text/html;charset=UTF8',
+        'Content-Length':'Buffer.byteLength(html)'
+    });
+    res.end(html);
+});
+
+app.get('/my',function(req,res,next){
+    var html=fs.readFileSync('./testing-yxd/my.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
         'Content-Length':'Buffer.byteLength(html)'
@@ -61,5 +71,7 @@ app.use('/voice',voice);
 app.use('/lover',lover);
 
 app.use('/share',share);
+
+app.use('/my',my);
 
 app.listen(3001);

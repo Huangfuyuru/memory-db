@@ -1,5 +1,7 @@
 const express = require('express'),
       router = express.Router(),
+      qs = require('querystring'),
+      url = require('url'),
       bodyParser = require("body-parser");
 //引入数据库
 const {friendsM} = require("../../database/dateMethod");

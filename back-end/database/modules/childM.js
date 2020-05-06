@@ -9,8 +9,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChild(person){
-    let sql = 'insert into childs(name,birthday,gender,background,uid) values ($1,$2,$3,$4,$5)';
-    let ret = await pgdb.query(sql,[person.name,person.birthday,person.gender,person.background,person.uid])
+    let sql = 'insert into childs(name,birthday,gender,uid) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[person.name,person.birthday,person.gender,person.uid])
     if(ret.rowCount<=0){
         return 1
     }else{

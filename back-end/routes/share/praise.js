@@ -37,7 +37,7 @@ router.post('/reducepraise', async function(req,res,next){
         info = {code:0,msg:"取消点赞成功",data:result}
         res.json(info)
     }else{
-        info = {code:1,msg:"取消点赞成功",data:null};
+        info = {code:1,msg:"取消点赞失败",data:null};
         res.json(info)
     }
 

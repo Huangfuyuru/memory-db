@@ -13,7 +13,12 @@ const maddchild = require('./my/addchild'),
       maddlover = require('./my/addlover'), 
       mdellover = require('./my/dellover'),
       mmessage = require('./my/message'),
-      minformation = require('./my/information');
+      minformation = require('./my/information'),
+      msign = require('./my/sign'),
+      mlover = require('./my/lover'),
+      mfriend = require('./my/friends'),
+      mchild = require('./my/child');
+      
 
     //参照child.js 12/10
 router.post('/',async function(req,res,next){
@@ -25,6 +30,10 @@ router.post('/',async function(req,res,next){
 
 })
 
+router.use('/sign',msign);
+router.use('/lover',mlover);
+router.use('/friends',mfriend);
+router.use('/child',mchild);
 router.use('/addchild',maddchild);
 router.use('/delchild',mdelchild);
 router.use('/addlover',maddlover);

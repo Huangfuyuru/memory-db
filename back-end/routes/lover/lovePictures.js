@@ -45,7 +45,8 @@ router.post('/lcpictures',async function(req,res,next){
         text={
             lid:lid,
             name:name,
-            background:req.body.background
+            background:req.body.background,
+            setdate:req.body.setdate
         }
     var addPList =  await lover.loverPhotoListM.addLoverPhotoList(text);
     var data = await lover.loverPhotoListM.findByLid(lid);
