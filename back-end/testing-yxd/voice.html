@@ -34,12 +34,12 @@
 };
 
   $("#browse-button").change(function() {
-    // console.log($("#browse-button").prop("files")[0])
+    console.log($("#browse-button").prop("files")[0])
       // loadAudio($("#browse-button").prop("files")[0]);
       var formData = new FormData();
 
       formData.append('uploadfile',$("#browse-button").prop("files")[0])
-
+      console.log(formData)
       var url ='http://localhost:3001/sound';
       fetch(url,{
         method:'POST',

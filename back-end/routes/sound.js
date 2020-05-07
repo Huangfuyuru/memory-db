@@ -1,5 +1,6 @@
 const express = require('express');
 const formidable = require('formidable');
+var multiparty = require('multiparty');
 const router = express.Router();
 const fs = require('fs');
 
@@ -7,9 +8,10 @@ router.post('/',function(req,res){
     console.log('sound');
     var form = new formidable.IncomingForm();
     form.parse(req,function(err,fields,files){
-        console.log('fields',fields);
+        // console.log('fields',fields);
         console.log('files',files);
     })
+
 
 })
 
