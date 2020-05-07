@@ -6,10 +6,11 @@ const fs = require('fs');
 
 router.post('/',function(req,res){
     console.log('sound');
+    console.log(req.body);
     var form = new formidable.IncomingForm();
     form.parse(req,function(err,fields,files){
         // console.log('fields',fields);
-        console.log('files',files);
+        // console.log('files',files);
     })
 
 
