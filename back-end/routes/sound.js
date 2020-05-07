@@ -1,6 +1,6 @@
 const express = require('express');
 const formidable = require('formidable');
-var multiparty = require('multiparty');
+
 const router = express.Router();
 const fs = require('fs');
 
