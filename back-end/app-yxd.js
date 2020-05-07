@@ -6,6 +6,7 @@ var register =require('./routes/register');
 var img = require('./routes/img.js');
 var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
+var sound = require('./routes/sound.js');
 var lover = require('./routes/lover');
 var my = require('./routes/my');
 var share = require('./routes/share');
@@ -42,8 +43,8 @@ app.get('/my',function(req,res,next){
     res.end(html);
 });
 
-app.get('/lover/loveList/list',function(req,res,next){
-    var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
+app.get('/sound',function(req,res,next){
+    var html=fs.readFileSync('./testing-yxd/voice.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
         'Content-Length':'Buffer.byteLength(html)'
@@ -66,7 +67,7 @@ app.use('/imgs',imgs)
 
 //音频上传
 app.use('/voice',voice);
-
+app.use('/sound',sound);
 //语音记事
 app.use('/lover',lover);
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form method='post' action='/my/addchild'>
+        <p>
+            <input id='name' name='name' placeholder='用户名'/>
+        </p>
+        <p>
+            <input id='date' type='date' name='birthday' placeholder='生日'/>
+        </p>
+        <p>
+            <input id='gender' type='text' name='gender' placeholder='性别'/>
+        </p>
+        <p>
+            <input id='id' type='number' name='uid' placeholder='id' />
+        </p>
+      
+        
+        <button type="submit">
+            立即注册
+        </button>
+        <li>注册即同意《用户协议》</li>
+    </form>
+</body>
+<script>
+    function getCode(){
+
+        var url = 'http://localhost:3001/my/addchild';
+        var name = document.getElementById('name'),
+        birthday = document.getElementById('birthday'),
+        gender  = document.getElementById('gender');
+        uid = document.getElementById('id')
+        fetch(url,{
+            method:'POST',
+            body:{name:name,
+                birthday:birthday,
+                gender:gender,
+                uid:uid
+            }
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log('res',res)
+        })
+
+        
+    }
+</script>
+</html>
