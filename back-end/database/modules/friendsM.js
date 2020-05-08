@@ -19,6 +19,21 @@ async function addfriends(user_id,friend_id){
 }
 
 /**
+ *
+ *根据user_id和friend_id删除该用户的这个好友
+ * @param {int} idC
+ * @returns
+ */
+async function delfriends(user_id,friend_id){
+    let sql = 'delete from friends where user_id =$1 and friend_id = $2';
+    let ret = await pgdb.query(sql,[user_id,friend_id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0
+    }
+}
+/**
  *查看friends中所有的数据
  *
  * @returns
@@ -33,21 +48,7 @@ async function findAll(){
     }
 }
 
-/**
- *
- *根据user_id和friend_id删除该用户的这个好友
- * @param {int} idC
- * @returns
- */
-async function delfriends(friend_id){
-    let sql = 'delete from friends where  friend_id =$1';
-    let ret = await pgdb.query(sql,[friend_id]);
-    if(ret.rowCount<=0){
-        return 1
-    }else{
-        return 0
-    }
-}
+
 
 /**
  *根据user_id找到所有 该用户关注的人
