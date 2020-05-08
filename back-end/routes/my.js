@@ -25,7 +25,7 @@ const maddchild = require('./my/addchild'),
 router.post('/',async function(req,res,next){
     var uid = Number(req.body.uid);
     var data = await userM.findById(uid);
-    console.log("亲子的信息",data);
+    console.log("我的信息",data);
     res.json(data);
 
 
