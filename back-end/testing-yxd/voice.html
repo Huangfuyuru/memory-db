@@ -13,18 +13,22 @@
     </head>
      
    <body>
-    <div class="waves-effect waves-light btn" id="browse-container">
+     <!-- 把文件存入内存中预听 -->
       <span>Browse files</span>
-      <input type="file" id="browse-button" accept="audio/*">
-    </div>
-    <div>
+      <form id = 'form1'>
+
+        <input type="file" id="browse-button" accept="audio/*">
+      </form>
+    <div class="card uf-card">
       <span>source audio</span>
       <audio id="img-card"  controls></audio><br>
     </div>
-   </body>
+  
+
 </html>
 
 <script>
+
  loadAudio = function(file) {
   var reader = new FileReader();
   reader.onload = function(event) {
@@ -33,21 +37,42 @@
   reader.readAsDataURL(file);
 };
 
-  $("#browse-button").change(function() {
-    console.log($("#browse-button").prop("files")[0])
-      // loadAudio($("#browse-button").prop("files")[0]);
-      var formData = new FormData();
 
-      formData.append('uploadfile',$("#browse-button").prop("files")[0])
-      console.log(formData)
+  $("#browse-button").change(function() {
+    //console.log($("#browse-button").prop("files")[0])
+    loadAudio($("#browse-button").prop("files")[0]);
+    var from1 = $('#from1');
+      var data=$("#browse-button").prop("files")[0];
+      
+      var formData = new FormData(form1);
+      // 第一个是字段name，第二个参数是二进制的文件本体，第三个参数是filename
+      formData.append('uploadfile',data, data.name)
+      console.log('upload',formData.get('uploadfile'))
       var url ='http://localhost:3001/sound';
-      fetch(url,{
-        method:'POST',
-        headers: {'Content-Type': 'multipart/form-data'},
-        body:formData
-      }).then(res=>res.json())
-      .then(res=>{
-        console.log(res)
-      })
+      // fetch(url,{
+      //   method:'POST',
+      //   headers: {'Content-Type': 'multipart/form-data'},
+      //   body:formData,
+      //   dataType: 'JSON',
+      // }).then(res=>res.json())
+      // .then(res=>{
+      //   console.log(res)
+      // })
     });
+
+    // $('#upload-button').click(function() {
+    //   var url ='http://localhost:3001/sound';
+
+    //   fetch(url,{
+    //     method:'POST',
+    //     body:{
+    //       'image64':$('#img-card').attr('src')
+    //     },
+    //     dataType:'text'
+    //   }).then(res=>res.json())
+    //   .then(res=>{
+    //     console.log(res)
+    //   })
+    // })
+
 </script>

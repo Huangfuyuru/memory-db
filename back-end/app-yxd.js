@@ -44,7 +44,7 @@ app.get('/my',function(req,res,next){
 });
 
 app.get('/sound',function(req,res,next){
-    var html=fs.readFileSync('./testing-yxd/voice.html').toString('utf8');
+    var html=fs.readFileSync('./testing-yxd/sound.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
         'Content-Length':'Buffer.byteLength(html)'
