@@ -48,7 +48,7 @@ router.post('/addchild',async function(req,res,next){
 router.get('/delchild',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
-    var cid = Number(request.cid);
+    var cid = Number(request.childsid);
     console.log(cid);
     // async function delChild(cid){
         // var childAdolesce = await childAdolesceM.delAllByCid(cid);
