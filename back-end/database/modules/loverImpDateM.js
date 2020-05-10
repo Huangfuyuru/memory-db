@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverImpDate(text){
-    let sql = 'insert into loverImpDate(name,content,imgurl,item,date,voiceurl,lid,mood,setdate) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.lid,text.mood,text.setdate]);
+    let sql = 'insert into loverImpDate(name,content,imgurl,date,voiceurl,lid,mood,setdate) values ($1,$2,$3,$4,$5,$6,$7,$8)';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.date,text.voiceurl,text.lid,text.mood,text.setdate]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -109,8 +109,8 @@ async function findIdByPid(lid){
  */
 
 async function changeById(text){
-    let sql = 'update loverImpDate set name=$1,content=$2,imgurl=$3,item=$4,date=$5,voiceurl=$6,mood=$7,setdate=$8 where id=$9';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.item,text.date,text.voiceurl,text.mood,text.setdate,text.id]);
+    let sql = 'update loverImpDate set name=$1,content=$2,imgurl=$3,date=$4,voiceurl=$5,mood=$6,setdate=$7 where lid=$8';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.date,text.voiceurl,text.mood,text.setdate,text.lid]);
     if(ret.rowCount<=0){
         return 1
     }else{

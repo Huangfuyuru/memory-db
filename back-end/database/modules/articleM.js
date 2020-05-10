@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addarticle(text){
-    let sql = 'insert into article(name,imgurl,content,tag,num,style,uid,zannum) VALUES($1,$2,$3,$4,$5,$6,$7,$8);';
-    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.content,text.tag,text.num,text.style,text.uid,text.zannum]);
+    let sql = 'insert into article(name,imgurl,content,tag,style,uid) VALUES($1,$2,$3,$4,$5,$6);';
+    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.content,text.tag,text.style,text.uid]);
     if(ret.rowCount<=0){
         return 1
     }else{

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="files">
+    <button id="btn">上传</button>
+</body>
+<script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script>
+     $("#btn").click(function () {
+        var pic=$("#files")[0].files[0];
+        var formdata=new FormData();
+        formdata.append("thumbnail",pic);
+        console.log(formdata);
+       
+        $.ajax({
+            url:"/sound",
+            type:"POST",
+            data:formdata,
+            processData:false,
+            contentType:false,
+            success:function (data) {
+                console.log("返回的数据: " + data );
+            }
+        })
+
+         // fetch('http://localhost/sound',{
+        //     method:'POST',
+        //     headers: {
+        //             'Content-Type': 'application/json',
+        //             'Content-Encoding': 'identity'
+        //         },
+                
+        //         body:JSON.stringify(formdata),
+        // }).then(console.log('成功'))
+    });
+</script>
+</html>
