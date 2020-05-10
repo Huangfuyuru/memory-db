@@ -86,17 +86,18 @@ info={code:1,msg:"删除失败!"}
 //修改纪念日
 router.post('/modsouvenir',async function(req,res,next){
     console.log('修改纪念日');
-    console.log(req.body);
+    // console.log(req.body);
     var daid = Number(req.body.loverid);
+    var id = Number(req.body.id);
     var text ={
         name:req.body.name,
         imgurl:req.body.imgurl,
-        lid:daid,
+        id:id,
         date:req.body.date,
+        setdate:req.body.setdate,
         content: req.body.content,
         voiceurl:req.body.voiceurl,
-        mood:Number(req.body.mood),
-        setdate:req.body.setdate
+        mood:Number(req.body.mood)
     }
     var modsou = await lover.loverImpDateM.changeById(text);
     // console.log(addsou);

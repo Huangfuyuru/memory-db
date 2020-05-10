@@ -101,18 +101,18 @@ router.get('/listdetail',async function(req,res,next){
 //修改爱人清单
 router.post('/modloverlist',async function(req,res,next){
     console.log('修改爱人清单',req.body);
-    var lid = Number(req.body.lid);
+    var lid = Number(req.body.loverid);
     var text={
         name:req.body.name,
         content:req.body.content,
         imgurl:req.body.imgurl,
         local:req.body.local,
         setdate:req.body.setdate,
-        lid:lid
+        id:req.body.id
     }
     
     var addlL = await lover.loveListM.changeById(text);
-    // var data = await lover.listM.findAll();
+    var data = await lover.listM.findAll();
     var data1 = await lover.loveListM.findByLid(lid);
     var newdata =new Array(2);
     newdata[0]=data;
@@ -126,9 +126,9 @@ router.post('/modloverlist',async function(req,res,next){
         }
     }
     if(addlL=== 0 ){
-        info={code:0,msg:data};
+        info={code:0,msg:'修改成功',data:data};
     }else{
-        info={code:1,msg:'增加失败'};
+        info={code:1,msg:'修改失败',data:null};
     }
     res.json(info);
     

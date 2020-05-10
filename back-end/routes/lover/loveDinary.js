@@ -89,9 +89,10 @@ router.get('/delDairy',async function(req,res,next){
 //修改日记
 router.post('/moddairy',async function(req,res,next){
     console.log('修改日记',req.body);
-    var id = req.body.loverid;
+    var lid = req.body.loverid;
     var text ={
-        lid:id,
+        lid:lid,
+        id:req.body.id,
         content:req.body.content,
         imgurl:JSON.parse(req.body.imgurl),
         setdate:req.body.setdate,
@@ -102,7 +103,7 @@ router.post('/moddairy',async function(req,res,next){
     var modDairy = await lover.loverDiaryM.changeById(text);
     // console.log('addDairy',addDairy);
     if(modDairy ===0){
-        var data =await lover.loverDiaryM.findByLid(id);
+        var data =await lover.loverDiaryM.findByLid(lid);
         info = {
             code:0,
             msg:'修改成功',
