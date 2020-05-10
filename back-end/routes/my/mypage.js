@@ -44,6 +44,8 @@ router.get('/focus',async function(req,res,next){
     res.json(message);
 })
 
+
+
 //粉丝
 router.get('/fans',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
