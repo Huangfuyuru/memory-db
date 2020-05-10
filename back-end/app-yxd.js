@@ -8,7 +8,7 @@ var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var sound = require('./routes/sound.js');
 var lover = require('./routes/lover');
-var child = require('./routes/child'),  //亲子
+var child = require('./routes/child'); //亲子
 var my = require('./routes/my');
 var share = require('./routes/share');
 
