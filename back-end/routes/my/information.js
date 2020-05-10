@@ -38,15 +38,16 @@ router.post('/',async function(req,res,next){
 })
 
 router.get('/password',async function(req,res,next){
-    var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(request.uid);
+    // var request = qs.parse(url.parse(req.url).query);
+    var uid = Number(req.query.uid);
     var data = await userM.findById(uid);
-    console.log(data)
+    console.log(data);
     if(data == 1){
-        res.json(null)
+        var message = {code:1,msg:"传达密码失败",data:null}
     }else{
-        res.json(data);
+        var message = {code:0,msg:"传达密码成功",data:data}
     }
+    res.json(message);
 })
 
 
