@@ -1,5 +1,6 @@
 const express = require('express'),
       router = express.Router(),
+      qs = require('querystring'),
       url = require('url'),
       bodyParser = require("body-parser");
 //引入数据库
@@ -35,6 +36,19 @@ router.post('/',async function(req,res,next){
     }
     res.json(message);
 })
+
+router.get('/password',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var uid = Number(request.uid);
+    var data = await userM.findById(uid);
+    console.log(data)
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+    }
+})
+
 
 
 module.exports = router;
