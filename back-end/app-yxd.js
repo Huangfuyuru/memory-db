@@ -8,6 +8,7 @@ var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var sound = require('./routes/sound.js');
 var lover = require('./routes/lover');
+var child = require('./routes/child'),  //亲子
 var my = require('./routes/my');
 var share = require('./routes/share');
 
@@ -70,9 +71,9 @@ app.use('/voice',voice);
 app.use('/sound',sound);
 //语音记事
 app.use('/lover',lover);
-
+app.use('/child',child);
 app.use('/share',share);
 
 app.use('/my',my);
 
-app.listen(3001);
+app.listen(3002);

@@ -83,6 +83,40 @@ info={code:1,msg:"删除失败!"}
 
     
 })
+//修改纪念日
+router.post('/modsouvenir',async function(req,res,next){
+    console.log('修改纪念日');
+    console.log(req.body);
+    var daid = Number(req.body.loverid);
+    var text ={
+        name:req.body.name,
+        imgurl:req.body.imgurl,
+        lid:daid,
+        date:req.body.date,
+        content: req.body.content,
+        voiceurl:req.body.voiceurl,
+        mood:Number(req.body.mood),
+        setdate:req.body.setdate
+    }
+    var modsou = await lover.loverImpDateM.changeById(text);
+    // console.log(addsou);
+    if(modsou ===0){
+        var data = await lover.loverImpDateM.findByPid(daid);
+        info ={
+            code:0,
+            msg:'修改纪念日成功',
+            data:data
+        };
+        // console.log('增加纪念日后查看所有信息',await lover.loverImpDateM.findByPid(daid));
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'修改纪念日失败',
+            data:null
+        }
+        res.json(info);
 
-
+    }
+});
 module.exports = router;

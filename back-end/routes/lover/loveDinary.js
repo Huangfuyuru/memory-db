@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router(),
     bodyParser = require('body-parser'),
     qs = require('querystring'),
-      url = require('url'),
+    url = require('url'),
     lover = require('../../database/dateMethod');
 var info ={};//返回给前端的数据
 
@@ -40,7 +40,7 @@ router.post('/addDairy',async function(req,res,next){
         setdate:req.body.setdate,
         weather:req.body.weather,
         bgimg:req.body.bgimg,
-        backcolor:req.body.backcolor,
+        backcolor:req.body.backcolor
     }
     var addDairy = await lover.loverDiaryM.addLoverDiary(text);
     console.log('addDairy',addDairy);
@@ -84,6 +84,39 @@ router.get('/delDairy',async function(req,res,next){
     }
     res.json(info);
 
+})
+
+//修改日记
+router.post('/moddairy',async function(req,res,next){
+    console.log('修改日记',req.body);
+    var id = req.body.loverid;
+    var text ={
+        lid:id,
+        content:req.body.content,
+        imgurl:JSON.parse(req.body.imgurl),
+        setdate:req.body.setdate,
+        weather:req.body.weather,
+        bgimg:req.body.bgimg,
+        backcolor:req.body.backcolor
+    }
+    var modDairy = await lover.loverDiaryM.changeById(text);
+    // console.log('addDairy',addDairy);
+    if(modDairy ===0){
+        var data =await lover.loverDiaryM.findByLid(id);
+        info = {
+            code:0,
+            msg:'修改成功',
+            data:data
+        };
+        res.json(info);
+    }else{
+        info ={
+            code :1,
+            msg:'修改日记失败',
+            data:null
+        };
+        res.json(info);
+    }
 })
 
 module.exports = router;
