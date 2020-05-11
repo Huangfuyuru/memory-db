@@ -12,7 +12,10 @@ router.use(bodyParser.json());
 
 // 路由：/share/article
 //添加文章
-router.post('addarticle',async function(req,res,next){
+router.get('/add',async function(req,res,next){
+    console.log('111')
+})
+router.post('/addarticle',async function(req,res,next){
         console.log('添加文章',req.body);
         var uid = req.body.uid,
         content = req.body.content,
