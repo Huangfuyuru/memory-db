@@ -12,16 +12,13 @@ router.use(bodyParser.json());
 
 // 路由：/share/article
 //添加文章
-router.get('/add',async function(req,res,next){
-    console.log('111')
-})
 router.post('/addarticle',async function(req,res,next){
         console.log('添加文章',req.body);
         var uid = req.body.uid,
         content = req.body.content,
         tag = req.body.tag,
         style = req.body.style,
-        imgurl = JSON.parse(req.body.imgurl);
+        imgurl = req.body.imgurl;
         var text={
             imgurl:imgurl,
             tag:tag,
@@ -29,7 +26,7 @@ router.post('/addarticle',async function(req,res,next){
             style:style,
             uid:uid
         }
-        var add = await  method.articleM.addarticle(text);
+        var add = await method.articleM.addarticle(text);
         var data = await method.articleM.findByUid(uid);
         if(add == 1){
             var message = {code:1,msg:"添加失败",data:null};
