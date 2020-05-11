@@ -21,14 +21,39 @@ const article = require('./share/article'),
 //点击社区
 router.get('/',async function(req,res,next){
     console.log('点击社区模块');
-    var data = await method.articleM.findAll();
+    var request =  qs.parse(url.parse(req.url).query);
+    var uid = JSON.parse(request.uid);
     var article = new Array();
+    var like = await method.friendsM.findByUser(uid);
+    var data = await method.articleM.findAll();
     for(var i=0;i<data.length;i++){
-        if(data[i].tag == true){
-            console.log(i)
-            var infor = await method.userM.findById(data[i].uid);
+        for(var j=0;j<like.length;j++){
+           var fid =  like[j].friend_id
+            //关注人的文章
+           if(fid == data[i].uid && data[i].tag == true){
+            //    console.log(data[i].uid)
+            var infor = await method.userM.findById(fid);
+            data[i].uname = infor.name;
+            data[i].pic = infor.imgurl;
+            data[i].like = true;
+            article.push(data[i]);
+           }
+           //未关注人的文章
+           if(fid != data[i].uid && data[i].tag == true){
+            //    console.log(data[i].uid)
+            var infor = await method.userM.findById(fid);
+            data[i].uname = infor.name;
+            data[i].pic = infor.imgurl;
+            data[i].like = false;
+            article.push(data[i]);
+           }
+        }
+
+        if(data[i].uid === uid && data[i].tag ===true){
+            var infor = await method.userM.findById(fid);
             data[i].uname = infor.name,
-            data[i].pic = infor.imgurl
+            data[i].pic = infor.imgurl,
+            data[i].like = true;
             article.push(data[i]);
         }
     }
