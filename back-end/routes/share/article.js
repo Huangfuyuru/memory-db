@@ -13,14 +13,12 @@ router.use(bodyParser.json());
 // 路由：/share/article
 //添加文章
 router.post('addarticle',async function(req,res,next){
-        var name = req.body.name,
-        imgurl = JSON.parse(req.body.imgurl),
+        var imgurl = JSON.parse(req.body.imgurl),
         content = req.body.content,
         tag = req.body.tag,
         style = req.body.style,
         uid = JSON.parse(req.body.uid);
         var add = await  method.articleM.addarticle({
-            name:name,
             imgurl:imgurl,
             tag:tag,
             content:content,
@@ -28,7 +26,7 @@ router.post('addarticle',async function(req,res,next){
             uid:uid
         });
         var data = await method.articleM.findByUid(uid);
-        if(data == 1){
+        if(add == 1){
             var message = {code:1,msg:"添加失败",data:null};
         }else{
             var message = {code:0,msg:"添加成功",data:data}
