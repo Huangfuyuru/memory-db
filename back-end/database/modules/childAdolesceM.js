@@ -8,10 +8,9 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildAdolesce(text){
-    var img = text.imgurl.split(',');
-    var item = text.item.split(',')
+    var item = text.item.split(',');
     let sql = 'insert into childAdolesce(item,imgurl,content,cid,name,setdate,date) values ($1,$2,$3,$4,$5,$6,$7)';
-    let ret = await pgdb.query(sql,[item,img,text.content,text.cid,text.name,text.setdate,text.date]);
+    let ret = await pgdb.query(sql,[item,text.imgurl,text.content,text.cid,text.name,text.setdate,text.date]);
     if(ret.rowCount<=0){
         return 1
     }else{

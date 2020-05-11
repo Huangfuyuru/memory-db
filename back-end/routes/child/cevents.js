@@ -29,11 +29,11 @@ router.post('/ccevents',async function(req,res,next){
     var childsid = req.body.childsid;
     var item = req.body.item;
     var name = req.body.name;
-    var imgurl = req.body.imgurl;
+    var imgurl = JSON.parse(req.body.imgurl);
     var content = req.body.content;
     var setdate = req.body.setdate;
     var date = req.body.date;
-    // console.log(item,imgurl)
+     console.log('imgurl',imgurl)
     var data = await childAdolesceM.addChildAdolesce({
         item:item,
         imgurl:imgurl,
