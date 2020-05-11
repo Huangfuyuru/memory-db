@@ -35,8 +35,8 @@ app.get('/resign/email',function(req,res,next){
     res.end(html);
 });
 
-app.get('/my',function(req,res,next){
-    var html=fs.readFileSync('./testing-yxd/my.html').toString('utf8');
+app.get('/article',function(req,res,next){
+    var html=fs.readFileSync('./testing-yxd/article.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
         'Content-Length':'Buffer.byteLength(html)'
@@ -76,4 +76,4 @@ app.use('/share',share);
 
 app.use('/my',my);
 
-app.listen(3002);
+app.listen(3001);
