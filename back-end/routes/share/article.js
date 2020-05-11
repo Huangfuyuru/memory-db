@@ -13,11 +13,12 @@ router.use(bodyParser.json());
 // 路由：/share/article
 //添加文章
 router.post('addarticle',async function(req,res,next){
+        console.log(req.body);
         var imgurl = JSON.parse(req.body.imgurl),
         content = req.body.content,
         tag = req.body.tag,
         style = req.body.style,
-        uid = JSON.parse(req.body.uid);
+        uid = req.body.uid;
         var add = await  method.articleM.addarticle({
             imgurl:imgurl,
             tag:tag,
@@ -56,6 +57,10 @@ router.get('/delarticle',async function(req,res,next){
     }
     res.json(message);
 })
+
+//修改文章内容
+
+
 //添加关注之后不可再次出发
 //添加关注
 router.get('/interest', async function(req,res,next){
