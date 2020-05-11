@@ -18,7 +18,7 @@ router.post('/addarticle',async function(req,res,next){
         content = req.body.content,
         tag = req.body.tag,
         style = req.body.style,
-        imgurl = req.body.imgurl;
+        imgurl = JSON.parse(req.body.imgurl);
         var text={
             imgurl:imgurl,
             tag:tag,
