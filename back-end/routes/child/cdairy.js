@@ -74,6 +74,7 @@ router.get('/crdairy',async function(req,res,next){
 
 //修改日记
 router.post('/change',async function(req,res,next){
+    console.log('修改日记')
     var childsid = req.body.childsid;
     var id = req.body.id;
     var backcolor = req.body.backcolor;
@@ -97,6 +98,7 @@ router.post('/change',async function(req,res,next){
         var data1 = await childDiaryM.findByCid(childsid);
         var message = {code:0,msg:"修改成功",data:data1}
     }
+    console.log('message',message)
     res.json(message)
 })
 module.exports = router;

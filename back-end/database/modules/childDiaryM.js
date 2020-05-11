@@ -93,7 +93,7 @@ async function findById(id){
  */
 
 async function changeById(text){
-    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3,setdate=$4,bgimg=$5,weather=$6 where id=$6';
+    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3,setdate=$4,bgimg=$5,weather=$6 where id=$7';
     let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.bgimg,text.weather,text.id]);
     if(ret.rowCount<=0){
         return 1
