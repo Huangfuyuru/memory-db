@@ -22,13 +22,14 @@ router.post('/addarticle',async function(req,res,next){
         tag = req.body.tag,
         style = req.body.style,
         imgurl = JSON.parse(req.body.imgurl);
-        var add = await  method.articleM.addarticle({
+        var text={
             imgurl:imgurl,
             tag:tag,
             content:content,
             style:style,
             uid:uid
-        });
+        }
+        var add = await  method.articleM.addarticle(text);
         var data = await method.articleM.findByUid(uid);
         if(add == 1){
             var message = {code:1,msg:"添加失败",data:null};
