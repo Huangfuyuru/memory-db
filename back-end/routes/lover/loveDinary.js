@@ -91,7 +91,6 @@ router.post('/moddairy',async function(req,res,next){
     console.log('修改日记',req.body);
     var lid = req.body.loverid;
     var text ={
-        lid:lid,
         id:req.body.id,
         content:req.body.content,
         imgurl:JSON.parse(req.body.imgurl),
