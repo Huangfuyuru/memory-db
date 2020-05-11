@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 // 路由：/share/article
 //添加文章
 router.post('addarticle',async function(req,res,next){
-        console.log(req.body);
+        console.log('添加文章',req.body);
         var imgurl = JSON.parse(req.body.imgurl),
         content = req.body.content,
         tag = req.body.tag,
