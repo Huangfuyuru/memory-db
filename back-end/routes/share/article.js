@@ -14,11 +14,11 @@ router.use(bodyParser.json());
 //添加文章
 router.post('addarticle',async function(req,res,next){
         console.log('添加文章',req.body);
-        var imgurl = JSON.parse(req.body.imgurl),
+        var uid = req.body.uid,
         content = req.body.content,
         tag = req.body.tag,
         style = req.body.style,
-        uid = req.body.uid;
+        imgurl = JSON.parse(req.body.imgurl);
         var add = await  method.articleM.addarticle({
             imgurl:imgurl,
             tag:tag,
