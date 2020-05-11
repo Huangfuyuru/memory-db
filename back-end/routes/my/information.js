@@ -16,16 +16,15 @@ router.post('/',async function(req,res,next){
     // var uimage = JSON.parse(req.body.uimage);
     var uname = req.body.uname;
     var pass = req.body.pass;
-    var uid = req.body.uid;
     var gender = req.body.gender;
-    var id = req.body.id;
+    var uid = req.body.uid;
     console.log(id);
     console.log("uid",uid);
-    var result = await userM.changeById(uid,{
+    var result = await userM.changeById({
         name:uname,
         pass:pass,
         gender:gender
-    })
+    },uid)
     console.log(result);
     if(result === 0){
         //修改用户成功后需要给前端返回userM的修改后的信息

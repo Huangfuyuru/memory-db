@@ -44,7 +44,7 @@ router.post('/addlover',async function(req,res,next){
 })
 
 //删除爱人
-router.get('/delchild',async function(req,res,next){
+router.get('/dellover',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
     var lid = Number(request.loverid);
@@ -58,7 +58,6 @@ router.get('/delchild',async function(req,res,next){
         if(loveList==0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
             if(loverPhotoList == 1){
                 var data = await loverM.delLover(lid);
-                // var data = await loverM.findIdByUid(uid);
             }else{
                 await Promise.all(
                     loverPhotoList.map(async function(item){
@@ -67,7 +66,6 @@ router.get('/delchild',async function(req,res,next){
                 )
                 await childPhotoList.delAllByLid(lid);
                 var data = await loverM.delLover(lid);
-                // var data = await loverM.findIdByUid(uid);
             }
         }else{
             var message = {code :0 ,msg :'未进入',data:null};
@@ -81,9 +79,6 @@ router.get('/delchild',async function(req,res,next){
         }
         
         res.json(message)
-    // }
-    
-    // delLover(lid);
 })
 
 module.exports = router;
