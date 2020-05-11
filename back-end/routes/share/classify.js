@@ -40,13 +40,13 @@ router.get('/interest',async function(req,res,next){
     }
     if(data===1){
         if(like ===1){
-            var info = {code:1,msg:'你还没有关注的人哦',data:null}
+            var info = {code:1,msg:'你还没有关注的人哦',data:article}
         }else{
             var info={code:1,msg:'请求失败',data:null};
         }
     }else{
         if(like ===1){
-            var info = {code:1,msg:'你还没有关注的人哦',data:null}
+            var info = {code:1,msg:'你还没有关注的人哦',data:article}
 
         }else{
             var info = {code:0,msg:'请求成功',data:article};
