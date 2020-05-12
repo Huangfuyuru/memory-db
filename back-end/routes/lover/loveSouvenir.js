@@ -48,7 +48,7 @@ router.post('/lcsouvenir',async function(req,res,next){
             code:0,
             msg:data
         };
-        console.log('增加纪念日后查看所有信息',await lover.loverImpDateM.findByPid(daid));
+        //console.log('增加纪念日后查看所有信息',await lover.loverImpDateM.findByPid(daid));
         res.json(info);
     }else{
         info={

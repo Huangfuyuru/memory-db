@@ -61,6 +61,7 @@ async function findByPid(lid){
     if(ret.rowCount<=0){
         return 1
     }else{
+        console.log('important',ret.rows);
         return ret.rows;
     }
 }
