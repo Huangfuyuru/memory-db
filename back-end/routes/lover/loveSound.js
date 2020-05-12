@@ -48,7 +48,6 @@ router.post('/lcsound',async function(req,res,next){
         if(data === 1){
             info ={code:1,msg:null}
         }else{
-            data.push(sound);
             info ={code:1,msg:data};
         }
     }
@@ -62,20 +61,17 @@ router.get('/lrsound',async function(req,res,next){
     id = Number(req.query.loverVoiceid);
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
     var data = await lover.loverVoiceM.findByLid(lid);
-    var sound = {sound : false};
 
     if(delvoice === 0){
         if(data === 1){
             info ={code:0,msg:null}
         }else{
-            data.push(sound);
             info ={code:0,msg:data};
         }
     }else{
         if(data === 1){
             info ={code:1,msg:null}
         }else{
-            data.push(sound);
             info ={code:1,msg:data};
         }
     }
