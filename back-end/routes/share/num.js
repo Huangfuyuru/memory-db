@@ -32,12 +32,12 @@ router.get('/addnum', async function(req,res,next){
             var art= await article.articleM.findById(id);
             var auser_num = await article.userM.findById(auid);
             var user_num = await article.userM.findById(uid);
-            console.log('作者的',auser_num.num)
-            console.log('送花人的',user_num.num)
+            // console.log('作者的',auser_num.num)
+            // console.log('送花人的',user_num.num)
             // art.push(auser);
             art[0].unum = user_num.num;
             art[0].anum = auser_num.num;
-            console.log(art)
+            // console.log(art)
 
             info={code:0,msg:art};
         }
