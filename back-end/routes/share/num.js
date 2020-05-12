@@ -32,17 +32,22 @@ router.get('/addnum', async function(req,res,next){
             var art= await article.articleM.findById(id);
             var auser_num = await article.userM.findById(auid);
             var user_num = await article.userM.findById(uid);
+            
             // console.log('作者的',auser_num.num)
             // console.log('送花人的',user_num.num)
             // art.push(auser);
-            art[0].unum = user_num.num;
-            art[0].anum = auser_num.num;
+             var num={
+                art_num:art[0].num,
+                user_num:user_num.num,
+                auser_num:auser_num.num
+             };
+             console.log(num)
             // console.log(art)
 
-            info={code:0,msg:art};
+            info={code:0,msg:'小花已送出',data:num};
         }
     }else{
-        info={code:1,msg:null,des:'用户小花数为0'}
+        info={code:1,msg:'用户小花数为0',des:'用户小花数为0'}
     }
     res.json(info);
 })
