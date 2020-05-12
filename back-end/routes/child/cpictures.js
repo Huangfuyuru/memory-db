@@ -94,10 +94,10 @@ router.post('/caddpictures',async function(req,res,next){
 
 //删除照片
 router.post('/cdelpictures',async function(req,res,next){
-    var photo = JSON.parse(req.body.childPhotoid);
+    var photo = req.body.childPhotoid;
     var childPhotoListid = req.body.pid;
     await Promise.all(photo.map(async function(item){
-        await childPhotoM.delChildPhoto(JSON.parse(item));
+        await childPhotoM.delChildPhoto(item);
     }))
     var data = await childPhotoM.findByPid(childPhotoListid)
     console.log(data)
