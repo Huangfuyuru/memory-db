@@ -79,9 +79,9 @@ router.get('/crpictures',async function(req,res,next){
 //增加照片
 router.post('/caddpictures',async function(req,res,next){
     childPhotoListid = req.body.childPhotoListid;
-    imgurl = JSON.parse(req.body.imgurl);
+    imgurl = req.body.imgurl;
     await Promise.all(imgurl.map(async function(item){
-        await childPhotoM.addChildPhoto({imgurl:item.path,pid:childPhotoListid})
+        await childPhotoM.addChildPhoto({imgurl:item,pid:childPhotoListid})
     }))
     var data = await childPhotoM.findByPid(childPhotoListid);
     if(data == 1){

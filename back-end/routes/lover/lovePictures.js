@@ -106,11 +106,11 @@ router.get('/lrpictures',async function(req,res,next){
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
     var lPLid = Number(req.body.loverPhotoListid),
-        img =JSON.parse(req.body.imgurl);
+        img =req.body.imgurl;
     await Promise.all(img.map(async function(item){
         var text = {
             pid:lPLid,
-            imgurl:item.path
+            imgurl:item
         };
         await lover.loverPhotoM.addLoverPhoto(text);
     }))
