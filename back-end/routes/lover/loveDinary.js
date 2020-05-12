@@ -20,6 +20,7 @@ router.get('/',async function(req,res,next){
     console.log('loverid',id);
     // console.log('查看日记所有信息',await lover.loverDiaryM.findAll());
     var data =await lover.loverDiaryM.findByLid(id);
+    console.log(data);
     if(data === 1){
         info ={code:0,msg:null}
     }else{
