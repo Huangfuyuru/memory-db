@@ -125,10 +125,10 @@ router.post('/laddpictures',async function(req,res,next){
 
 //删除照片
 router.post('/ldelpictures',async function(req,res,next){
-    var photo = JSON.parse(req.body.loverPhotoid);
+    var photo =req.body.loverPhotoid;
     var loverPhotoListid = Number(req.body.pid);
     await Promise.all(photo.map(async function(item){
-        await lover.loverPhotoM.delLoverPhoto(JSON.parse(item))
+        await lover.loverPhotoM.delLoverPhoto(item)
     }))
     var data = await lover.loverPhotoM.findByPid(loverPhotoListid);
     console.log(data)
