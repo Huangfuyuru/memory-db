@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverVoice(text){
-    let sql = 'insert into loverVoice(name,voiceurl,lid) values ($1,$2,$3)';
-    let ret = await pgdb.query(sql,[text.name,text.voiceurl,text.lid]);
+    let sql = 'insert into loverVoice(name,voiceurl,setdate,lid) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.name,text.voiceurl,text.setdate,text.lid]);
     if(ret.rowCount<=0){
         return 1
     }else{

@@ -31,7 +31,8 @@ router.post('/lcsound',async function(req,res,next){
     var text ={
         voiceurl:req.body.voiceurl,
         name:req.body.name,
-        lid:lid
+        lid:lid,
+        setdate:req.body.setdate
     }
     var addVoice = await lover.loverVoiceM.addLoverVoice(text);
     console.log('addVoice',addVoice);
