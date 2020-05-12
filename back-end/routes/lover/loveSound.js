@@ -38,12 +38,10 @@ router.post('/lcsound',async function(req,res,next){
     console.log('addVoice',addVoice);
     var data = await lover.loverVoiceM.findByLid(lid);
 
-    var sound = {sound : false};
     if(addVoice === 0){
         if(data === 1){
             info ={code:0,msg:null}
         }else{
-            data.push(sound);
             info ={code:0,msg:data};
         }
     }else{
