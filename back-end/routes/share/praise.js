@@ -42,3 +42,4 @@ router.post('/reducepraise', async function(req,res,next){
     }
 
 })
+module.exports = router;
