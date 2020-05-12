@@ -14,6 +14,7 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var article_id = Number(request.article_id);
     var data = await commentM.findByArticleId(article_id);
+    //console.log('data',data);
     if(data == 1){
         res.json(null)
     }else{

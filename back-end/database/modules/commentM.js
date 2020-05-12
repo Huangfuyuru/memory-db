@@ -39,7 +39,7 @@ async function delcomment(id){
  * @returns
  */
 async function findById(id){
-    let sql = 'select * from comment where id  = $1 by setdate desc';
+    let sql = 'select * from comment where id  = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -55,7 +55,7 @@ async function findById(id){
  * @returns
  */
 async function findByArticleId(id){
-    let sql = 'select * from comment where article_id = $1 by setdate desc';
+    let sql = 'select * from comment where article_id = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -70,7 +70,7 @@ async function findByArticleId(id){
  * @returns
  */
 async function findByAnswerId(id){
-    let sql = 'select * from comment where answer_id = $1 by setdate desc';
+    let sql = 'select * from comment where answer_id = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
