@@ -48,6 +48,8 @@ router.get('/dellover',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var lid = Number(request.lid);
     var uid = Number(request.uid);
+    console.log(lid);
+    console.log(uid);
     var data = await loverM.delLover(lid);
         if(data == 0){
             var data1 = await loverM.findIdByUid(uid);
