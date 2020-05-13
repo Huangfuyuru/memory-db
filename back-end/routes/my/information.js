@@ -14,14 +14,14 @@ router.use(bodyParser.json());
 router.post('/',async function(req,res,next){
     // var imgurl = req.body.uimage;
     // var uimage = JSON.parse(req.body.uimage);
-    var uname = req.body.uname;
+    var name = req.body.name;
     var pass = req.body.pass;
     var gender = req.body.gender;
     var uid = req.body.uid;
     console.log(id);
     console.log("uid",uid);
     var result = await userM.changeById({
-        name:uname,
+        name:name,
         pass:pass,
         gender:gender
     },uid)

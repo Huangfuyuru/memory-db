@@ -16,7 +16,8 @@ router.use(bodyParser.json());
 router.post('/addpraise', async function(req,res,next){
     console.log('给文章点赞');
     var id = req.body.id;
-    var result = await articleM.addZanumById(id);
+    var uid = req.body.uid;
+    var result = await articleM.addZanumById(uid,id);
     if(result == 0){
         info = {code:0,msg:"点赞成功",data:result}
         res.json(info)
