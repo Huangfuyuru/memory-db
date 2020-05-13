@@ -27,10 +27,19 @@ router.get('/',async function(req,res,next){
     var unlike = new Array();
     var like = await method.friendsM.findByUser(uid);
     var data = await method.articleM.findAll();
-  
+    unlike = data;
+    
+//   console.log(like)
 
     for(var i=0;i<data.length;i++){
         if(data[i].tag == true){
+            var comment = await method.commentM.findByArticleId(data[i].id);
+            if(comment.length ==undefined){
+                data[i].comment = 0;
+            }
+            else{
+                data[i].comment = comment.length;
+            }
             var infor = await method.userM.findById(data[i].uid);
             data[i].uname = infor.name;
             data[i].pic = infor.imgurl;
@@ -43,15 +52,17 @@ router.get('/',async function(req,res,next){
             data[i].like = true;
            }
         }
+        // for(var j=0;j<like.length;j++){
+        //     var fid =  like[j].friend_id
+        //     if(fid == data[i].uid && data[i].tag == true){
+        //         unlike.splice(i,1);
+        //     }
+        //     if(data[i].uid == uid){
+        //         unlike.splice(i,1);
+        //     }
+        //  }
     }
-    // array_diff(data,like);
-    // for(var i =0;i<array_diff.length;i++){
-    //     console.log(array_diff[i])
-    // }
-
-    // console.log(array_diff.length)
-    // console.log(Array.from(new Set(unlike)))
-    // console.log(article);
+    
     if(data===1){
         var info={code:1,msg:'请求失败',data:null};
     }else{
@@ -60,20 +71,6 @@ router.get('/',async function(req,res,next){
     res.json(info);
 })
 
-// function array_diff(a, b) {
-//         for(var i=0;i<b.length;i++)
-//         {
-//           for(var j=0;j<a.length;j++)
-//           {
-//             if(a[j]==b[i]){
-//               a.splice(j,1);
-//               j=j-1;
-//             }
-//           }
-//         } 
-//     console.log(a)
-//       return a;
-// }
 
 /* /share/num(praise) */
 router.use('/article',article);

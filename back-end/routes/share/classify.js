@@ -20,11 +20,19 @@ router.get('/interest',async function(req,res,next){
     
     var data = await method.articleM.findAll();
     for(var i=0;i<data.length;i++){
+        var comment = await method.commentM.findByArticleId(data[i].id);
+            if(comment.length ==undefined){
+                data[i].comment = 0;
+            }
+            else{
+                data[i].comment = comment.length;
+            }
         for(var j=0;j<like.length;j++){
            var fid =  like[j].friend_id
         //    console.log(fid);
            if(fid == data[i].uid && data[i].tag == true){
             //    console.log(data[i].uid)
+            
             var infor = await method.userM.findById(fid);
             data[i].uname = infor.name;
             data[i].pic = infor.imgurl;
