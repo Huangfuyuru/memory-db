@@ -46,8 +46,8 @@ router.post('/addlover',async function(req,res,next){
 //删除爱人
 router.get('/dellover',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var lid = Number(request.lid);
-    var uid = Number(request.uid);
+    var lid = Number(JSON.parse(request.lid));
+    var uid = Number(JSON.parse(request.uid));
     console.log(lid);
     console.log(uid);
     var data = await loverM.delLover(lid);
