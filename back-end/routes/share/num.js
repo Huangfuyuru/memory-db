@@ -25,7 +25,7 @@ router.get('/addnum', async function(req,res,next){
     //查看是否送过小花
     for(var i= 0;i<add.length;i++){
         if(uid == add[i].uid && id == add[i].id){
-            info={code:1,msg:'只能送一次花哦',des:'用户小花数为0'}
+            info={code:1,msg:'只能送一次花哦',data:null}
             res.json(info);
             return;
 
@@ -52,7 +52,6 @@ router.get('/addnum', async function(req,res,next){
             var flower={uid:uid,id:id};
             add.push(flower);
             // add.splice(0);
-            // console.log(flower);
             info={code:0,msg:'小花已送出',data:num};
         }
     }else{
