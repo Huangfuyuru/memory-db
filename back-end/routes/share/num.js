@@ -12,14 +12,25 @@ var info = "";
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
+var add = new Array();
+
 //送小花
 router.get('/addnum', async function(req,res,next){
-    console.log('addnum');
+    // console.log(add);
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.uid));
     var auid = Number(JSON.parse(request.auid));
     var id = Number(JSON.parse(request.id));
 
+    //查看是否送过小花
+    for(var i= 0;i<add.length;i++){
+        if(uid == add[i].uid && id == add[i].id){
+            info={code:1,msg:'只能送一次花哦',des:'用户小花数为0'}
+            res.json(info);
+            return;
+
+        }
+    }
     //先查看送花的人是否有小花
     var user = await article.userM.findById(uid);
     // console.log(uid+'的小花数为'+user.num)
@@ -33,21 +44,19 @@ router.get('/addnum', async function(req,res,next){
             var auser_num = await article.userM.findById(auid);
             var user_num = await article.userM.findById(uid);
             
-            // console.log('作者的',auser_num.num)
-            // console.log('送花人的',user_num.num)
-            // art.push(auser);
              var num={
                 art_num:art[0].num,
                 user_num:user_num.num,
                 auser_num:auser_num.num
              };
-             console.log(num)
-            // console.log(art)
-
+            var flower={uid:uid,id:id};
+            add.push(flower);
+            // add.splice(0);
+            // console.log(flower);
             info={code:0,msg:'小花已送出',data:num};
         }
     }else{
-        info={code:1,msg:'用户小花数为0',des:'用户小花数为0'}
+        info={code:1,msg:'auser_num为0，不能送花',data:num}
     }
     res.json(info);
 })
