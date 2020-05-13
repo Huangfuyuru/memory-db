@@ -21,7 +21,8 @@ router.get('/',async function(req,res,next){
         var data1 = userM.findById(uid);
         var message = {code:0,msg:"签到成功",data:data1}
     }else{
-        var message = {code:1,msg:"签到失败",data:null};
+        var data1 = userM.findById(uid);
+        var message = {code:1,msg:"签到失败",data:data1};
     }
     res.json(message)
 })
