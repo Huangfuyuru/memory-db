@@ -18,15 +18,12 @@ router.post('/',async function(req,res,next){
     var pass = req.body.pass;
     var gender = req.body.gender;
     var uid = req.body.uid;
-    console.log(id);
-    console.log("uid",uid);
     var result = await userM.changeById({
         name:name,
         pass:pass,
         gender:gender
-    },uid)
-    console.log(result);
-    if(result === 0){
+    },uid);
+    if(result == 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         var data1 = await userM.findById(uid);
         var message = {code:0,msg:"用户修改成功",data:data1}
@@ -37,10 +34,9 @@ router.post('/',async function(req,res,next){
 })
 
 router.get('/password',async function(req,res,next){
-    // var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(req.query.uid);
+    var request = qs.parse(url.parse(req.url).query);
+    var uid = Number(request.uid);
     var data = await userM.findById(uid);
-    console.log(data);
     if(data == 1){
         var message = {code:1,msg:"传达密码失败",data:null}
     }else{

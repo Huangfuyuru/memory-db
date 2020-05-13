@@ -46,10 +46,10 @@ router.post('/addlover',async function(req,res,next){
 //删除爱人
 router.get('/dellover',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(request.uid);
-    var lid = Number(request.loverid);
-    console.log("爱人id",uid);
+    var lid = Number(JSON.parse(request.lid));
+    var uid = Number(JSON.parse(request.uid));
     console.log(lid);
+    console.log(uid);
     var data = await loverM.delLover(lid);
         if(data == 0){
             var data1 = await loverM.findIdByUid(uid);

@@ -47,8 +47,8 @@ router.post('/addchild',async function(req,res,next){
 //删除孩子
 router.get('/delchild',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(request.uid);
     var cid = Number(request.childsid);
+    var uid = Number(request.uid);
     var data = await childM.delChild(cid);     
     if(data == 0){
         var data1 = await childM.findIdByUid(uid);

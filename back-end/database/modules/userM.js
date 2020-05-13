@@ -125,7 +125,7 @@ async function findAll(){
  * @returns
  */
 //////imgrl
-async function changeById(id,text){
+async function changeById(text,id){
     let sql = 'update users set name = $1,pass=$2,gender=$3,where id = $4'
     let ret = await pgdb.query(sql,[text.name,text.pass,text.gender,id]);
     if(ret.rowCount<=0){
@@ -146,7 +146,7 @@ async function findById(id){
 }
 //新增加入 num 签到
 async function changeNum(id){
-    let sql = 'update users set num = num+1 where id = $2';
+    let sql = 'update users set num = num+1 where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
