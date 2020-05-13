@@ -44,6 +44,7 @@ router.get('/',async function(req,res,next){
             data[i].uname = infor.name;
             data[i].pic = infor.imgurl;
             article.push(data[i]);
+            
         }
         for(var j=0;j<like.length;j++){
            var fid =  like[j].friend_id
@@ -52,17 +53,8 @@ router.get('/',async function(req,res,next){
             data[i].like = true;
            }
         }
-        // for(var j=0;j<like.length;j++){
-        //     var fid =  like[j].friend_id
-        //     if(fid == data[i].uid && data[i].tag == true){
-        //         unlike.splice(i,1);
-        //     }
-        //     if(data[i].uid == uid){
-        //         unlike.splice(i,1);
-        //     }
-        //  }
-    }
     
+    }
     if(data===1){
         var info={code:1,msg:'请求失败',data:null};
     }else{

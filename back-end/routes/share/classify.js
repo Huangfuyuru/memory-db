@@ -21,27 +21,26 @@ router.get('/interest',async function(req,res,next){
     var data = await method.articleM.findAll();
     for(var i=0;i<data.length;i++){
         var comment = await method.commentM.findByArticleId(data[i].id);
-            if(comment.length ==undefined){
-                data[i].comment = 0;
-            }
-            else{
-                data[i].comment = comment.length;
-            }
+        if(comment.length ==undefined){
+            data[i].comment = 0;
+        }
+        else{
+            data[i].comment = comment.length;
+        }
+        // console.log(data[i].uid)
+        var infor = await method.userM.findById(data[i].uid);
+        data[i].uname = infor.name;
+        data[i].pic = infor.imgurl;
+
         for(var j=0;j<like.length;j++){
            var fid =  like[j].friend_id
-        //    console.log(fid);
            if(fid == data[i].uid && data[i].tag == true){
-            //    console.log(data[i].uid)
-            
-            var infor = await method.userM.findById(fid);
-            data[i].uname = infor.name;
-            data[i].pic = infor.imgurl;
             data[i].like = true;
             article.push(data[i]);
            }
         }
         if(data[i].uid === uid && data[i].tag ===true){
-            var infor = await method.userM.findById(fid);
+            var infor = await method.userM.findById(uid);
             data[i].uname = infor.name;
             data[i].pic = infor.imgurl;
             data[i].like = true;
