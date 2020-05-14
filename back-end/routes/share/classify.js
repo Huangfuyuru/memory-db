@@ -16,6 +16,7 @@ router.get('/interest',async function(req,res,next){
     var uid = JSON.parse(request.uid);
     var article = new Array();
     var like = await method.friendsM.findByUser(uid);
+    var iflike = await method.likeArticleM.findByUid(uid);
     // console.log('like',like);
     
     var data = await method.articleM.findAll();
@@ -39,11 +40,19 @@ router.get('/interest',async function(req,res,next){
             article.push(data[i]);
            }
         }
+        //是否点赞
+        for (var k=0;k<ifzan.length;k++){
+            var kid = iflike[k].article_id;
+            if(kid == data[i].id ){
+                data[i].iflike =true;
+            }
+        }
         if(data[i].uid === uid && data[i].tag ===true){
             var infor = await method.userM.findById(uid);
             data[i].uname = infor.name;
             data[i].pic = infor.imgurl;
             data[i].like = true;
+            data[i].iflike =true;
             article.push(data[i]);
         }
     }

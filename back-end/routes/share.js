@@ -26,6 +26,7 @@ router.get('/',async function(req,res,next){
     var article = new Array();
     var unlike = new Array();
     var like = await method.friendsM.findByUser(uid);
+    var iflike = await method.likeArticleM.findByUid(uid);
     var data = await method.articleM.findAll();
     unlike = data;
     
@@ -52,6 +53,13 @@ router.get('/',async function(req,res,next){
            if(fid == data[i].uid && data[i].tag == true){
             data[i].like = true;
            }
+        }
+        //是否点赞
+        for (var k=0;k<ifzan.length;k++){
+            var kid = iflike[k].article_id;
+            if(kid == data[i].id ){
+                data[i].iflike =true;
+            }
         }
     
     }
