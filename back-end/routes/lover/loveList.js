@@ -16,7 +16,7 @@ router.get('/',async function(req,res,next){
         for(var j=0;j<data1.length;j++){
             if(data[i].listid ==data1[j].id){
                 data[i].difficulty = data1[j].difficulty;
-                console.log("data1",data1[j])
+                // console.log("data1",data1[j])
             }
         }
     }
@@ -134,4 +134,9 @@ router.post('/modloverlist',async function(req,res,next){
     
 })
 
+router.get('/date',async function(req,res,next){
+    var data = await lover.loveListM.findAll();
+    console.log(data[0].setdate);
+    res.json(data);
+})
 module.exports = router;

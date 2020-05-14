@@ -24,7 +24,7 @@ async function addlikeArticle(text){
  * @returns
  */
 async function findAll(){
-    let sql = 'select * from likeArticle order by setdate desc';
+    let sql = 'select * from likeArticle ';
     let ret = await pgdb.query(sql);
     if(ret.rowCount<=0){
         return 1
@@ -74,7 +74,7 @@ async function dellikeArticleByTwo(user_id,article_id){
  * @returns 所有成长的内容
  */
 async function findByUid(uid){
-    let sql = 'select * from likeArticle where user_id = $1 order by setdate desc';
+    let sql = 'select * from likeArticle where user_id = $1 ';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
