@@ -16,7 +16,7 @@ router.get('/interest',async function(req,res,next){
     var uid = JSON.parse(request.uid);
     var article = new Array();
     var like = await method.friendsM.findByUser(uid);
-    var iflike = await method.likeArticleM.findByUid(uid);
+    var zan = await method.likeArticleM.findByUid(uid);
     // console.log('like',like);
     
     var data = await method.articleM.findAll();
