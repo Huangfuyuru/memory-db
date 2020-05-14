@@ -21,17 +21,18 @@ router.get('/addpraise', async function(req,res,next){
     console.log(article_id);
     console.log(user_id);
     if(result == 0){
-        var data1 = likeArticleM.addlikeArticle({
-            article_id:article_id,
-            user_id:user_id
-        });
-        if(data1 == 0){
+        // var data1 = likeArticleM.addlikeArticle({
+        //     article_id:article_id,
+        //     user_id:user_id
+        // });
+        // if(data1 == 0){
             var data2 = articleM.findById(article_id);
-            var info = {code:0,msg:"点赞且增加到我喜欢成功",data:data2}
-        }else{
-            var data2 = articleM.findById(article_id);
-            var info = {code:1,msg:"增加到我喜欢失败",data:data2};
-        }
+            var info = {code:0,msg:"点赞成功",data:data2}
+            // var info = {code:0,msg:"点赞且增加到我喜欢成功",data:data2}
+        // }else{
+        //     var data2 = articleM.findById(article_id);
+        //     var info = {code:1,msg:"增加到我喜欢失败",data:data2};
+        // }
     }else{
         var data2 = articleM.findById(article_id);
         var info = {code:1,msg:"点赞失败",data:data2};
