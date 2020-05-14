@@ -24,12 +24,10 @@ router.get('/',async function(req,res,next){
     var request =  qs.parse(url.parse(req.url).query);
     var uid = JSON.parse(request.uid);
     var article = new Array();
-    var unlike = new Array();
     var like = await method.friendsM.findByUser(uid);
+    var zan = await method.likeArticleM.findByUid(uid);
     var data = await method.articleM.findAll();
-    unlike = data;
     
-//   console.log(like)
 
     for(var i=0;i<data.length;i++){
         if(data[i].tag == true){
@@ -53,6 +51,13 @@ router.get('/',async function(req,res,next){
             data[i].like = true;
            }
         }
+        // 查看点赞过的文章
+        for(var m=0;m<zan.length;m++){
+            if(data[i].id == zan[m].article_id){
+                data[i].addZan = zan[m].zan;
+            }
+        }
+
     
     }
     if(data===1){
