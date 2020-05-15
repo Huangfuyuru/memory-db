@@ -8,7 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addchildScore(text){
-    let sql = 'insert into childScore(stage,subject,score,setdate,cid) values ($1,$2,$3,$4)';
+    console.log(text.stage,text.subject,text.score)
+    let sql = 'insert into childScore(stage,subject,score,setdate,cid) values ($1,$2,$3,$4,$5)';
     let ret = await pgdb.query(sql,[text.stage,text.subject,text.score,text.setdate,text.cid]);
     if(ret.rowCount<=0){
         return 1

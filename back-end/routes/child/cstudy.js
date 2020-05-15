@@ -15,7 +15,7 @@ router.get('/',async function(req,res,next){
     var cid = Number(request.cid);
     var data = await childScoreM.findBycid(cid);
     if(data == 1){
-        console.log('null');
+        //console.log('null');
         res.json(null)
     }else{
         var len = data.length;
@@ -38,11 +38,13 @@ router.get('/',async function(req,res,next){
 
 //增加成绩记录
 router.post('/cchildScore',async function(req,res,next){
+   //console.log('增加成绩')
     var stage = req.body.stage,
-        subject = req.body.subject,
-        score = req.body.score,
+        subject = JSON.parse(req.body.subject),
+        score = JSON.parse(req.body.score),
         setdate = req.body.setdate,
         cid = req.body.cid;
+    //console.log(stage,subject,score,setdate,cid)
     var message = {
         stage:stage,
         subject:subject,
@@ -52,11 +54,13 @@ router.post('/cchildScore',async function(req,res,next){
     }
 
     
-    var data =await childScoreM.addchildScore({message});
+    var data =await childScoreM.addchildScore(message);
     if(data == 1){
-        var message={code:1,msg:"添加失败",data:null};
+       // console.log('增加失败')
+        var message1={code:1,msg:"添加失败",data:null};
     }else{
-        var data1 = childScoreM.findBycid(cid);
+       // console.log('增加成功')
+        var data1 = await childScoreM.findBycid(cid);
         var len = data1.length;
         for(var i=0;i<len;i++){
             var arr = [];
@@ -70,9 +74,10 @@ router.post('/cchildScore',async function(req,res,next){
             delete data1[i].score;
             data1[i].cont = arr;
         }
-        var message={code:0,msg:"添加成功",data:data1};
+        var message1={code:0,msg:"添加成功",data:data1};
     }
-    res.json(message);
+    //console.log('message',message1);
+    res.json(message1);
     
     
 })
