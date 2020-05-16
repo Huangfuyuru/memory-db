@@ -23,7 +23,11 @@ router.post('/',async function(req,res,next){
         pass:pass,
         gender:gender
     },uid);
-    console.log(name,)
+    console.log(name);
+    console.log(pass);
+    console.log(gender);
+    console.log(uid);
+    
     if(result == 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         var data1 = await userM.findById(uid);
