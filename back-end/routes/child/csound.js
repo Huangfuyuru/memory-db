@@ -47,15 +47,15 @@ router.get('/crsound',async function(req,res,next){
     var data = await childVoiceM.findByCid(childsid);
     if(data1 == 1){
         if(data == 1){
-            var message = {data:null,msg:"删除失败"}
+            var message = {data:null,msg:"删除失败",code:1}
         }else{
-            var message = {data:data,msg:"删除失败"}
+            var message = {data:data,msg:"删除失败",code:1}
         }
     }else{
         if(data == 1){
-            var message = {data:null,msg:"删除成功"}
+            var message = {data:null,msg:"删除成功",code:0}
         }else{
-            var message = {data:data,msg:"删除成功"}
+            var message = {data:data,msg:"删除成功",code:0}
         }
     }
     res.json(message)
