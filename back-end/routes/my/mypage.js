@@ -15,10 +15,7 @@ router.use(bodyParser.json());
 router.post('/',async function(req,res,next){
     var uid = Number(req.body.uid);
     var imgurl = req.body.imgurl;
-    var data = await userM.changeImgById({
-        uid:uid,
-        imgurl:imgurl
-    })
+    var data = await userM.changeImgById(uid,imgurl)
     console.log("uid",uid);
     console.log("imgurl",imgurl);
     if(data == 1){
