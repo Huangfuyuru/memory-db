@@ -13,14 +13,14 @@ router.use(bodyParser.json());
 
 //修改头像
 router.post('/',async function(req,res,next){
-    var uid = req.body.uid;
+    var uid = Number(req.body.uid);
     var imgurl = req.body.imgurl;
-    console.log("uid",uid);
-    console.log("imgurl",imgurl);
     var data = await userM.changeImgById({
         uid:uid,
         imgurl:imgurl
     })
+    console.log("uid",uid);
+    console.log("imgurl",imgurl);
     if(data == 1){
         var message={code:1,msg:"修改头像失败",data:null};
     }else{
