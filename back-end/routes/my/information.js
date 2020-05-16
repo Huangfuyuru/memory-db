@@ -23,12 +23,14 @@ router.post('/',async function(req,res,next){
         pass:pass,
         gender:gender
     },uid);
+    console.log(name,)
     if(result == 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         var data1 = await userM.findById(uid);
         var message = {code:0,msg:"用户修改成功",data:data1}
     }else{
-        var message = {code:1,msg:"用户修改失败",data:null}
+        var data1 = await userM.findById(uid);
+        var message = {code:1,msg:"用户修改失败",data:data1}
     }
     res.json(message);
 })

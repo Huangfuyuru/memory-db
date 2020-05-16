@@ -48,8 +48,29 @@ router.get('/dellover',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var lid = Number(JSON.parse(request.lid));
     var uid = Number(JSON.parse(request.uid));
+    var loveList = await loveListM.delAllByLid(lid);
+    var loverDiary = await loverDiaryM.delAllByLid(lid);
+    var loverVoice = await loverVoiceM.delAllByLid(lid);
+    var loverImpDate = await loverImpDateM.delAllByLid(lid);
+    var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
     console.log(lid);
     console.log(uid);
+    if(loveList==0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
+        if(loverPhotoList == 1){ //
+            var data = await loverM.delLover(lid);
+            var message = {code :1 ,msg :'创建loverPhotoList为空',data:null};
+        }else{
+            await Promise.all(
+                loverPhotoList.map(async function(item){
+                    await loverPhotoM.delAllByPid(item.id);
+                })
+            )
+            await childPhotoList.delAllByLid(lid);
+            var data = await loverM.delLover(lid);
+        }
+    }else{
+        var message = {code :0 ,msg :'未进入',data:null};
+    }
     var data = await loverM.delLover(lid);
         if(data == 0){
             var data1 = await loverM.findIdByUid(uid);
@@ -64,25 +85,43 @@ router.get('/dellover',async function(req,res,next){
     })
     
     module.exports = router;
+
         // async function delLover(lid){
-            // var loveList = await loveListM.delAllByLid(lid);
-            // var loverDiary = await loverDiaryM.delAllByLid(lid);
-            // var loverVoice = await loverVoiceM.delAllByLid(lid);
-            // var loverImpDate = await loverImpDateM.delAllByLid(lid);
-            // var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
-            // if(loveList==0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
-            //     if(loverPhotoList == 1){
-            //         var data = await loverM.delLover(lid);
-            //     }else{
-            //         await Promise.all(
-            //             loverPhotoList.map(async function(item){
-            //                 await loverPhotoM.delAllByPid(item.id);
-            //             })
-            //         )
-            //         await childPhotoList.delAllByLid(lid);
-            //         var data = await loverM.delLover(lid);
-            //     }
-            // }else{
-            //     var message = {code :0 ,msg :'未进入',data:null};
-            // }
-            // console.log(data);
+        //     var loveList = await loveListM.delAllByLid(lid);
+        //     var loverDiary = await loverDiaryM.delAllByLid(lid);
+        //     var loverVoice = await loverVoiceM.delAllByLid(lid);
+        //     var loverImpDate = await loverImpDateM.delAllByLid(lid);
+        //     var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
+        //     if(loveList==0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
+        //         if(loverPhotoList == 1){
+        //             var data = await loverM.delLover(lid);
+        //         }else{
+        //             await Promise.all(
+        //                 loverPhotoList.map(async function(item){
+        //                     await loverPhotoM.delAllByPid(item.id);
+        //                 })
+        //             )
+        //             await childPhotoList.delAllByLid(lid);
+        //             var data = await loverM.delLover(lid);
+        //         }
+        //     }else{
+        //         var message = {code :0 ,msg :'未进入',data:null};
+        //     }
+        //     console.log(data);
+
+
+
+    //         var request = qs.parse(url.parse(req.url).query);
+    // var lid = Number(JSON.parse(request.lid));
+    // var uid = Number(JSON.parse(request.uid));
+    // console.log(lid);
+    // console.log(uid);
+    // var data = await loverM.delLover(lid);
+    //     if(data == 0){
+    //         var data1 = await loverM.findIdByUid(uid);
+    //         var message = {code:0,msg:"删除成功",data:data1};
+    //     }else{
+    //         var data1 = await loverM.findIdByUid(uid);
+    //         var message = {code:1,msg:"删除失败",data:data1};
+    //     }
+    //     res.json(message)

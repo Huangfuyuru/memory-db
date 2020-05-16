@@ -33,9 +33,10 @@ router.post('/',async function(req,res,next){
 //关注
 router.get('/focus',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(request.user_id);
+    var uid = Number(JSON.parse(request.user_id));
     var data = await friendsM.findByUser(uid);
-    console.log(data)
+    console.log(uid);
+    console.log(data);
     if(data == 1){
         var message={code:1,msg:"返回信息失败",data:null};
     }else{
@@ -51,7 +52,8 @@ router.get('/fans',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.user_id);
     var data = await friendsM.findByPerson(uid);
-    console.log(data)
+    console.log(uid);
+    console.log(data);
     if(data == 1){
         var message={code:1,msg:"返回信息失败",data:null};
     }else{
