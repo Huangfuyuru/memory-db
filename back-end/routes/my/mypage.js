@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 
 //修改头像
 router.post('/',async function(req,res,next){
-    var uid = Number(req.body.uid);
+    var uid = req.body.uid;
     var imgurl = req.body.imgurl;
     var data = await userM.changeImgById(uid,imgurl)
     console.log("uid",uid);
@@ -28,6 +28,7 @@ router.post('/',async function(req,res,next){
 })
 
 //关注
+//根据用户uid 根据friend_id 确定关注人数
 router.get('/focus',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.user_id));
@@ -45,6 +46,7 @@ router.get('/focus',async function(req,res,next){
 
 
 //粉丝
+//
 router.get('/fans',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.user_id);
@@ -59,6 +61,19 @@ router.get('/fans',async function(req,res,next){
     res.json(message);
 })
 
+router.get('/friendmsg',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var uid = Number(JSON.parse(request.friend_id));
+    var data = await userM.findById(uid);
+    console.log(uid);
+    console.log(data);
+    if(data == 1){
+        var message={code:1,msg:"获取好友信息失败",data:null};
+    }else{
+        var message={code:0,msg:"获取好友信息成功",data:data};
+    }
+    res.json(message);
+})
 
 
 
