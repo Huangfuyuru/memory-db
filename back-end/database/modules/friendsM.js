@@ -57,7 +57,7 @@ async function findAll(){
  * @returns 所有成长的内容
  */
 async function findByUser(user_id){
-    let sql = 'select * from friends where user_id = $1';
+    let sql = 'select friend_id from friends where user_id = $1';
     let ret = await pgdb.query(sql,[user_id]);
     if(ret.rowCount<=0){
         return 1
