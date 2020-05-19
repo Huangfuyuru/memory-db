@@ -36,7 +36,7 @@ router.get('/focus',async function(req,res,next){
     console.log("关注",uid);
     console.log("关注",data);
     if(data == 1){
-        var message={code:1,msg:"用户暂无关注",data:data};
+        var message={code:1,msg:"用户暂无关注",data:0};
     }else{
         var message={code:0,msg:"返回关注信息",data:data};
     }
@@ -54,7 +54,7 @@ router.get('/fans',async function(req,res,next){
     console.log("粉丝",uid);
     console.log("粉丝",data);
     if(data == 1){
-        var message={code:1,msg:"用户暂无粉丝",data:data};
+        var message={code:1,msg:"用户暂无粉丝",data:0};
     }else{
         var message={code:0,msg:"返回粉丝信息",data:data};
     }
