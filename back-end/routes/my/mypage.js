@@ -63,22 +63,35 @@ router.get('/fans',async function(req,res,next){
 
 router.get('/focusmsg',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(JSON.parse(request.friend_id));
-    var data = await userM.findById(uid);
+    var uid = Number(JSON.parse(request.user_id));
+    var focuslist = await friendsM.findByUser(uid);
+    await Promise.all(
+        focuslist.map(async function(item){
+            var datas = await userM.findById(item.friend_id);
+        })
+    )
+    // var data = await userM.findById(uid);
     console.log(uid);
-    console.log(data);
-    if(data == 1){
+    console.log(datas);
+    if(datas == 1){
         var message={code:1,msg:"暂无关注信息",data:null};
     }else{
-        var message={code:0,msg:"获取关注信息成功",data:data};
+        var message={code:0,msg:"获取关注信息成功",data:datas};
     }
     res.json(message);
 })
 
 router.get('/fansmsg',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(JSON.parse(request.friend_id));
-    var data = await userM.findById(uid);
+    // var uid = Number(JSON.parse(request.friend_id));
+    var uid = Number(request.user_id);
+    var fanslist = await friendsM.findByPerson(uid);
+    await Promise.all(
+        fanslist.map(async function(item){
+            var data = await userM.findById(item.user_id);
+        })
+    )
+    // var data = await userM.findById(uid);
     console.log(uid);
     console.log(data);
     if(data == 1){
@@ -91,3 +104,15 @@ router.get('/fansmsg',async function(req,res,next){
 
 
 module.exports = router;
+
+// var request = qs.parse(url.parse(req.url).query);
+// var uid = Number(JSON.parse(request.friend_id));
+// var data = await userM.findById(uid);
+// console.log(uid);
+// console.log(data);
+// if(data == 1){
+//     var message={code:1,msg:"暂无粉丝信息",data:null};
+// }else{
+//     var message={code:0,msg:"获取粉丝信息成功",data:data};
+// }
+// res.json(message);
