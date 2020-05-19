@@ -33,12 +33,12 @@ router.get('/focus',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.user_id));
     var data = await friendsM.findByUser(uid);
-    console.log(uid);
-    console.log(data);
+    console.log("关注",uid);
+    console.log("关注",data);
     if(data == 1){
-        var message={code:1,msg:"返回信息失败",data:null};
+        var message={code:1,msg:"用户暂无关注",data:data};
     }else{
-        var message={code:0,msg:"返回信息成功",data:data};
+        var message={code:0,msg:"返回关注信息",data:data};
     }
     res.json(message);
 })
@@ -51,31 +51,43 @@ router.get('/fans',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.user_id);
     var data = await friendsM.findByPerson(uid);
-    console.log(uid);
-    console.log(data);
+    console.log("粉丝",uid);
+    console.log("粉丝",data);
     if(data == 1){
-        var message={code:1,msg:"返回信息失败",data:null};
+        var message={code:1,msg:"用户暂无粉丝",data:data};
     }else{
-        var message={code:0,msg:"返回信息成功",data:data};
+        var message={code:0,msg:"返回粉丝信息",data:data};
     }
     res.json(message);
 })
 
-router.get('/friendmsg',async function(req,res,next){
+router.get('/focusmsg',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(JSON.parse(request.friend_id));
     var data = await userM.findById(uid);
     console.log(uid);
     console.log(data);
     if(data == 1){
-        var message={code:1,msg:"获取好友信息失败",data:null};
+        var message={code:1,msg:"暂无关注信息",data:null};
     }else{
-        var message={code:0,msg:"获取好友信息成功",data:data};
+        var message={code:0,msg:"获取关注信息成功",data:data};
     }
     res.json(message);
 })
 
-
+router.get('/fansmsg',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var uid = Number(JSON.parse(request.friend_id));
+    var data = await userM.findById(uid);
+    console.log(uid);
+    console.log(data);
+    if(data == 1){
+        var message={code:1,msg:"暂无粉丝信息",data:null};
+    }else{
+        var message={code:0,msg:"获取粉丝信息成功",data:data};
+    }
+    res.json(message);
+})
 
 
 module.exports = router;
