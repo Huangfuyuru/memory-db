@@ -49,7 +49,30 @@ router.get('/delchild',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var cid = Number(request.childsid);
     var uid = Number(request.uid);
-    var data = await childM.delChild(cid);     
+    var childScore = await childScoreM.delAllBycid(cid);
+    var childAdolesce = await childAdolesceM.delAllByCid(cid);
+    var childGrow = await childGrowM.delAllByCid(cid);
+    var childDiary = await childDiaryM.delAllByCid(cid);
+    var childVoice = await childVoiceM.delAllByCid(cid);
+    var childPhotoList = await childPhotoListM.findIdByCid(cid);
+    if(childScore == 0 && childAdolesce == 0 && childDiary == 0 && childGrow == 0 && childVoice == 0 ){
+        if(childPhotoList == 1){
+            var data = await childM.delChild(cid);   
+            var message = {code :1 ,msg :'创建childPhotoList为空',data:null};
+        }else{
+            await Promise.all(
+                childPhotoList.map(async function(item){
+                    await childPhotoM.delAllByPid(item.id);
+                })
+            )
+            await childPhotoList.delAllByLid(lid);
+            var data = await loverM.delLover(lid);
+        }
+    }else{
+        var message = {code :0 ,msg :'未进入',data:null};
+    }
+    console.log("childid",cid);
+    console.log("uid",uid); 
     if(data == 0){
         var data1 = await childM.findIdByUid(uid);
         var message = {code:0,msg:"删除成功",data:data1 };

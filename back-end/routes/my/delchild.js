@@ -4,7 +4,7 @@ const express = require('express'),
       url = require('url'),
       qs = require('qs');
 //引入数据库
-const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
+const {childM,childAdolesceM,childScoreM,childDiaryM,childGrowM,childPhotoM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
@@ -26,7 +26,7 @@ router.get('/confirm',async function(req,res,next){
     console.log(cid);
     var arr = [];
     async function delChild(cid){
-        
+        var childScore = await childScoreM.delAllBycid(cid);
         var childAdolesce = await childAdolesceM.delAllByCid(cid);
         var childGrow = await childGrowM.delAllByCid(cid);
         var childDiary = await childDiaryM.delAllByCid(cid);

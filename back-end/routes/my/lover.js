@@ -69,9 +69,9 @@ router.get('/dellover',async function(req,res,next){
             var data = await loverM.delLover(lid);
         }
     }else{
-        var message = {code :0 ,msg :'未进入',data:null};
+        var message = {code :1 ,msg :'未进入',data:null};
     }
-    var data = await loverM.delLover(lid);
+    // var data = await loverM.delLover(lid);
         if(data == 0){
             var data1 = await loverM.findIdByUid(uid);
             var message = {code:0,msg:"删除成功",data:data1};
