@@ -13,7 +13,8 @@ const minformation = require('./my/information'),
       mlover = require('./my/lover'),
       mfriend = require('./my/friends'),
       mchild = require('./my/child'),
-      mmypage = require('./my/mypage');
+      mmypage = require('./my/mypage'),
+      mmyarticle = require('./my/myarticle');
       
 
     //参照child.js 12/10
@@ -31,6 +32,8 @@ router.use('/lover',mlover);
 router.use('/friends',mfriend);
 router.use('/child',mchild);
 router.use('/mypage',mmypage);
+router.use('/myarticle',mmyarticle);
+
 
 
 

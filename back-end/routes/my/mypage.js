@@ -104,14 +104,3 @@ router.get('/fansmsg',async function(req,res,next){
 
 module.exports = router;
 
-// var request = qs.parse(url.parse(req.url).query);
-// var uid = Number(JSON.parse(request.friend_id));
-// var data = await userM.findById(uid);
-// console.log(uid);
-// console.log(data);
-// if(data == 1){
-//     var message={code:1,msg:"暂无粉丝信息",data:null};
-// }else{
-//     var message={code:0,msg:"获取粉丝信息成功",data:data};
-// }
-// res.json(message);

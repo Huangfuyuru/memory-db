@@ -68,13 +68,13 @@ async function dellikeArticleByTwo(user_id,article_id){
 
 
 /**
- *根据Uid 找到该用户所有喜爱的文章
+ *根据Uid 找到该用户所有喜爱的文章的id列表
  *
  * @param {*} cid
  * @returns 所有成长的内容
  */
 async function findByUid(uid){
-    let sql = 'select * from likeArticle where user_id = $1 ';
+    let sql = 'select article_id from likeArticle where user_id = $1 ';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
