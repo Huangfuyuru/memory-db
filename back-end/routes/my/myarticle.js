@@ -19,7 +19,7 @@ router.get('/mypublish', async function(req,res,next){
     if(result == 0){
         var info = {code:0,msg:"查找我发布的文章成功",data:result};
     }else{
-        var info = {code:1,msg:"查找我发布的文章失败",data:0}
+        var info = {code:1,msg:"查找我发布的文章失败",data:result}
     }
     console.log(info);
     res.json(info);
@@ -37,7 +37,7 @@ router.get('/mylike', async function(req,res,next){
     if(result == 0){
         var info = {code:0,msg:"查找我喜欢的文章id列表成功",data:result};
     }else{
-        var info = {code:1,msg:"查找我喜欢的文章id列表失败",data:0}
+        var info = {code:1,msg:"查找我喜欢的文章id列表失败",data:result}
     }
     console.log(info);
     res.json(info);
@@ -58,7 +58,7 @@ router.get('/mylikemsg', async function(req,res,next){
     if(result == 0){
         var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data};
     }else{
-        var info = {code:1,msg:"查找我喜欢文章信息列表失败",data:null};
+        var info = {code:1,msg:"查找我喜欢文章信息列表失败",data:data};
     }
     console.log(info);
     res.json(info);
