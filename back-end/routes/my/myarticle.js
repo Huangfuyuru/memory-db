@@ -12,7 +12,7 @@ router.use(bodyParser.json());
 router.get('/mypublish', async function(req,res,next){
     console.log("我的发布");
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(JSON.parse(request.uid)) ;
+    var uid = Number(request.uid) ;
     var result = await articleM.findByUid(uid);
     console.log("mypublish-uid",uid);
     console.log("mypublish",result);
