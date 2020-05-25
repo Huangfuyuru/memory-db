@@ -30,9 +30,9 @@ router.get('/addpraise', async function(req,res,next){
         //点赞字段
         for(var i=0;i<ddd.length;i++){ 
             if(ddd[i].id == article_id){
-                data[i].addzan = true;
+                ddd[i].addzan = true;
             }else{
-                data[i].addzan = false;
+                ddd[i].addzan = false;
             }
         }
         if(data1 == 0){
