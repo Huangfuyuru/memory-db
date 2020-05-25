@@ -18,7 +18,7 @@ router.get('/addpraise', async function(req,res,next){
     var article_id = Number(JSON.parse(request.article_id)) ;
     var user_id = Number(JSON.parse(request.user_id));
     var result = await articleM.addZanumById(article_id);
-    var ddd = await method.articleM.findAll();
+    var ddd = await articleM.findAll();
     // var zan = await method.likeArticleM.findByUid(user_id);
     // console.log(article_id);
     // console.log(user_id);
@@ -64,10 +64,10 @@ router.get('/reducepraise', async function(req,res,next){
         var data1 = await likeArticleM.dellikeArticleByTwo(user_id,article_id);
         if(data1 == 0){
             // var data2 = await articleM.findById(article_id);
-            var info = {code:0,msg:"取消点赞且删除我喜欢成功"}
+            var info = {code:0,msg:"取消点赞且删除我喜欢成功"};
         }else{
             // var data2 =await articleM.findById(article_id);
-            var info = {code:1,msg:"删除我喜欢失败"}
+            var info = {code:1,msg:"删除我喜欢失败"};
         }
     }else{
         // var data2 = articleM.findById(article_id);
