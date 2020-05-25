@@ -58,8 +58,8 @@ router.get('/reducepraise', async function(req,res,next){
     var article_id = Number(JSON.parse(request.article_id)) ;
     var user_id = Number(JSON.parse(request.user_id));
     var result = await articleM.reduceZanumById(article_id);
-    console.log(article_id);
-    console.log(user_id);
+    console.log("article_id",article_id);
+    console.log("user_id",user_id);
     if(result == 0){
         var data1 = await likeArticleM.dellikeArticleByTwo(user_id,article_id);
         if(data1 == 0){
