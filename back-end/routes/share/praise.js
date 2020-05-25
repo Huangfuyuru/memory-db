@@ -18,6 +18,8 @@ router.get('/addpraise', async function(req,res,next){
     var article_id = Number(JSON.parse(request.article_id)) ;
     var user_id = Number(JSON.parse(request.user_id));
     var result = await articleM.addZanumById(article_id);
+    var ddd = await method.articleM.findAll();
+    // var zan = await method.likeArticleM.findByUid(user_id);
     // console.log(article_id);
     // console.log(user_id);
     if(result == 0){
@@ -25,7 +27,16 @@ router.get('/addpraise', async function(req,res,next){
             article_id:article_id,
             user_id:user_id
         });
+        //点赞字段
+        for(var i=0;i<ddd.length;i++){ 
+            if(ddd[i].id == article_id){
+                data[i].addzan = true;
+            }else{
+                data[i].addzan = false;
+            }
+        }
         if(data1 == 0){
+            
             // var data2 = await articleM.findById(article_id);
             var info = {code:0,msg:"点赞且增加到我喜欢成功"}
         }else{
