@@ -75,13 +75,13 @@ router.get('/dellover',async function(req,res,next){
     // var data = await loverM.delLover(lid);
         if(data == 0){
             var data1 = await loverM.findIdByUid(uid);
-            // var message = {code:0,msg:"删除成功",data:data1};
+            var message = {code:0,msg:"删除成功",data:data1};
         }else{
             var data1 = await loverM.findIdByUid(uid);
-            // var message = {code:1,msg:"删除失败",data:data1};
+            var message = {code:1,msg:"删除失败",data:data1};
         }
         res.json(message)
-        
+        console.log(message);
         
     })
     
