@@ -43,6 +43,7 @@ router.get('/mylike', async function(req,res,next){
     // }else{
     //     var info = {code:1,msg:"查找我喜欢文章信息列表失败",data:data};
     // }
+    console.log(data);
     console.log(info);
     res.json(info);
 })
