@@ -1,42 +1,41 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Media</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
 </head>
 <body>
-    <input type="file" id="files">
-    <button id="btn">上传</button>
-</body>
-<script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script>
-     $("#btn").click(function () {
-        var pic=$("#files")[0].files[0];
-        var formdata=new FormData();
-        formdata.append("thumbnail",pic);
-        console.log(formdata);
-       
-        $.ajax({
-            url:"/sound",
-            type:"POST",
-            data:formdata,
-            processData:false,
-            contentType:false,
-            success:function (data) {
-                console.log("返回的数据: " + data );
-            }
-        })
+  <div id="main" class="container">
+    <div class="row">
+      <div class="col-sm-1 col-md-2 col-lg-3"></div>
+      <div class="col-sm-10 col-md-8 col-lg-6">
+        <input type="text" value="" oninput="showMedia(this);" style="width:100%;">
+        <div id="media-block"></div>
+      </div>
+      <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    </div>
+  </div>
+  <script>
+    var mdom = document.getElementById('media-block');
 
-         // fetch('http://localhost/sound',{
-        //     method:'POST',
-        //     headers: {
-        //             'Content-Type': 'application/json',
-        //             'Content-Encoding': 'identity'
-        //         },
-                
-        //         body:JSON.stringify(formdata),
-        // }).then(console.log('成功'))
-    });
-</script>
+    function showMedia(t) {
+      if (t.value.trim() == '') {
+        mdom.innerHTML = '';
+        return;
+      }
+
+      if (t.value.indexOf('/media/image') >= 0) {
+        mdom.innerHTML = `<img src="${t.value}">`;
+      } else if (t.value.indexOf('/media/audio') >= 0) {
+        mdom.innerHTML = `<audio style="width:100%;" controls><source src="${t.value}"></source></audio>`;
+      } else {
+        mdom.innerHTML = `<video controls><source src="${t.value}"></source></video>`;
+      }
+
+    }
+  </script>
+</body>
 </html>

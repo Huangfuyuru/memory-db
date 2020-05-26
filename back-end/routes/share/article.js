@@ -42,6 +42,8 @@ router.get('/delarticle',async function(req,res,next){
     var uid = Number(JSON.parse(request.uid));
     var id = Number(JSON.parse(request.id));
     var data = await method.articleM.delarticle(id),
+    //删除文章之后把我喜欢里面的也删除
+    var data2 = await method.likeArticleM.dellikeArticleByArt_id(id),
     data1 = await  method.articleM.findByUid(uid);
     if(data === 1){
         if(data1 === 1){

@@ -57,6 +57,7 @@ router.get('/addnum', async function(req,res,next){
     }else{
         info={code:1,msg:'auser_num为0，不能送花',data:num}
     }
+    console.log(num);
     res.json(info);
 })
 
