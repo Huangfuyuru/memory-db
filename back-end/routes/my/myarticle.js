@@ -38,20 +38,14 @@ router.get('/mylike', async function(req,res,next){
         data[i] = await articleM.findById(mylikelist[i].article_id);
         console.log(data[i]);
         console.log(mylikelist[i].article_id);
+        var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data[i]};
     }
-    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data};
-    // }else{
-    //     var info = {code:1,msg:"查找我喜欢文章信息列表失败",data:data};
-    // }
     console.log(data);
     console.log(info);
     res.json(info);
 })
 
 //我喜欢文章的信息
-router.get('/mylikemsg', async function(req,res,next){
-    
-})
 
 // console.log("我喜欢的文章");
 // var request = qs.parse(url.parse(req.url).query);
