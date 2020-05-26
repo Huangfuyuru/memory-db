@@ -39,7 +39,7 @@ router.get('/mylike', async function(req,res,next){
         console.log(data[i]);
         console.log(mylikelist[i].article_id);
     }
-    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data[i]};
+    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data};
     console.log(data);
     // console.log(info);
     res.json(info);
