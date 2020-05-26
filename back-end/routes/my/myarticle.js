@@ -29,7 +29,7 @@ router.get('/mypublish', async function(req,res,next){
 router.get('/mylike', async function(req,res,next){
   console.log("我喜欢具体信息");
     var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(JSON.parse(request.user_id)) ;
+    var uid = Number(request.user_id);
     var mylikelist = await likeArticleM.findByUid(uid);
     var data = new Array(mylikelist.length);
     console.log("mylikemsg-uid",uid);
@@ -38,10 +38,10 @@ router.get('/mylike', async function(req,res,next){
         data[i] = await articleM.findById(mylikelist[i].article_id);
         console.log(data[i]);
         console.log(mylikelist[i].article_id);
-        var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data[i]};
     }
+    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data[i]};
     console.log(data);
-    console.log(info);
+    // console.log(info);
     res.json(info);
 })
 
