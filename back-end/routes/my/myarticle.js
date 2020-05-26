@@ -31,16 +31,16 @@ router.get('/mylike', async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.user_id);
     var mylikelist = await likeArticleM.findByUid(uid);
-    var data = new Array(mylikelist.length);
+    var datas = new Array(mylikelist.length);
     console.log("mylikemsg-uid",uid);
     console.log("mylikelist",mylikelist);
     for (var i=0;i<mylikelist.length;i++){
-        data[i] = await articleM.findById(mylikelist[i].article_id);
-        console.log(data[i]);
+        datas[i] = await articleM.findById(mylikelist[i].article_id);
+        console.log(datas[i]);
         console.log(mylikelist[i].article_id);
     }
-    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data};
-    console.log(data);
+    var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:datas};
+    console.log(datas);
     // console.log(info);
     res.json(info);
 })
