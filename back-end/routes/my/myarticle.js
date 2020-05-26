@@ -36,8 +36,8 @@ router.get('/mylike', async function(req,res,next){
     console.log("mylikelist",mylikelist);
     for (var i=0;i<mylikelist.length;i++){
         data[i] = await articleM.findById(mylikelist[i].article_id);
-        console.log(mylikelist[i].article_id);
         console.log(data[i]);
+        console.log(mylikelist[i].article_id);
     }
     var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:data};
     // }else{
