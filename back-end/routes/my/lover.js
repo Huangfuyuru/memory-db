@@ -55,6 +55,11 @@ router.get('/dellover',async function(req,res,next){
     var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
     console.log(lid);
     console.log(uid);
+    console.log(loveList);
+    console.log(loverDiary);
+    console.log(loverVoice);
+    console.log(loverImpDate);
+    console.log(loverPhotoList);
     if(loveList == 0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
         if(loverPhotoList == 1){ //
             var data = await loverM.delLover(lid);

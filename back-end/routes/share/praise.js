@@ -20,8 +20,9 @@ router.get('/addpraise', async function(req,res,next){
     var result = await articleM.addZanumById(article_id);
     var ddd = await articleM.findAll();
     // var zan = await method.likeArticleM.findByUid(user_id);
-    // console.log(article_id);
-    // console.log(user_id);
+    console.log(article_id);
+    console.log(user_id);
+    console.log("ddd",ddd);
     if(result == 0){
         var data1 = await likeArticleM.addlikeArticle({
             article_id:article_id,
@@ -36,7 +37,6 @@ router.get('/addpraise', async function(req,res,next){
             }
         }
         if(data1 == 0){
-            
             // var data2 = await articleM.findById(article_id);
             var info = {code:0,msg:"点赞且增加到我喜欢成功"}
         }else{
@@ -58,10 +58,17 @@ router.get('/reducepraise', async function(req,res,next){
     var article_id = Number(JSON.parse(request.article_id)) ;
     var user_id = Number(JSON.parse(request.user_id));
     var result = await articleM.reduceZanumById(article_id);
+    var ddd = await articleM.findAll();
     console.log("article_id",article_id);
     console.log("user_id",user_id);
+    console.log("result",result);
     if(result == 0){
         var data1 = await likeArticleM.dellikeArticleByTwo(user_id,article_id);
+        for(var i=0;i<ddd.length;i++){ 
+            if(ddd[i].id == article_id){
+                ddd[i].addzan = false;
+            }
+        }
         if(data1 == 0){
             // var data2 = await articleM.findById(article_id);
             var info = {code:0,msg:"取消点赞且删除我喜欢成功"};
