@@ -67,6 +67,24 @@ async function dellikeArticleByTwo(user_id,article_id){
 }
 
 
+
+
+/**
+ *根据article_id删掉喜欢列表里的文章
+ *
+ * @param {*} article_id
+ * @returns 喜欢列表的文章数据
+ */
+ async function dellikeArticleByArt_id(article_id){
+    let sql = 'delete from likeArticle where article_id = $2';
+    let ret = await pgdb.query(sql,[article_id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0
+    }
+}
+
 /**
  *根据Uid 找到该用户所有喜爱的文章的id列表
  *
@@ -82,8 +100,6 @@ async function findByUid(uid){
         return ret.rows;
     }
 }
-
-
 
 /**
  *
@@ -106,6 +122,6 @@ async function findById(id){
 
 
 var likeArticleM = {
-    addlikeArticle,findAll,findById,findByUid,dellikeArticleByTwo,dellikeArticle
+    addlikeArticle,findAll,findById,findByUid,dellikeArticleByTwo,dellikeArticle,dellikeArticleByArt_id
 }
 module.exports = likeArticleM

@@ -67,13 +67,13 @@ app.use('/img',img);
 app.use('/imgs',imgs)
 
 //音频上传
-app.use('/voice',voice);
-app.use('/sound',sound);
+// app.use('/voice',voice);
+// app.use('/sound',sound);
 //语音记事
 app.use('/lover',lover);
 app.use('/child',child);
 app.use('/share',share);
 
-app.use('/my',my);
+// app.use('/my',my);
 
 app.listen(3001);
