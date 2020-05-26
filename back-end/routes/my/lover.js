@@ -60,7 +60,7 @@ router.get('/dellover',async function(req,res,next){
     console.log(loverVoice);
     console.log(loverImpDate);
     console.log(loverPhotoList);
-    if(loveList == 0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
+    // if(loveList == 0 && loverDiary == 0 && loverVoice == 0 && loverImpDate == 0){
         if(loverPhotoList == 1){ //
             var data = await loverM.delLover(lid);
             var message = {code :1 ,msg :'创建loverPhotoList为空',data:null};
@@ -73,18 +73,19 @@ router.get('/dellover',async function(req,res,next){
             )
             await childPhotoList.delAllByLid(lid);
             var data = await loverM.delLover(lid);
+            if(data == 0){
+                var data1 = await loverM.findIdByUid(uid);
+                var message = {code:0,msg:"删除成功",data:data1};
+            }else{
+                var data1 = await loverM.findIdByUid(uid);
+                var message = {code:1,msg:"删除失败",data:data1};
+            }
         }
-    }else{
-        var message = {code :1 ,msg :'未进入',data:null};
-    }
+    // }else{
+    //     var message = {code :1 ,msg :'未进入',data:null};
+    // }
     // var data = await loverM.delLover(lid);
-        if(data == 0){
-            var data1 = await loverM.findIdByUid(uid);
-            var message = {code:0,msg:"删除成功",data:data1};
-        }else{
-            var data1 = await loverM.findIdByUid(uid);
-            var message = {code:1,msg:"删除失败",data:data1};
-        }
+       
         res.json(message)
         console.log(message);
         
