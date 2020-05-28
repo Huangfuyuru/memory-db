@@ -28,7 +28,7 @@ router.get('/addpraise', async function(req,res,next){
         });
         if(data1 == 0){
              //点赞字段
-            var zan = await method.likeArticleM.findByUid(user_id);
+            var zan = await likeArticleM.findByUid(user_id);
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
@@ -61,6 +61,7 @@ router.get('/reducepraise', async function(req,res,next){
     if(result == 0){
         var data1 = await likeArticleM.dellikeArticleByTwo(user_id,article_id);
         if(data1 == 0){
+            var zan = await likeArticleM.findByUid(user_id);
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
