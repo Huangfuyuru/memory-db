@@ -42,22 +42,6 @@ router.get('/mylike', async function(req,res,next){
     res.json(info);
 })
 
-//我喜欢文章的信息
-
-// console.log("我喜欢的文章");
-// var request = qs.parse(url.parse(req.url).query);
-// var uid = Number(JSON.parse(request.user_id)) ;
-// var result = await likeArticleM.findByUid(uid);
-// console.log("mylike-uid",uid);
-// console.log("mylike",result);
-// console.log(result);
-// if(result == 0){
-//     var info = {code:0,msg:"查找我喜欢的文章id列表成功",data:result};
-// }else{
-//     var info = {code:1,msg:"查找我喜欢的文章id列表失败",data:result}
-// }
-// console.log(info);
-// res.json(info);
 
 
 
