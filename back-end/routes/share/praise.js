@@ -32,7 +32,7 @@ router.get('/addpraise', async function(req,res,next){
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
-                        ddd[i].addZan = zan[i].zan;
+                        ddd[i].addZan = zan[m].zan;
                     }
                 }
             }
@@ -65,7 +65,7 @@ router.get('/reducepraise', async function(req,res,next){
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
-                        ddd[i].addZan = zan[i].zan;
+                        ddd[i].addZan = zan[m].zan;
                     }
                 }
             }
