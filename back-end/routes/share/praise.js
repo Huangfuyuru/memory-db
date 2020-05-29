@@ -18,7 +18,7 @@ router.get('/addpraise', async function(req,res,next){
     var article_id = Number(JSON.parse(request.article_id)) ;
     var user_id = Number(JSON.parse(request.user_id));
     var result = await articleM.addZanumById(article_id);
-    var ddd = await articleM.findAll();
+    // var ddd = await articleM.findAll();
     console.log("article_id",article_id);
     console.log("user_id",user_id);
     if(result == 0){
@@ -32,7 +32,7 @@ router.get('/addpraise', async function(req,res,next){
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
-                        ddd[i].addzan = zan[i].zan;
+                        ddd[i].addZan = zan[i].zan;
                     }
                 }
             }
@@ -65,7 +65,7 @@ router.get('/reducepraise', async function(req,res,next){
             for(var i=0;i<ddd.length;i++){ 
                 for(var m=0;m<zan.length;m++){
                     if(ddd[i].id == zan[m].article_id){
-                        ddd[i].addzan = zan[i].zan;
+                        ddd[i].addZan = zan[i].zan;
                     }
                 }
             }
