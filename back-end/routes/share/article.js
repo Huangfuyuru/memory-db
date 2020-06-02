@@ -64,7 +64,7 @@ router.get('/delarticle',async function(req,res,next){
 //修改文章内容
 
 
-//添加关注之后不可再次出发
+//关注作者之后，不可再次触发
 //添加关注
 router.get('/interest', async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
@@ -96,7 +96,7 @@ router.get('/delinter', async function(req,res,next){
     var fid = Number(JSON.parse(request.fid));
     var data = await method.friendsM.delfriends(uid,fid);
     var data1 = await method.friendsM.findByUser(uid);
-    console.log(data1);
+    // console.log(data1);
     if(data === 1){
         if(data1 === 1){
             var message = {code:1,msg:"删除失败",data:null}

@@ -3,7 +3,7 @@ const express = require('express'),
       qs = require('querystring'),
       url = require('url'),
       bodyParser = require("body-parser");
-const {commentM} = require("../../database/dateMethod");//引入数据库
+const {commentM,userM} = require("../../database/dateMethod");//引入数据库
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
@@ -15,11 +15,23 @@ router.get('/',async function(req,res,next){
     var article_id = Number(request.article_id);
     var data = await commentM.findByArticleId(article_id);
     //console.log('data',data);
-    if(data == 1){
-        res.json(null)
+    if(data != 1){
+       
+        data = data.forEach(async function(item){
+            var user_id = item.user_id;
+            var person = await userM.findById(user_id);
+            item.name = person.name;
+            item.imgurl = person.imgurl;
+            console.log('item',item);
+            return item;
+        });
+        
+        console.log('data',data);
+        res.json(data);
     }else{
-        res.json(data)
+        res.json(null);
     }
+    
 })
 
 //增加评论
