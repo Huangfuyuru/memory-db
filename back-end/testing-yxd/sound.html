@@ -22,6 +22,7 @@
     var mdom = document.getElementById('media-block');
 
     function showMedia(t) {
+      console.log(t.value);
       if (t.value.trim() == '') {
         mdom.innerHTML = '';
         return;

@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 //路由 /share/classify
-//点击关注，返回用户关注人的所有文章
+//点击关注类，返回用户关注人的所有文章
 router.get('/interest',async function(req,res,next){
     var request =  qs.parse(url.parse(req.url).query);
     var uid = JSON.parse(request.uid);
