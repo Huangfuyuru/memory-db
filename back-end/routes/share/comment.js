@@ -16,17 +16,22 @@ router.get('/',async function(req,res,next){
     var data = await commentM.findByArticleId(article_id);
     //console.log('data',data);
     if(data != 1){
-       
-        data = data.forEach(async function(item){
-            var user_id = item.user_id;
-            var person = await userM.findById(user_id);
-            item.name = person.name;
-            item.imgurl = person.imgurl;
-            console.log('item',item);
-            return item;
-        });
+       for(var i=0;i<data.length;i++){
+           var user_id = data[i].user_id;
+           var person = await userM.findById(user_id);
+           data[i].name = person.name;
+           data[i].imgurl = person.imgurl;
+       }
+        // data = data.forEach(async function(item){
+        //     var user_id = item.user_id;
+        //     var person = await userM.findById(user_id);
+        //     item.name = person.name;
+        //     item.imgurl = person.imgurl;
+        //     console.log('item',item);
+        //     // return item;
+        // });
         
-        console.log('data',data);
+        // console.log('data',data);
         res.json(data);
     }else{
         res.json(null);
@@ -59,7 +64,8 @@ router.post('/acomment',async function(req,res,next){
     res.json(message)
 })
 
-//删除日记
+
+//删除评论
 router.get('/dcomment',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var id = Number(request.id);
