@@ -37,6 +37,7 @@ router.get('/interest',async function(req,res,next){
         for(var m=0;m<zan.length;m++){
             if(data[i].id == zan[m].article_id){
                 data[i].addZan = true;
+                article.push(data[i]);
             }
         }
         for(var j=0;j<like.length;j++){
