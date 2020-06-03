@@ -33,18 +33,18 @@ router.get('/interest',async function(req,res,next){
         data[i].uname = infor.name;
         data[i].pic = infor.imgurl;
 
+        //是否点赞
+        for(var m=0;m<zan.length;m++){
+            if(data[i].id == zan[m].article_id){
+                data[i].addZan = true;
+            }
+        }
         for(var j=0;j<like.length;j++){
            var fid =  like[j].friend_id
            if(fid == data[i].uid && data[i].tag == true){
             data[i].like = true;
             article.push(data[i]);
            }
-        }
-        //是否点赞
-        for(var m=0;m<zan.length;m++){
-            if(data[i].id == zan[m].article_id){
-                data[i].addZan = zan[m].zan;
-            }
         }
         if(data[i].uid === uid && data[i].tag ===true){
             var infor = await method.userM.findById(uid);
