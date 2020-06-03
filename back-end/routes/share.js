@@ -54,7 +54,7 @@ router.get('/',async function(req,res,next){
         // 查看点赞过的文章
         for(var m=0;m<zan.length;m++){
             if(data[i].id == zan[m].article_id){
-                data[i].addZan = zan[m].zan;
+                data[i].addZan = true;
             }
         }
 
