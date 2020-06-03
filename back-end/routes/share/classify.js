@@ -17,7 +17,7 @@ router.get('/interest',async function(req,res,next){
     var article = new Array();
     var like = await method.friendsM.findByUser(uid);
     var zan = await method.likeArticleM.findByUid(uid);
-    // console.log('like',like);
+    console.log('like',like);
     
     var data = await method.articleM.findAll();
     for(var i=0;i<data.length;i++){
@@ -58,13 +58,13 @@ router.get('/interest',async function(req,res,next){
     }
     if(data===1){
         if(like ===1){
-            var info = {code:1,msg:'你还没有关注的人哦',data:article}
+            var info = {code:1,msg:'你还没有关注的人哦',data:null}
         }else{
             var info={code:1,msg:'请求失败',data:null};
         }
     }else{
-        if(like ===1){
-            var info = {code:1,msg:'你还没有关注的人哦',data:article}
+        if(like === 1){
+            var info = {code:1,msg:'你还没有关注的人哦',data:null}
 
         }else{
             var info = {code:0,msg:'请求成功',data:article};
