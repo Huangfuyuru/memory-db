@@ -44,7 +44,10 @@ router.get('/delarticle',async function(req,res,next){
     var data = await method.articleM.delarticle(id);
     //删除文章之后把我喜欢里面的也删除
     var data2 = await method.likeArticleM.dellikeArticleByArt_id(id),
+    //删除文章把他的评论也删掉
+    data3 = await method.commentM.delcomment_art(id),
     data1 = await  method.articleM.findByUid(uid);
+    
     if(data === 1){
         if(data1 === 1){
             var message = {code:1,msg:"删除失败",data:null}

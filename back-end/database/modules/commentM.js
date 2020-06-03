@@ -33,6 +33,24 @@ async function delcomment(id){
 }
 
 /**
+ *根据文章id删除这个评论
+ *
+ * @param {*} id
+ * @returns
+ */
+async function delcomment_art(id){
+    let sql = 'delete from comment where article_id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
+
+
+
+/**
  *
  * 根据亲子id 找到该亲子的具体信息
  * @param {int} id
@@ -82,7 +100,7 @@ async function findByAnswerId(id){
 
 
 var commentM = {
-    addcomment,findByAnswerId,findById,findByArticleId,delcomment
+    addcomment,findByAnswerId,findById,findByArticleId,delcomment,delcomment_art
 }
 module.exports = commentM;
 
