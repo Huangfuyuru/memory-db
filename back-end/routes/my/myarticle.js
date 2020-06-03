@@ -21,7 +21,7 @@ router.get('/mypublish', async function(req,res,next){
     }else{
         var info = {code:1,msg:"查找我发布的文章失败",data:result};
     }
-    console.log(info);
+    // console.log(info);
     res.json(info);
 })
 
@@ -32,13 +32,13 @@ router.get('/mylike', async function(req,res,next){
     var uid = Number(request.user_id);
     var mylikelist = await likeArticleM.findByUid(uid);
     var datas = new Array(mylikelist.length);
-    console.log("mylikemsg-uid",uid);
-    console.log("mylikelist",mylikelist);
+    // console.log("mylikemsg-uid",uid);
+    // console.log("mylikelist",mylikelist);
     for (var i=0;i<mylikelist.length;i++){
         datas[i] = await articleM.findById(mylikelist[i].article_id);
     }
     var info = {code:0,msg:"查找我喜欢文章信息列表成功",data:datas};
-    console.log(datas);
+    // console.log(datas);
     res.json(info);
 })
 

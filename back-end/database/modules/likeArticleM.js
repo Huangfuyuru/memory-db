@@ -92,7 +92,7 @@ async function dellikeArticleByTwo(user_id,article_id){
  * @returns 所有成长的内容
  */
 async function findByUid(uid){
-    let sql = 'select article_id from likeArticle where user_id = $1 ';
+    let sql = 'select article_id from likeArticle where user_id = $1 order by id desc';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1
