@@ -19,7 +19,7 @@ router.get('/mypublish', async function(req,res,next){
     if(result == 0){
         var info = {code:0,msg:"查找我发布的文章成功",data:result};
     }else{
-        var info = {code:1,msg:"查找我发布的文章失败",data:result};
+        var info = {code:1,msg:"查找我发布的文章失败",data:null};
     }
     // console.log(info);
     res.json(info);
