@@ -15,7 +15,7 @@ router.post('/', function (req, res) {
     var data = jsonBody['_parts'][0][1];
     var list = [];
     
-    for(var i=0;i<data.length;i++){
+    for(let i=0;i<data.length;i++){
         var dataBuffer = new Buffer(data[i],'base64')
         var filename = random(16);
         var des_file =`/home/shared_work/img/${filename}.jpg`;
