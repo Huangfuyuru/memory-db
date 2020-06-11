@@ -16,10 +16,10 @@ router.get('/mypublish', async function(req,res,next){
     var result = await articleM.findByUid(uid);
     console.log("mypublish-uid",uid);
     console.log("mypublish",result);
-    if(result == 0){
-        var info = {code:0,msg:"查找我发布的文章成功",data:result};
-    }else{
+    if(result == 1){
         var info = {code:1,msg:"查找我发布的文章失败",data:null};
+    }else{
+        var info = {code:0,msg:"查找我发布的文章成功",data:result};
     }
     // console.log(info);
     res.json(info);
